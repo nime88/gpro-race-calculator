@@ -41,6 +41,42 @@ public:
 
     // getters
     QString getFieldAsQString(CarSlots slot);
+
+    // setters
+    template <typedef T>
+    void setField (const T& value, CarSlots slot) {
+        switch (slot) {
+            case CAR_TRACK_NAME: track_name_ = value; break;
+            case CAR_SEASON: season_ = value; break;
+            case CAR_POWER: car_stats_[CAR_POWER-stats_diff] = value; break;
+            case CAR_HANDLING: car_stats_[CAR_HANDLING-stats_diff] = value; break;
+            case CAR_ACCELERATION: car_stats_[CAR_ACCELERATION-stats_diff] = value; break;
+            case CAR_CHASSIS_LVL: part_lvl_[CAR_CHASSIS_LVL-lvl_diff_] = value; break;
+            case CAR_ENGINE_LVL: part_lvl_[CAR_ENGINE_LVL-lvl_diff_] = value; break;
+            case CAR_FRONT_WING_LVL: part_lvl_[CAR_FRONT_WING_LVL-lvl_diff_] = value; break;
+            case CAR_REAR_WING_LVL: part_lvl_[CAR_REAR_WING_LVL-lvl_diff_] = value; break;
+            case CAR_UNDERBODY_LVL: part_lvl_[CAR_UNDERBODY_LVL-lvl_diff_] = value; break;
+            case CAR_SIDEPODS_LVL: part_lvl_[CAR_SIDEPODS_LVL-lvl_diff_] = value; break;
+            case CAR_COOLING_LVL: part_lvl_[CAR_COOLING_LVL-lvl_diff_] = value; break;
+            case CAR_GEARBOX_LVL: part_lvl_[CAR_GEARBOX_LVL-lvl_diff_] = value; break;
+            case CAR_BRAKES_LVL: part_lvl_[CAR_BRAKES_LVL-lvl_diff_] = value; break;
+            case CAR_SUSPENSION_LVL: part_lvl_[CAR_SUSPENSION_LVL-lvl_diff_] = value; break;
+            case CAR_ELECTRONICS_LVL: part_lvl_[CAR_ELECTRONICS_LVL-lvl_diff_] = value; break;
+            case CAR_CHASSIS_WEAR: part_wear_[CAR_CHASSIS_WEAR-wear_diff] = value; break;
+            case CAR_ENGINE_WEAR: part_wear_[CAR_ENGINE_WEAR-wear_diff] = value; break;
+            case CAR_FRONT_WING_WEAR: part_wear_[CAR_FRONT_WING_WEAR-wear_diff] = value; break;
+            case CAR_REAR_WING_WEAR: part_wear_[CAR_REAR_WING_WEAR-wear_diff] = value; break;
+            case CAR_UNDERBODY_WEAR: part_wear_[CAR_UNDERBODY_WEAR-wear_diff] = value; break;
+            case CAR_SIDEPODS_WEAR: part_wear_[CAR_SIDEPODS_WEAR-wear_diff] = value; break;
+            case CAR_COOLING_WEAR: part_wear_[CAR_COOLING_WEAR-wear_diff] = value; break;
+            case CAR_GEARBOX_WEAR: part_wear_[CAR_GEARBOX_WEAR-wear_diff] = value; break;
+            case CAR_BRAKES_WEAR: part_wear_[CAR_BRAKES_WEAR-wear_diff] = value; break;
+            case CAR_SUSPENSION_WEAR: part_wear_[CAR_SUSPENSION_WEAR-wear_diff] = value; break;
+            case CAR_ELECTRONICS_WEAR: part_wear_[CAR_ELECTRONICS_WEAR-wear_diff] = value; break;
+        default:
+            break;
+        }
+    }
 };
 
 #endif // CAR_H
