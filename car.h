@@ -13,6 +13,7 @@ enum CarSlots { CAR_TRACK_NAME = 0, CAR_SEASON, CAR_POWER, CAR_HANDLING, CAR_ACC
 class Car
 {
     private:
+    // names for database headers (yes the database was created before this program existed)
     static const char car_lvl_names_[] = {"Car.\"Name (Track)\"", "Car.Season", "Car.Power", "Car.Handling",
                                            "Car.Acceleration", "Car.Chassis", "Car.Engine", "Car.\"Front Wing\"",
                                            "Car.\"Rear Wing\"", "Car.Underbody", "Car.Sidepods", "Car.Cooling",
@@ -41,6 +42,9 @@ public:
 
     // getters
     QString getFieldAsQString(CarSlots slot);
+    int getValueBySlot(CarSlots slot);
+    inline int getLvlDiff() { return lvl_diff_; }
+    inline int getWearDiff() { return wear_diff; }
 
     // setters
     template <typedef T>
