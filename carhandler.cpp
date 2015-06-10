@@ -5,7 +5,7 @@
 
 #include <QTableWidget>
 
-CarHandler::CarHandler(): car_(new Car()),
+CarHandler::CarHandler(): car_(Car),
     power_item_(new QTableWidgetItem()),
     handling_item_(new QTableWidgetItem()),
     acceleration_item_(new QTableWidgetItem())

@@ -34,6 +34,10 @@ class Car
     int part_lvl_[11];
     int part_wear_[11];
 
+    // lets just make sure we don't accidentially copy car
+    Car (const Car&);
+    Car& operator=(const Car&);
+
 public:
     Car();
 

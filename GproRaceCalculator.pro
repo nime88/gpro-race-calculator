@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     regressions.cpp \
     strategy.cpp \
     carhandler.cpp \
-    car.cpp
+    car.cpp \
+    driver.cpp
 
 HEADERS  += mainwindow.h \
     driverhandler.h \
@@ -35,7 +36,8 @@ HEADERS  += mainwindow.h \
     regressions.h \
     strategy.h \
     carhandler.h \
-    car.h
+    car.h \
+    driver.h
 
 FORMS    += mainwindow.ui
 

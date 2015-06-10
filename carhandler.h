@@ -14,7 +14,7 @@ enum CarHandlerSlots { CHASSIS_SLOT = 0, ENGINE_SLOT, FRONT_WING_SLOT, REAR_WING
 class CarHandler
 {
 private:
-   Car* car_;
+   std::shared_ptr<Car> car_;
 
    // ui items
    QTableWidgetItem* car_lvl_fields_[11];
