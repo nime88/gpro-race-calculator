@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     strategy.cpp \
     carhandler.cpp \
     car.cpp \
-    driver.cpp
+    driver.cpp \
+    practicehandler.cpp \
+    trackhandler.cpp
 
 HEADERS  += mainwindow.h \
     driverhandler.h \
@@ -37,7 +39,9 @@ HEADERS  += mainwindow.h \
     strategy.h \
     carhandler.h \
     car.h \
-    driver.h
+    driver.h \
+    practicehandler.h \
+    trackhandler.h
 
 FORMS    += mainwindow.ui
 

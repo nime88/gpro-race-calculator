@@ -19,9 +19,7 @@ private:
                                         "\"Track\".Acceleration", "\"Track\".Downforce", "\"Track\".OverTaking",
                                         "\"Track\".Suspension", "\"Track\".FuelConsumption", "\"Track\".TyreWear",
                                         "\"Track\".AvgSpeed", "\"Track\".LapLength", "\"Track\".Corners",
-                                        "\"Track\".Grip", "\"Track\".PitStop", "\"Track\".Name", };
-    static QLabel* track_fields_[16];
-    static bool initialized_;
+                                        "\"Track\".Grip", "\"Track\".PitStop", "\"Track\".Name" };
 
     int laps_;
     QString name_;
@@ -45,8 +43,6 @@ private:
 
 public:
     Track();
-
-    static void initFields2CurrentTrack (std::shared_ptr<QWidget> parent, std::shared_ptr<Track> current_track);
 
     // getters
     const QString& getTrackQString(TrackSlots slot) {
@@ -74,28 +70,6 @@ public:
     }
 
     inline static const char* const getFieldNames() { return field_names_; }
-    /*inline int getLaps() const { return laps_; }
-    inline const QString& getName() const { return name_; }
-    inline int getDistance() const { return distance_; }
-    inline int getPower() const { return power_; }
-    inline int getHandling() const { return handling_; }
-    inline int getAcceleration() const { return acceleration_; }
-    inline const QString& getDownforce() const { return downforce_; }
-    inline const QString& getOvertaking() const { return overtaking_; }
-    inline const QString& getSuspension() const { return suspension_; }
-    inline const QString& getFuelConsumption() const { return fuel_consumption_; }
-    inline const QString& getTyreWear() const { return tyre_wear_; }
-    inline double getAvgSpeed() const { return avg_speed_; }
-    inline double getLapLength() const { return lap_length_; }
-    inline int getCorners() const { return corners_; }
-    inline const QString& getGrip() const { return grip_; }
-    inline double getPitStop() const { return pit_stop_; }*/
-
-    inline static QLabel* getField(TrackSlots slot) { return track_fields_[slot]; }
-
-    inline static bool isInitialized() { return initialized_; }
-    inline static void setInitialized() { initialized_ = true; }
-
 
     // setters
     inline void setLaps(int laps) { laps_ = laps; }
@@ -114,8 +88,6 @@ public:
     inline void setCorners(int corners) { corners_ = corners; }
     inline void setGrip(const QString& grip) { grip_ = grip; }
     inline void setPitStop(double pit_stop) { pit_stop_ = pit_stop; }
-
-    inline static void setField(TrackSlots slot, QLabel* field) { track_fields_[slot] = field; }
 };
 
 #endif // TRACK_H
