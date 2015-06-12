@@ -1,11 +1,23 @@
 #include "trackhandler.h"
 
-TrackHandler::TrackHandler()
-{
+bool trackCompare (std::shared_ptr<Track> track_1, std::shared_ptr<Track> track_2) {
+    if (track_1->getTrackQString() < track_2->getTrackQString()) return true;
+    return false;
 }
 
-void TrackHandler::initFields2CurrentTrack(std::shared_ptr<QWidget> parent, std::shared_ptr<Track> current_track)
+TrackHandler::TrackHandler(): track_combobox_(0)
 {
+    track_fields_.fill(0);
+}
+
+void TrackHandler::initFields2CurrentTrack(std::shared_ptr<QWidget> parent, std::shared_ptr<DatabaseHandler> dbhandler)
+{
+    //initializing combobox if not present
+    if (track_combobox_ == 0) {
+        track_combobox_ = parent->findChild<QComboBox*>("track_list_combo_box");
+        track_combobox_->addItems(dbhandler->getTrackNames());
+    }
+
     current_track_ = current_track;
 
     // initializing fields if they're not been done so
@@ -29,4 +41,11 @@ void TrackHandler::initFields2CurrentTrack(std::shared_ptr<QWidget> parent, std:
     for(TrackSlots i = TRACK_LAPS; i < TRACK_LAPS + 15; ++i) {
         getField(i)->setText(getTrackQString(i));
     }
+}
+
+void TrackHandler::setTracks(std::shared_ptr<DatabaseHandler> dbhandler)
+{
+    tracks_ = dbhandler->getTracks();
+    //sorting tracks
+    std::sort(tracks_.begin(), tracks_.end(), trackCompare);
 }

@@ -34,12 +34,20 @@ public:
     CarHandler();
 
     // getters
-    inline int getCarLvl(CarHandlerSlots slot) { return car_->getValueBySlot(slot + car_->getLvlDiff()); }
-    inline int getCarWear(CarHandlerSlots slot) { return car_->getValueBySlot(slot + car_->getWearDiff()); }
+    inline int getCarLvl(CarHandlerSlots slot) {
+        return car_->getValueBySlot(static_cast<CarSlots>(slot + car_->getLvlDiff()));
+    }
+    inline int getCarWear(CarHandlerSlots slot) {
+        return car_->getValueBySlot(static_cast<CarSlots>(slot + car_->getWearDiff()));
+    }
 
     // setters
-    inline void setCarLvl(const CarHandlerSlots& part, int car_lvl) { car_->setField(car_lvl, part + car_->getLvlDiff()); }
-    inline void setCarWear(const CarHandlerSlots& part, int car_wear) { car_->setField(car_wear, part + car_->getWearDiff()); }
+    inline void setCarLvl(const CarHandlerSlots& part, int car_lvl) {
+        car_->setField(car_lvl, static_cast<CarSlots>(part + car_->getLvlDiff()));
+    }
+    inline void setCarWear(const CarHandlerSlots& part, int car_wear) {
+        car_->setField(car_wear, static_cast<CarSlots>(part + car_->getWearDiff()));
+    }
 
     inline void setPower(int power) { car_->setField(power, CarSlots::CAR_POWER); }
     inline void setHandling(int handling) { car_->setField(handling, CarSlots::CAR_HANDLING); }

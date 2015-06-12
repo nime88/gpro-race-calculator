@@ -2,6 +2,8 @@
 #define TRACK_H
 
 #include <memory>
+#include <array>
+using std::array;
 
 #include <QWidget>
 #include <QString>
@@ -15,11 +17,7 @@ enum TrackSlots { TRACK_LAPS = 0, TRACK_DISTANCE, TRACK_POWER, TRACK_HANDLING,
 class Track
 {
 private:
-    const static char field_names_[] = {"\"Track\".Laps", "\"Track\".Distance", "\"Track\".Power", "\"Track\".Handling",
-                                        "\"Track\".Acceleration", "\"Track\".Downforce", "\"Track\".OverTaking",
-                                        "\"Track\".Suspension", "\"Track\".FuelConsumption", "\"Track\".TyreWear",
-                                        "\"Track\".AvgSpeed", "\"Track\".LapLength", "\"Track\".Corners",
-                                        "\"Track\".Grip", "\"Track\".PitStop", "\"Track\".Name" };
+    const static array<char,16> field_names_;
 
     int laps_;
     QString name_;
@@ -45,7 +43,7 @@ public:
     Track();
 
     // getters
-    const QString& getTrackQString(TrackSlots slot) {
+    QString getTrackQString(TrackSlots slot) {
         switch(slot) {
             case TRACK_LAPS: return QString::number(laps_);
             case TRACK_NAME: return QString(name_);
@@ -69,7 +67,7 @@ public:
         return 0;
     }
 
-    inline static const char* const getFieldNames() { return field_names_; }
+    inline static const array<char,16> getFieldNames() { return field_names_; }
 
     // setters
     inline void setLaps(int laps) { laps_ = laps; }

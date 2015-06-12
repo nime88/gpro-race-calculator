@@ -36,7 +36,7 @@ public:
     SettingsHandler();
 
     // iterate one round of comments
-    void setComments(const array<int>& comments);
+    void setComments(const array<int,5>& comments);
     // setting space
     void setSpace(const double space);
 

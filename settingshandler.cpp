@@ -12,9 +12,7 @@ SettingsHandler::SettingsHandler()
     space_.fill(0);
 }
 
-void SettingsHandler::setComments(const array<int> &comments) {
-    if (comments.size() != 5) return;
-
+void SettingsHandler::setComments(const array<int, 5> &comments) {
     // storing comments for use
     comments_.push_back(comments);
 }

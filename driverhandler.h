@@ -24,7 +24,7 @@ public:
     inline const QPlainTextEdit* getField(DriverSlots slot) { return fields_.at(slot-2); }
 
     // setters
-    inline void setValueBySlot(DriverSlots slot) { driver_->setValue(slot); }
+    inline void setValueBySlot(const int& value, DriverSlots slot) { driver_->setValue(value, slot); }
 
 private:
     // pointer to driver

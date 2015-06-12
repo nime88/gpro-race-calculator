@@ -24,10 +24,10 @@ void CarHandler::initFields(std::shared_ptr<QWidget> parent)
 
     // setting up fields
     for(CarHandlerSlots i = CHASSIS_SLOT; i < CHASSIS_SLOT + 11; ++i) {
-        car_lvl_fields_[i]->setText(QString::number(getCarLvl(i)));
-        car_wear_fields_[i]->setText(QString::number(getCarWear(i)));
-        temp_table->setItem(i-CHASSIS_SLOT,0,car_lvl_fields_[i]);
-        temp_table->setItem(i-CHASSIS_SLOT,1,car_wear_fields_[i]);
+        car_lvl_fields_.at(i)->setText(QString::number(getCarLvl(i)));
+        car_wear_fields_.at(i)->setText(QString::number(getCarWear(i)));
+        temp_table->setItem(i-CHASSIS_SLOT,0,car_lvl_fields_.at(i));
+        temp_table->setItem(i-CHASSIS_SLOT,1,car_wear_fields_.at(i));
     }
 
     // then doing same to the power  table

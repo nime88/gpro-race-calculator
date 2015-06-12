@@ -32,4 +32,32 @@ void DriverHandler::initFields(std::shared_ptr<QWidget> parent) {
     }
 }
 
+void DriverHandler::updateField(DriverSlots slot)
+{
+    // TODO JUST HIT THE CODEEEE <3
+    QPlainTextEdit* temp_field = getField(slot);
+
+    // checking if the string is actually a valid int string
+    if (value.size() > 0 && !isIntConversionSuccessful(value) ) {
+        editable->setPlainText("0");
+        (driver->*func)(0);
+        return;
+    }
+
+    int conversion_int = value.toInt();
+
+    // if we can do the conversion we just do it
+    if (conversion_int < 256 && conversion_int >= 0) {
+        (driver->*func)(conversion_int);
+    } else {
+        if (conversion_int < 0) {
+            editable->setPlainText("0");
+            (driver->*func)(0);
+        } else {
+           editable->setPlainText("255");
+            (driver->*func)(255);
+        }
+    }
+}
+
 

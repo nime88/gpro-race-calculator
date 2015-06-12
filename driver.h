@@ -3,6 +3,8 @@
 
 #include <array>
 using std::array;
+#include <string>
+using std::string;
 
 #include <QString>
 
@@ -13,10 +15,7 @@ enum DriverSlots {DRIVER_TRACK_NAME = 0, DRIVER_SEASON, DRIVER_OVERALL, DRIVER_C
 class Driver
 {
 private:
-    static const array<char,12> driver_field_names_ = {
-        "Driver.\"Name (Track)\"", "Driver.Season", "Driver.Overall", "Driver.Concentration",
-        "Driver.Talent", "Driver.Aggresiveness", "Driver.Experience", "Driver.\"Tech. Insight\"",
-        "Driver.Stamina", "Driver.Charisma", "Driver.Motivation", "Driver.Weight" };
+    const static array<string,12> driver_field_names_;
 
     //identity values
     QString track_;
@@ -39,6 +38,7 @@ public:
     inline void setTrackName(const QString& name) { track_ = name; }
     inline void setSeason(const int season) { season_ = season; }
     inline void setValue(const int& value, DriverSlots slot) { stats_.at(slot - 2) = value; }
+
 };
 
 #endif // DRIVER_H
