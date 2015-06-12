@@ -1,11 +1,8 @@
 #include "driverhandler.h"
 
-#include <iostream>
-
 DriverHandler::DriverHandler() : driver_(Driver)
 {
-    std::fill(fields_, fields_[9], 0);
-    std::cout << "Driver Field:.. " << fields_[0] << std::endl;
+    fields_.fill(0);
 }
 
 void DriverHandler::initFields(std::shared_ptr<QWidget> parent) {
@@ -27,11 +24,11 @@ void DriverHandler::initFields(std::shared_ptr<QWidget> parent) {
         default: break;
         }
 
-        if (fields_[i] == 0)
-            fields_[i] = parent->findChild<QPlainTextEdit*>(temp_field_name);
+        if (fields_.at(i) == 0)
+            fields_.at(i) = parent->findChild<QPlainTextEdit*>(temp_field_name);
 
         QString temp_string(QString("%1").arg(getValueBySlot(i + 2)));
-        fields_[i]->setPlainText(temp_string);
+        fields_.at(i)->setPlainText(temp_string);
     }
 }
 

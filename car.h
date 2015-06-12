@@ -1,6 +1,9 @@
 #ifndef CAR_H
 #define CAR_H
 
+#include <array>
+using std::array;
+
 #include <QString>
 
 enum CarSlots { CAR_TRACK_NAME = 0, CAR_SEASON, CAR_POWER, CAR_HANDLING, CAR_ACCELERATION,
@@ -14,11 +17,11 @@ class Car
 {
     private:
     // names for database headers (yes the database was created before this program existed)
-    static const char car_lvl_names_[] = {"Car.\"Name (Track)\"", "Car.Season", "Car.Power", "Car.Handling",
+    static const array<char, 16> car_lvl_names_ = {"Car.\"Name (Track)\"", "Car.Season", "Car.Power", "Car.Handling",
                                            "Car.Acceleration", "Car.Chassis", "Car.Engine", "Car.\"Front Wing\"",
                                            "Car.\"Rear Wing\"", "Car.Underbody", "Car.Sidepods", "Car.Cooling",
                                            "Car.Gearbox", "Car.Brakes", "Car.Suspension", "Car.Electronics"};
-    static const char car_wear_names_[] = {"CarWear.\"Name (Track)\"", "CarWear.Season", "CarWear.\"Front Wing Wear\"",
+    static const array<char,13> car_wear_names_ = {"CarWear.\"Name (Track)\"", "CarWear.Season", "CarWear.\"Front Wing Wear\"",
                                           "CarWear.\"Rear Wing Wear\"", "CarWear.\"Engine Wear\"", "CarWear.\"Brakes Wear\"",
                                           "CarWear.\"Gearbox Wear\"", "CarWear.\"Suspension Wear\"", "CarWear.\"Chassis Wear\"",
                                           "CarWear.\"Cooling Wear\"", "CarWear.\"Electronics Wear\"", "CarWear.\"Sidepods Wear\"",
@@ -30,9 +33,9 @@ class Car
 
     QString track_name_;
     int season_;
-    int car_stats_[3];
-    int part_lvl_[11];
-    int part_wear_[11];
+    array<int,3> car_stats_;
+    array<int,11> part_lvl_;
+    array<int,11> part_wear_;
 
     // lets just make sure we don't accidentially copy car
     Car (const Car&);
@@ -41,8 +44,8 @@ class Car
 public:
     Car();
 
-    static const char* const getStatNames() { return car_lvl_names_; }
-    static const char* const getWearNames() { return car_wear_names_; }
+    static const array<char>& getStatNames() { return car_lvl_names_; }
+    static const array<char>& getWearNames() { return car_wear_names_; }
 
     // getters
     QString getFieldAsQString(CarSlots slot);

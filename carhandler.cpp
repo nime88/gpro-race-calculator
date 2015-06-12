@@ -10,9 +10,10 @@ CarHandler::CarHandler(): car_(Car),
     handling_item_(new QTableWidgetItem()),
     acceleration_item_(new QTableWidgetItem())
 {
-    //TODO make sure this will work
-    std::fill(car_lvl_fields_,car_lvl_fields_[10],new QTableWidgetItem());
-    std::fill(car_wear_fields_,car_wear_fields_[10],new QTableWidgetItem());
+    //TODO make sure this will work (fixed to match c++11
+    //array specification, compiler should say something now)
+    car_lvl_fields_.fill(new QTableWidgetItem());
+    car_wear_fields_.fill(new QTableWidgetItem());
 }
 
 void CarHandler::initFields(std::shared_ptr<QWidget> parent)

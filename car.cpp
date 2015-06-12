@@ -3,10 +3,10 @@
 Car::Car():
     track_name_(""), season_(0)
 {
-    //TODO make sure these fully fill the tables
-    std::fill(car_stats_, car_stats_[2], 0);
-    std::fill(part_lvl_, part_lvl_[10], 0);
-    std::fill(part_wear_, part_wear_[10], 0);
+    //TODO make sure these fully fill the table
+    car_stats_.fill(0);
+    part_lvl_.fill(0);
+    part_wear_.fill(0);
 }
 
 QString Car::getFieldAsQString(CarSlots slot)

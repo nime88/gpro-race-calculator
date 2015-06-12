@@ -1,9 +1,11 @@
 #ifndef DRIVERHANDLER_H
 #define DRIVERHANDLER_H
 
-#include<memory>
+#include <memory>
+#include <array>
+using std::array;
 
-#include<QWidget>
+#include <QWidget>
 #include <QPlainTextEdit>
 
 #include "driver.h"
@@ -19,7 +21,7 @@ public:
     // getters
     inline int getValueBySlot(DriverSlots slot) { return driver_->getValue(slot); }
 
-    inline const QPlainTextEdit* getField(DriverSlots slot) { return fields_[slot-2]; }
+    inline const QPlainTextEdit* getField(DriverSlots slot) { return fields_.at(slot-2); }
 
     // setters
     inline void setValueBySlot(DriverSlots slot) { driver_->setValue(slot); }
@@ -29,7 +31,7 @@ private:
     std::shared_ptr<Driver> driver_;
 
     // array of pointers to fields
-    QPlainTextEdit* fields_[10];
+    array<QPlainTextEdit*,10> fields_;
 
     // disallowing copying
     DriverHandler(const DriverHandler&);

@@ -2,6 +2,9 @@
 #define CARHANDLER_H
 
 #include <memory>
+#include <array>
+using std::array;
+
 #include <QWidget>
 #include <QTableWidgetItem>
 
@@ -17,8 +20,8 @@ private:
    std::shared_ptr<Car> car_;
 
    // ui items
-   QTableWidgetItem* car_lvl_fields_[11];
-   QTableWidgetItem* car_wear_fields_[11];
+   array<QTableWidgetItem*,11> car_lvl_fields_;
+   array<QTableWidgetItem*,11> car_wear_fields_;
    QTableWidgetItem* power_item_;
    QTableWidgetItem* handling_item_;
    QTableWidgetItem* acceleration_item_;

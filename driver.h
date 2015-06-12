@@ -1,6 +1,9 @@
 #ifndef DRIVER_H
 #define DRIVER_H
 
+#include <array>
+using std::array;
+
 #include <QString>
 
 enum DriverSlots {DRIVER_TRACK_NAME = 0, DRIVER_SEASON, DRIVER_OVERALL, DRIVER_CONCENTRATION,
@@ -10,7 +13,7 @@ enum DriverSlots {DRIVER_TRACK_NAME = 0, DRIVER_SEASON, DRIVER_OVERALL, DRIVER_C
 class Driver
 {
 private:
-    static const char driver_field_names_ = {
+    static const array<char,12> driver_field_names_ = {
         "Driver.\"Name (Track)\"", "Driver.Season", "Driver.Overall", "Driver.Concentration",
         "Driver.Talent", "Driver.Aggresiveness", "Driver.Experience", "Driver.\"Tech. Insight\"",
         "Driver.Stamina", "Driver.Charisma", "Driver.Motivation", "Driver.Weight" };
@@ -19,7 +22,7 @@ private:
     QString track_;
     int season_;
 
-    int stats_[10];
+    array<int,10> stats_;
 
     // we don't want bad copies floating around
     Driver (const Driver&);
@@ -28,13 +31,14 @@ public:
     Driver();
 
     // getters
-    inline int getValue(DriverSlots slot) { return stats_[slot - 2]; }
+    inline int getValue(DriverSlots slot) { return stats_.at(slot - 2); }
     inline const QString& getTrack() { return track_; }
     inline int getSeason() { return season_; }
 
     // setters
-    template <typename T>
-    inline void setValue(const T& value, DriverSlots slot) { stats_[slot] = value; }
+    inline void setTrackName(const QString& name) { track_ = name; }
+    inline void setSeason(const int season) { season_ = season; }
+    inline void setValue(const int& value, DriverSlots slot) { stats_.at(slot - 2) = value; }
 };
 
 #endif // DRIVER_H
