@@ -15,7 +15,8 @@ void TrackGroupBox::setTrackNames(const std::vector<std::shared_ptr<Track> > &tr
     track_names_ = temp_list;
 }
 
-TrackGroupBox::TrackGroupBox(QWidget *parent): track_combo_box_(0)
+TrackGroupBox::TrackGroupBox(QWidget *parent): track_combo_box_(0), weather_table_(0),
+    strategy_handler_(0)
 {    
     // after we've made sure we have something filled
     track_fields_.fill(0);
@@ -38,6 +39,21 @@ TrackGroupBox::TrackGroupBox(QWidget *parent): track_combo_box_(0)
 
     //setting combobox
     track_combo_box_ = parent->findChild<QComboBox*>("track_list_combo_box");
+
+    //setting weather table
+    weather_table_ = parent->findChild<QComboBox*>("weather_table");
+    weather_table_->setItem(0,0, new QTableWidgetItem());
+    weather_table_->item(0,0)->setText("0");
+    weather_table_->setItem(1,0, new QTableWidgetItem());
+    weather_table_->item(1,0)->setText("0");
+    weather_table_->setItem(2,0, new QTableWidgetItem());
+    weather_table_->item(2,0)->setText("0");
+    weather_table_->setItem(0,1, new QTableWidgetItem());
+    weather_table_->item(0,1)->setText("0");
+    weather_table_->setItem(1,1, new QTableWidgetItem());
+    weather_table_->item(1,1)->setText("0");
+    weather_table_->setItem(2,1, new QTableWidgetItem());
+    weather_table_->item(2,1)->setText("0");
 }
 
 void TrackGroupBox::setTracks(const std::vector<std::shared_ptr<Track> > &tracks)
@@ -51,6 +67,7 @@ void TrackGroupBox::setTracks(const std::vector<std::shared_ptr<Track> > &tracks
         trackChanged(getTrackNames().at(0));
     }
 }
+
 
 void TrackGroupBox::trackChanged(QString track)
 {
@@ -77,4 +94,36 @@ void TrackGroupBox::trackChanged(QString track)
     track_fields_.at(12)->setText(current_track_->getTrackQString(TRACK_CORNERS));
     track_fields_.at(13)->setText(current_track_->getTrackQString(TRACK_GRIP));
     track_fields_.at(14)->setText(current_track_->getTrackQString(TRACK_PIT_STOP));
+}
+
+void TrackGroupBox::weatherChanged(QTableWidgetItem *item)
+{
+    // using c style initialization bacause item can be double or int
+    // depending on the row
+    bool is_temperature = item->column() == 1 ? false : true;
+    bool is_valid_number = false;
+    double value = item->text().toDouble(is_valid_number);
+
+    // checking valid ranes and do actin...
+    if (!is_valid_number) value = 0;
+    else {
+        if (is_temperature) {
+            if (value < 0) value = 0;
+            else if (value > 50) value = 50;
+        } else {
+            if (value < 0) value = 0;
+            else if (value > 100) value = 50;
+        }
+    }
+
+    if (is_temperature) race_temperatures_.at(item->row()) = value;
+    else race_humidities_.at(item->row()) = value;
+
+    item->setText(QString::number(value));
+
+    // updating strategy handler
+    if (strategy_handler_.get() != 0) {
+        strategy_handler_->setTemperatures(race_temperatures_);
+        strategy_handler_->setHumidities(race_humidities_);
+    }
 }
