@@ -8,7 +8,9 @@ using std::array;
 #include <QWidget>
 #include <QTableWidgetItem>
 
+#include "cargroupbox.h"
 #include "car.h"
+
 
 enum CarHandlerSlots { CHASSIS_SLOT = 0, ENGINE_SLOT, FRONT_WING_SLOT, REAR_WING_SLOT,
                        UNDERBODY_SLOT, SIDEPODS_SLOT, COOLING_SLOT, GEARBOX_SLOT,
@@ -19,12 +21,11 @@ class CarHandler
 private:
    std::shared_ptr<Car> car_;
 
-   // ui items
-   array<QTableWidgetItem*,11> car_lvl_fields_;
-   array<QTableWidgetItem*,11> car_wear_fields_;
-   QTableWidgetItem* power_item_;
-   QTableWidgetItem* handling_item_;
-   QTableWidgetItem* acceleration_item_;
+   array<int,11> car_lvl_;
+   array<int,11> car_wear_;
+   array<int,3> car_power_;
+
+   CarGroupBox* car_group_box_;
 
    // disabling copying
    CarHandler (const CarHandler&);
@@ -33,28 +34,12 @@ private:
 public:
     CarHandler();
 
-    // getters
-    inline int getCarLvl(CarHandlerSlots slot) {
-        return car_->getValueBySlot(static_cast<CarSlots>(slot + car_->getLvlDiff()));
-    }
-    inline int getCarWear(CarHandlerSlots slot) {
-        return car_->getValueBySlot(static_cast<CarSlots>(slot + car_->getWearDiff()));
-    }
-
-    // setters
-    inline void setCarLvl(const CarHandlerSlots& part, int car_lvl) {
-        car_->setField(car_lvl, static_cast<CarSlots>(part + car_->getLvlDiff()));
-    }
-    inline void setCarWear(const CarHandlerSlots& part, int car_wear) {
-        car_->setField(car_wear, static_cast<CarSlots>(part + car_->getWearDiff()));
-    }
-
     inline void setPower(int power) { car_->setField(power, CarSlots::CAR_POWER); }
     inline void setHandling(int handling) { car_->setField(handling, CarSlots::CAR_HANDLING); }
     inline void setAcceleration(int acceleration) { car_->setField(acceleration, CarSlots::CAR_ACCELERATION); }
 
     // field initializations
-    void initFields(std::shared_ptr<QWidget> parent);
+    void initFields(CarGroupBox *parent);
 };
 
 #endif // CARHANDLER_H
