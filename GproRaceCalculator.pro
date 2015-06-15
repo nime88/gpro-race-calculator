@@ -26,7 +26,9 @@ SOURCES += main.cpp\
     car.cpp \
     driver.cpp \
     practicehandler.cpp \
-    trackhandler.cpp
+    trackhandler.cpp \
+    drivergroupbox.cpp \
+    trackgroupbox.cpp
 
 HEADERS  += mainwindow.h \
     driverhandler.h \
@@ -41,7 +43,9 @@ HEADERS  += mainwindow.h \
     car.h \
     driver.h \
     practicehandler.h \
-    trackhandler.h
+    trackhandler.h \
+    drivergroupbox.h \
+    trackgroupbox.h
 
 FORMS    += mainwindow.ui
 

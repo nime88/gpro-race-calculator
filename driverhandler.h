@@ -8,20 +8,20 @@ using std::array;
 #include <QWidget>
 #include <QPlainTextEdit>
 
+#include "drivergroupbox.h"
 #include "driver.h"
 
 class DriverHandler
 {
+
 public:
     DriverHandler();
 
     // field initializations
-    void initFields(std::shared_ptr<QWidget> parent);
+    void initFields(DriverGroupBox *parent);
 
     // getters
     inline int getValueBySlot(DriverSlots slot) { return driver_->getValue(slot); }
-
-    inline const QPlainTextEdit* getField(DriverSlots slot) { return fields_.at(slot-2); }
 
     // setters
     inline void setValueBySlot(const int& value, DriverSlots slot) { driver_->setValue(value, slot); }
@@ -30,8 +30,8 @@ private:
     // pointer to driver
     std::shared_ptr<Driver> driver_;
 
-    // array of pointers to fields
-    array<QPlainTextEdit*,10> fields_;
+    // pointer to driver fields container (groupbox)
+    DriverGroupBox* driver_group_box_;
 
     // disallowing copying
     DriverHandler(const DriverHandler&);
