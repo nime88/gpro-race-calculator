@@ -10,21 +10,20 @@ using std::array;
 #include <QComboBox>
 
 #include "track.h"
+#include "trackgroupbox.h"
 #include "databasehandler.h"
 
 class TrackHandler
 {
 private:
-    // array of pointers to ui fields
-    array<QLabel*,16> track_fields_;
-
     // all the possible tracks
     std::vector< std::shared_ptr<Track> > tracks_;
 
     // currently visible track (in ui)
     std::shared_ptr<Track> current_track_;
 
-    QComboBox* track_combobox_;
+    // pointer to group box
+    TrackGroupBox* track_group_box_;
 
     // disallowing copying
     TrackHandler (const TrackHandler&);
@@ -32,22 +31,11 @@ private:
 public:
     TrackHandler();
 
-    void initFields2CurrentTrack (std::shared_ptr<QWidget> parent, std::shared_ptr<DatabaseHandler> dbhandler);
+    void initFields(TrackGroupBox* parent, std::shared_ptr<DatabaseHandler> dbhandler);
 
-    inline QLabel* getField(TrackSlots slot) { return track_fields_.at(slot); }
+    std::vector< std::shared_ptr<Track> >  getTracks() { return tracks_; }
 
     void setTracks (std::shared_ptr<DatabaseHandler> dbhandler);
-    inline void setField(TrackSlots slot, QLabel* field) { track_fields_.at(slot) = field; }
-
-    void updateCurrentTrack (const QString &name) {
-        // if user has selected something we just find it from the list
-        for (unsigned int i = 0; i < tracks_.size(); ++i) {
-            if (name == tracks_.at(i)->getTrackQString(TrackSlots::TRACK_NAME) ) {
-                current_track_ = tracks_.at(i);
-                break;
-            }
-        }
-    }
 };
 
 #endif // TRACKHANDLER_H
