@@ -8,6 +8,7 @@ using std::array;
 #include <QWidget>
 #include <QString>
 #include <QLabel>
+#include <QVariant>
 
 enum TrackSlots { TRACK_LAPS = 0, TRACK_DISTANCE, TRACK_POWER, TRACK_HANDLING,
                   TRACK_ACCELERATION, TRACK_DOWNFORCE, TRACK_OVERTAKING, TRACK_SUSPENSION,
@@ -67,25 +68,12 @@ public:
         return 0;
     }
 
+    const QString& getName() { return name_; }
+
     inline static const array<QString,16> getFieldNames() { return field_names_; }
 
     // setters
-    inline void setLaps(int laps) { laps_ = laps; }
-    inline void setName(const QString& name) { name_ = name; }
-    inline void setDistance(int distance) { distance_ = distance; }
-    inline void setPower(int power) { power_ = power; }
-    inline void setHandling(int handling) { handling_ = handling; }
-    inline void setAcceleration(int acceleration) { acceleration_ = acceleration; }
-    inline void setDownforce(const QString& downforce) { downforce_ = downforce; }
-    inline void setOvertaking(const QString& overtaking) { overtaking_ = overtaking; }
-    inline void setSuspension(const QString& suspension) { suspension_ = suspension; }
-    inline void setFuelconsumption(const QString& fuel_consumption) { fuel_consumption_ = fuel_consumption; }
-    inline void setTyreWear(const QString& tyre_wear) { tyre_wear_ = tyre_wear; }
-    inline void setAvgSpeed(double avg_speed) { avg_speed_ = avg_speed; }
-    inline void setLapLength(double lap_length) { lap_length_ = lap_length; }
-    inline void setCorners(int corners) { corners_ = corners; }
-    inline void setGrip(const QString& grip) { grip_ = grip; }
-    inline void setPitStop(double pit_stop) { pit_stop_ = pit_stop; }
+    void setValue(TrackSlots slot, const QVariant &value);
 };
 
 #endif // TRACK_H

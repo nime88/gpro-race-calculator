@@ -20,12 +20,6 @@ public:
     // field initializations
     void initFields(DriverGroupBox *parent);
 
-    // getters
-    inline int getValueBySlot(DriverSlots slot) { return driver_->getValue(slot); }
-
-    // setters
-    inline void setValueBySlot(const int& value, DriverSlots slot) { driver_->setValue(value, slot); }
-
 private:
     // pointer to driver
     std::shared_ptr<Driver> driver_;
