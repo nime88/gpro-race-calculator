@@ -6,24 +6,24 @@ CarGroupBox::CarGroupBox(QWidget *parent): car_lvl_items_(0), car_power_items_(0
     car_lvl_items_ = parent->findChild<QTableWidget*>("car_lvl_table");
     for (int i = 0; i < car_lvl_items_->rowCount(); ++i) {
         car_lvl_items_->setItem(i,0, new QTableWidgetItem());
-        car_lvl_items_->item(i,0) = "0";
+        car_lvl_items_->item(i,0)->setText("0");
     }
     for (int i = 0; i < car_lvl_items_->rowCount(); ++i) {
         car_lvl_items_->setItem(i,1, new QTableWidgetItem());
-        car_lvl_items_->item(i,1) = "0";
+        car_lvl_items_->item(i,1)->setText("0");
     }
 
     car_power_items_ = parent->findChild<QTableWidget*>("car_power_table");
     for (int i = 0; i < car_lvl_items_->rowCount(); ++i) {
         car_power_items_->setItem(i,0, new QTableWidgetItem());
-        car_power_items_->item(i,0) = "0";
+        car_power_items_->item(i,0)->setText("0");
     }
 }
 
 void CarGroupBox::carPartChanged(QTableWidgetItem *item)
 {
     bool can_convert = false;
-    int value = item->text().toInt(can_convert);
+    int value = item->text().toInt(&can_convert);
 
     int column = item->column();
     int row = item->row();
@@ -47,12 +47,12 @@ void CarGroupBox::carPartChanged(QTableWidgetItem *item)
 void CarGroupBox::carAbilityChanged(QTableWidgetItem *item)
 {
     bool can_convert = false;
-    int value = item->text().toInt(can_convert);
+    int value = item->text().toInt(&can_convert);
 
     if (can_convert) {
         if (value < 1) value = 1;
         else if (value > 250) value = 250;
-    } else if (can_convert && column == 1) {
+    } else if (can_convert && item->column() == 1) {
         if (value < 0) value = 0;
         else if (value > 250) value = 250;
     } else {

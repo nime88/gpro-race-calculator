@@ -8,6 +8,8 @@
 
 #include "trackgroupbox.h"
 
+class TrackGroupBox;
+
 class Strategy
 {
 private:

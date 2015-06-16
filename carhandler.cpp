@@ -5,7 +5,7 @@
 
 #include <QTableWidget>
 
-CarHandler::CarHandler(): car_(Car), car_group_box_(0)
+CarHandler::CarHandler(): car_(new Car), car_group_box_(0)
 {
     car_lvl_.fill(0);
     car_wear_.fill(0);

@@ -1,7 +1,7 @@
 #include "trackgroupbox.h"
 
 bool trackCompare (std::shared_ptr<Track> track_1, std::shared_ptr<Track> track_2) {
-    if (track_1->getTrackQString() < track_2->getTrackQString()) return true;
+    if (track_1->getTrackQString(TRACK_NAME) < track_2->getTrackQString(TRACK_NAME)) return true;
     return false;
 }
 
@@ -41,7 +41,7 @@ TrackGroupBox::TrackGroupBox(QWidget *parent): track_combo_box_(0), weather_tabl
     track_combo_box_ = parent->findChild<QComboBox*>("track_list_combo_box");
 
     //setting weather table
-    weather_table_ = parent->findChild<QComboBox*>("weather_table");
+    weather_table_ = parent->findChild<QTableWidget*>("weather_table");
     weather_table_->setItem(0,0, new QTableWidgetItem());
     weather_table_->item(0,0)->setText("0");
     weather_table_->setItem(1,0, new QTableWidgetItem());
@@ -102,7 +102,7 @@ void TrackGroupBox::weatherChanged(QTableWidgetItem *item)
     // depending on the row
     bool is_temperature = item->column() == 1 ? false : true;
     bool is_valid_number = false;
-    double value = item->text().toDouble(is_valid_number);
+    double value = item->text().toDouble(&is_valid_number);
 
     // checking valid ranes and do actin...
     if (!is_valid_number) value = 0;

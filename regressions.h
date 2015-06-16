@@ -15,6 +15,8 @@ class Regressions
 {
    private:
     std::vector< std::shared_ptr<Practice> > practice_data_;
+
+    // cofactors we have calculated
     gsl_vector *wing_setting_cofactors_;
     gsl_vector *engine_setting_cofactors_;
     gsl_vector *gear_setting_cofactors_;

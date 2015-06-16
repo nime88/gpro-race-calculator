@@ -23,28 +23,27 @@ void SettingsHandler::setSpace(const double space) {
 }
 
 std::vector<double> SettingsHandler::getSettingsFromDiff(std::shared_ptr<Regressions> regressions,
-                                                         double temperature_diff, double humidity_diff)
+                                                         double temperature_diff)
 {
     // getting all the settings from the regressions class
     double settings_diff_wing = 0;
     settings_diff_wing = regressions->getWingSetting(Weather::WEATHER_DRY,
-                                                     temperature_diff, humidity_diff,0,0,0,0,0);
+                                                     temperature_diff,0,0,0,0,0);
     double settings_diff_engine = 0;
     settings_diff_engine = regressions->getEngineSetting(Weather::WEATHER_DRY,
-                                                          temperature_diff,humidity_diff,0,0,0,0);
+                                                          temperature_diff,0,0,0,0);
     double settings_diff_gear = 0;
     settings_diff_gear = regressions->getGearSetting(Weather::WEATHER_DRY,
-                                                      temperature_diff,humidity_diff,0,
-                                                      Downforce::DOWNFORCE_MEDIUM,
-                                                      Suspension::SUSPENSION_MEDIUM,Grip::GRIP_MEDIUM);
+                                                      temperature_diff,0,
+                                                      Downforce::DOWNFORCE_MEDIUM, Suspension::SUSPENSION_MEDIUM,
+                                                     Grip::GRIP_MEDIUM);
     double settings_diff_brakes = 0;
     settings_diff_brakes = regressions->getBrakeSetting(Weather::WEATHER_DRY,
-                                                         temperature_diff, humidity_diff,0,Downforce::DOWNFORCE_MEDIUM,
+                                                         temperature_diff,0,Downforce::DOWNFORCE_MEDIUM,
                                                          Suspension::SUSPENSION_MEDIUM,Grip::GRIP_MEDIUM);
     double settings_diff_suspension = 0;
     settings_diff_suspension = regressions->getSuspensionSetting(Weather::WEATHER_DRY,
-                                                                 temperature_diff, humidity_diff,
-                                                                 Suspension::SUSPENSION_MEDIUM,0);
+                                                                 temperature_diff, Suspension::SUSPENSION_MEDIUM, 0);
 
     // then calculating difference to normal settings
     std::vector<double> temp_vector;
@@ -65,15 +64,15 @@ void SettingsHandler::resetSpace() {
 void SettingsHandler::resetSettings(const array<double,5> &settings) {
     if (settings.size() != 5) return;
 
-    for (unsigned int i = 0; i < 5; ++i) {
-        settings_.at(i) = settings.at(i);
-        max_settings_.at(i) = settings.at(i);
-        min_settings_.at(i) = settings.at(i);
-    }
+    settings_ = settings;
+    max_settings_ = settings;
+    min_settings_ = settings;
 }
 
-std::vector<double> SettingsHandler::executeComments() {
-    resetSettings(array<double,5>(500));
+const array<double, 5> &SettingsHandler::executeComments() {
+    array<double,5> temp_settings;
+    temp_settings.fill(500);
+    resetSettings(temp_settings);
 
     for (unsigned int i = 0; i < comments_.size(); ++i) {
         for (unsigned int part = 0; part < 5; ++part) {

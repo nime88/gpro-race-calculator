@@ -47,7 +47,7 @@ void StrategyTabWidget::addButtonClicked()
 
     // setting space value range
     bool is_valid_space = false;
-    double space = space_range_item_->toPlainText().toDouble(is_valid_space);
+    double space = space_range_item_->toPlainText().toDouble(&is_valid_space);
     if (is_valid_space) {
         if (space < 0) space = 0;
         else if (space > 135) space = 135;
@@ -96,7 +96,7 @@ void StrategyTabWidget::addButtonClicked()
 void StrategyTabWidget::settingChanged(QTableWidgetItem *item)
 {
     bool is_int = false;
-    int value = item->text().toInt(is_int);
+    int value = item->text().toInt(&is_int);
 
     if (is_int) {
         if (value < 0) value = 0;
@@ -111,9 +111,9 @@ void StrategyTabWidget::settingChanged(QTableWidgetItem *item)
 void StrategyTabWidget::rangeChanged()
 {
     bool is_double = false;
-    double value = space_range_item_->toPlainText().toDouble(is_double);
+    double value = space_range_item_->toPlainText().toDouble(&is_double);
 
-    if (is_int) {
+    if (is_double) {
         if (value < 0) value = 0;
         else if (value > 135) value = 135;
     } else {

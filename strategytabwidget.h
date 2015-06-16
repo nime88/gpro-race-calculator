@@ -28,7 +28,7 @@ private:
     QPlainTextEdit* space_range_item_;
     QPushButton* add_button_item_;
 
-    array<QComboBox, 6> comments_items_;
+    array<QComboBox*, 6> comments_items_;
 
     array<int,5> comments_;
 

@@ -1,6 +1,6 @@
 #include "drivergroupbox.h"
 
-DriverGroupBox::DriverGroupBox(QWidget *parent) :
+DriverGroupBox::DriverGroupBox(QWidget *parent)
 {
 }
 
@@ -8,7 +8,7 @@ void DriverGroupBox::itemChanged(QTableWidgetItem * item) {
     if (item->text().size() == 0) return;
     //checking if int conversion can be done
     bool int_conv = false;
-    int result_int = item->text().toInt(int_conv);
+    int result_int = item->text().toInt(&int_conv);
 
     // slightly modify result if it is not in correct range
     if (int_conv) {
@@ -22,6 +22,5 @@ void DriverGroupBox::itemChanged(QTableWidgetItem * item) {
     }
 
     // then finally updating driver
-    DriverSlots slot = DriverSlots(3) + static_cast<DriverSlots>(item->row());
-    driver_->setValue(result_int, slot);
+    driver_->setStatValue(static_cast<DriverStatSlots>(item->row()+1), result_int);
 }

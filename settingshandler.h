@@ -46,10 +46,10 @@ public:
 
     // TODO test inlining this when correct functionality has been reached
     std::vector<double> getSettingsFromDiff(std::shared_ptr<Regressions> regressions,
-                                            double temperature_diff, double humidity_diff);
+                                            double temperature_diff);
     inline void resetSpace();
     inline void resetSettings(const array<double,5> &settings);
-    std::vector<double> executeComments ();
+    const array<double, 5>& executeComments();
 };
 
 #endif // SETTINGSHANDLER_H

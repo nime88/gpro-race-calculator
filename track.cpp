@@ -12,11 +12,8 @@ Track::Track()
 
 void Track::setValue(TrackSlots slot, const QVariant& value)
 {
-    //int int_value = 0;
-    //double double_value = 0;
-    //QString string_value = 0;
+    // TODO maybe check if we can do the transformations ^^
 
-    //if  (value.)
     // assigning correct value
     switch (slot) {
     case TRACK_ACCELERATION: {

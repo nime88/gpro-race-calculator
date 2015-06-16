@@ -11,6 +11,7 @@ using std::array;
 #include "cargroupbox.h"
 #include "car.h"
 
+class CarGroupBox;
 
 enum CarHandlerSlots { CHASSIS_SLOT = 0, ENGINE_SLOT, FRONT_WING_SLOT, REAR_WING_SLOT,
                        UNDERBODY_SLOT, SIDEPODS_SLOT, COOLING_SLOT, GEARBOX_SLOT,
