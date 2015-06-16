@@ -1,6 +1,6 @@
 #include "driverhandler.h"
 
-DriverHandler::DriverHandler() : driver_(Driver), driver_group_box_(0)
+DriverHandler::DriverHandler() : driver_(new Driver), driver_group_box_(0)
 {
 
 }

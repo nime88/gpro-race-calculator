@@ -17,7 +17,7 @@ enum TrackSlots { TRACK_LAPS = 0, TRACK_DISTANCE, TRACK_POWER, TRACK_HANDLING,
 class Track
 {
 private:
-    const static array<char,16> field_names_;
+    const static array<QString,16> field_names_;
 
     int laps_;
     QString name_;
@@ -67,7 +67,7 @@ public:
         return 0;
     }
 
-    inline static const array<char,16> getFieldNames() { return field_names_; }
+    inline static const array<QString,16> getFieldNames() { return field_names_; }
 
     // setters
     inline void setLaps(int laps) { laps_ = laps; }

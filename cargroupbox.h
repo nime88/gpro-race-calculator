@@ -13,7 +13,7 @@ using std::array;
 
 class CarHandler;
 
-class CarGroupBox : QGroupBox
+class CarGroupBox : public QGroupBox
 {
     Q_OBJECT
 

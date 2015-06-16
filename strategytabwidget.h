@@ -14,7 +14,7 @@ using std::array;
 
 #include "settingshandler.h"
 
-class StrategyTabWidget : QTabWidget
+class StrategyTabWidget : public QTabWidget
 {
     Q_OBJECT
 

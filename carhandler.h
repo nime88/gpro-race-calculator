@@ -34,10 +34,6 @@ private:
 public:
     CarHandler();
 
-    inline void setPower(int power) { car_->setField(power, CarSlots::CAR_POWER); }
-    inline void setHandling(int handling) { car_->setField(handling, CarSlots::CAR_HANDLING); }
-    inline void setAcceleration(int acceleration) { car_->setField(acceleration, CarSlots::CAR_ACCELERATION); }
-
     // field initializations
     void initFields(CarGroupBox *parent);
 };

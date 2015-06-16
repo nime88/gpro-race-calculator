@@ -15,7 +15,7 @@ using std::array;
 
 class Strategy;
 
-class TrackGroupBox : QGroupBox
+class TrackGroupBox : public QGroupBox
 {
     Q_OBJECT
 
