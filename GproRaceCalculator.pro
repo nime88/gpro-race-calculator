@@ -28,7 +28,9 @@ SOURCES += main.cpp\
     practicehandler.cpp \
     trackhandler.cpp \
     drivergroupbox.cpp \
-    trackgroupbox.cpp
+    trackgroupbox.cpp \
+    cargroupbox.cpp \
+    strategytabwidget.cpp
 
 HEADERS  += mainwindow.h \
     driverhandler.h \
@@ -45,7 +47,9 @@ HEADERS  += mainwindow.h \
     practicehandler.h \
     trackhandler.h \
     drivergroupbox.h \
-    trackgroupbox.h
+    trackgroupbox.h \
+    cargroupbox.h \
+    strategytabwidget.h
 
 FORMS    += mainwindow.ui
 
