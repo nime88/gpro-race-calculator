@@ -1,9 +1,16 @@
 #include "cargroupbox.h"
 
-CarGroupBox::CarGroupBox(QWidget *parent): car_lvl_items_(0), car_power_items_(0)
+CarGroupBox::CarGroupBox(QWidget *parent):
+    QGroupBox(parent),
+    car_lvl_items_(0),
+    car_power_items_(0)
+{
+}
+
+void CarGroupBox::init()
 {
     // initializing tables
-    car_lvl_items_ = parent->findChild<QTableWidget*>("car_lvl_table");
+    car_lvl_items_ = this->findChild<QTableWidget*>("car_lvl_table");
     for (int i = 0; i < car_lvl_items_->rowCount(); ++i) {
         car_lvl_items_->setItem(i,0, new QTableWidgetItem());
         car_lvl_items_->item(i,0)->setText("0");
@@ -13,8 +20,8 @@ CarGroupBox::CarGroupBox(QWidget *parent): car_lvl_items_(0), car_power_items_(0
         car_lvl_items_->item(i,1)->setText("0");
     }
 
-    car_power_items_ = parent->findChild<QTableWidget*>("car_power_table");
-    for (int i = 0; i < car_lvl_items_->rowCount(); ++i) {
+    car_power_items_ = this->findChild<QTableWidget*>("car_power_table");
+    for (int i = 0; i < car_power_items_->rowCount(); ++i) {
         car_power_items_->setItem(i,0, new QTableWidgetItem());
         car_power_items_->item(i,0)->setText("0");
     }

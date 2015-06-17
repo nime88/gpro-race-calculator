@@ -9,6 +9,7 @@ using std::array;
 #include <QComboBox>
 #include <QLabel>
 #include <QTableWidgetItem>
+#include "mainwindow.h"
 
 #include "track.h"
 #include "strategy.h"
@@ -40,7 +41,9 @@ private:
     const QStringList& getTrackNames() { return track_names_; }
 
 public:
-    TrackGroupBox(QWidget *parent);
+    TrackGroupBox(QWidget *parent = 0);
+
+    void init();
 
     const array<double,3>& getTemperatures() { return race_temperatures_; }
     const array<double,3>& getHumidities() { return race_humidities_; }

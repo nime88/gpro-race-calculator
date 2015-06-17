@@ -15,17 +15,16 @@ class DriverGroupBox : public QGroupBox
 private:
     std::shared_ptr<Driver> driver_;
 
+    QTableWidget* driver_table_;
+
 public:
     DriverGroupBox(QWidget *parent);
+
+    void init();
 
     void setDriver(std::shared_ptr<Driver> driver) {
         driver_ = driver;
     }
-
-    // fixed ui declarations (wtf is this SHIT)
-    //void setObjectName(const QString& name) { QGroupBox::setObjectName(name); }
-    //void setGeometry(int x, int y, int w, int h) { QWidget::setGeometry(x,y,w,h); }
-
 
 public slots:
     void itemChanged(QTableWidgetItem *item);

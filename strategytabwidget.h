@@ -33,7 +33,9 @@ private:
     array<int,5> comments_;
 
 public:
-    StrategyTabWidget(QWidget* parent);
+    StrategyTabWidget(QWidget* parent = 0);
+
+    void init();
 
     void setHandlers(std::shared_ptr<SettingsHandler> settingshandler) { settingshandler_ = settingshandler; }
 

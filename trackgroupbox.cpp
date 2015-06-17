@@ -15,33 +15,42 @@ void TrackGroupBox::setTrackNames(const std::vector<std::shared_ptr<Track> > &tr
     track_names_ = temp_list;
 }
 
-TrackGroupBox::TrackGroupBox(QWidget *parent): track_combo_box_(0), weather_table_(0),
+TrackGroupBox::TrackGroupBox(QWidget *parent):
+    QGroupBox(parent),
+    track_combo_box_(0),
+    weather_table_(0),
     strategy_handler_(0)
 {    
+
+}
+
+void TrackGroupBox::init()
+{
     // after we've made sure we have something filled
     track_fields_.fill(0);
     //we try to assign fields
-    track_fields_.at(0) = parent->findChild<QLabel*>("laps_value");
-    track_fields_.at(1) = parent->findChild<QLabel*>("distance_value");
-    track_fields_.at(2) = parent->findChild<QLabel*>("power_value");
-    track_fields_.at(3) = parent->findChild<QLabel*>("handling_value");
-    track_fields_.at(4) = parent->findChild<QLabel*>("acceleration_value");
-    track_fields_.at(5) = parent->findChild<QLabel*>("downforce_value");
-    track_fields_.at(6) = parent->findChild<QLabel*>("overtaking_value");
-    track_fields_.at(7) = parent->findChild<QLabel*>("suspension_value");
-    track_fields_.at(8) = parent->findChild<QLabel*>("fuel_consumption_value");
-    track_fields_.at(9) = parent->findChild<QLabel*>("tyre_wear_value");
-    track_fields_.at(10) = parent->findChild<QLabel*>("avg_speed_value");
-    track_fields_.at(11) = parent->findChild<QLabel*>("lap_length_value");
-    track_fields_.at(12) = parent->findChild<QLabel*>("corners_value");
-    track_fields_.at(13) = parent->findChild<QLabel*>("grip_value");
-    track_fields_.at(14) = parent->findChild<QLabel*>("pit_stop_value");
+    track_fields_.at(0) = this->findChild<QLabel*>("laps_value");
+    track_fields_.at(1) = this->findChild<QLabel*>("distance_value");
+    track_fields_.at(2) = this->findChild<QLabel*>("power_value");
+    track_fields_.at(3) = this->findChild<QLabel*>("handling_value");
+    track_fields_.at(4) = this->findChild<QLabel*>("acceleration_value");
+    track_fields_.at(5) = this->findChild<QLabel*>("downforce_value");
+    track_fields_.at(6) = this->findChild<QLabel*>("overtaking_value");
+    track_fields_.at(7) = this->findChild<QLabel*>("suspension_value");
+    track_fields_.at(8) = this->findChild<QLabel*>("fuel_consumption_value");
+    track_fields_.at(9) = this->findChild<QLabel*>("tyre_wear_value");
+    track_fields_.at(10) = this->findChild<QLabel*>("avg_speed_value");
+    track_fields_.at(11) = this->findChild<QLabel*>("lap_length_value");
+    track_fields_.at(12) = this->findChild<QLabel*>("corners_value");
+    track_fields_.at(13) = this->findChild<QLabel*>("grip_value");
+    track_fields_.at(14) = this->findChild<QLabel*>("pit_stop_value");
 
     //setting combobox
-    track_combo_box_ = parent->findChild<QComboBox*>("track_list_combo_box");
+    track_combo_box_ = this->findChild<QComboBox*>("track_list_combo_box");
 
     //setting weather table
-    weather_table_ = parent->findChild<QTableWidget*>("weather_table");
+
+    weather_table_ = this->findChild<QTableWidget*>("weather_table");
     weather_table_->setItem(0,0, new QTableWidgetItem());
     weather_table_->item(0,0)->setText("0");
     weather_table_->setItem(1,0, new QTableWidgetItem());

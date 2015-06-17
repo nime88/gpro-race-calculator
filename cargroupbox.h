@@ -29,7 +29,9 @@ private:
     QTableWidget* car_power_items_;
 
 public:
-    CarGroupBox(QWidget* parent);
+    CarGroupBox(QWidget* parent = 0);
+
+    void init();
 
     void setHandlers(std::shared_ptr<CarHandler> car_handler) { car_handler_ = car_handler; }
     void setCar(std::shared_ptr<Car> car) { car_ = car; }

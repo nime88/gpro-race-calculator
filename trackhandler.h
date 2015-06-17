@@ -13,6 +13,8 @@ using std::array;
 #include "trackgroupbox.h"
 #include "databasehandler.h"
 
+class TrackGroupBox;
+
 class TrackHandler
 {
 private:

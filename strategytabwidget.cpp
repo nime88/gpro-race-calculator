@@ -1,22 +1,27 @@
 #include "strategytabwidget.h"
 
 StrategyTabWidget::StrategyTabWidget(QWidget *parent):
+    QTabWidget(parent),
     practice_table_item_(0), add_practice_table_item_(0),
     max_settings_text_item_(0), settings_text_item_(0), space_range_item_(0),
     add_button_item_(0)
 {
-    practice_table_item_ = parent->findChild<QTableWidget*>("practice_settings_table");
-    add_practice_table_item_ = parent->findChild<QTableWidget*>("add_practice_settings_table");
-    max_settings_text_item_ = parent->findChild<QLabel*>("max_settings_text");
-    settings_text_item_ = parent->findChild<QLabel*>("settings_text");
-    space_range_item_ = parent->findChild<QPlainTextEdit*>("space_value");
-    add_button_item_ = parent->findChild<QPushButton*>("add_setting_button");
+}
+
+void StrategyTabWidget::init()
+{
+    practice_table_item_ = this->findChild<QTableWidget*>("practice_settings_table");
+    add_practice_table_item_ = this->findChild<QTableWidget*>("add_practice_settings_table");
+    max_settings_text_item_ = this->findChild<QLabel*>("max_settings_text");
+    settings_text_item_ = this->findChild<QLabel*>("settings_text");
+    space_range_item_ = this->findChild<QPlainTextEdit*>("space_value");
+    add_button_item_ = this->findChild<QPushButton*>("add_setting_button");
     comments_items_.fill(0);
-    comments_items_.at(0) = parent->findChild<QComboBox*>("wing_setting_combo_box");
-    comments_items_.at(1) = parent->findChild<QComboBox*>("engine_setting_combo_box");
-    comments_items_.at(2) = parent->findChild<QComboBox*>("brakes_setting_combo_box");
-    comments_items_.at(3) = parent->findChild<QComboBox*>("gear_setting_combo_box");
-    comments_items_.at(4) = parent->findChild<QComboBox*>("suspension_setting_combo_box");
+    comments_items_.at(0) = this->findChild<QComboBox*>("wing_setting_combo_box");
+    comments_items_.at(1) = this->findChild<QComboBox*>("engine_setting_combo_box");
+    comments_items_.at(2) = this->findChild<QComboBox*>("brakes_setting_combo_box");
+    comments_items_.at(3) = this->findChild<QComboBox*>("gear_setting_combo_box");
+    comments_items_.at(4) = this->findChild<QComboBox*>("suspension_setting_combo_box");
 
     // initializing fields
     for (int i = 0; i < add_practice_table_item_->columnCount(); ++i) {
@@ -25,7 +30,6 @@ StrategyTabWidget::StrategyTabWidget(QWidget *parent):
     }
     space_range_item_->setPlainText(QString::number(135));
     comments_.fill(0);
-
 }
 
 void StrategyTabWidget::addButtonClicked()
