@@ -8,7 +8,7 @@ using std::array;
 #include <QWidget>
 #include <QTableWidgetItem>
 
-#include "cargroupbox.h"
+#include "ui/cargroupbox.h"
 #include "car.h"
 
 class CarGroupBox;

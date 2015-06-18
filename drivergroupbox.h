@@ -5,6 +5,7 @@
 
 #include <QGroupBox>
 #include <QTableWidget>
+#include <QSignalMapper>
 
 #include "driver.h"
 
@@ -17,6 +18,8 @@ private:
 
     QTableWidget* driver_table_;
 
+    QSignalMapper* signal_map_;
+
 public:
     DriverGroupBox(QWidget *parent);
 
@@ -27,7 +30,7 @@ public:
     }
 
 public slots:
-    void itemChanged(QTableWidgetItem *item);
+    void cellChanged(int row);
 };
 
 #endif // DRIVERGROUPBOX_H

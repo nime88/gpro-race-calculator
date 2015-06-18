@@ -12,6 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = GproRaceCalculator
 TEMPLATE = app
 
+#include(ui/include.pri)
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -29,7 +30,7 @@ SOURCES += main.cpp\
     trackhandler.cpp \
     drivergroupbox.cpp \
     trackgroupbox.cpp \
-    cargroupbox.cpp \
+    ui/cargroupbox.cpp \
     strategytabwidget.cpp
 
 HEADERS  += mainwindow.h \
@@ -48,7 +49,7 @@ HEADERS  += mainwindow.h \
     trackhandler.h \
     drivergroupbox.h \
     trackgroupbox.h \
-    cargroupbox.h \
+    ui/cargroupbox.h \
     strategytabwidget.h
 
 FORMS    += mainwindow.ui

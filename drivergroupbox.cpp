@@ -2,51 +2,48 @@
 
 #include <QLineEdit>
 #include <QDebug>
+#include <QApplication>
 
 DriverGroupBox::DriverGroupBox(QWidget *parent):
     QGroupBox(parent),
     driver_(new Driver),
     driver_table_(0)
 {
+    signal_map_ = new QSignalMapper(this);
 }
 
 void DriverGroupBox::init()
 {
     driver_table_ = findChild<QTableWidget*>("driver_table");
 
-    for(unsigned int i = 0; i < driver_table_->rowCount(); ++i) {
-        driver_table_->setItem(i,0, new QTableWidgetItem("line edit"));
+    for(int i = 0; i < driver_table_->rowCount(); ++i) {
+        QLineEdit* temp_line_edit = new QLineEdit;
+        connect(temp_line_edit, SIGNAL(textChanged(const QString&)), signal_map_, SLOT(map()));
+        signal_map_->setMapping(temp_line_edit, i);
+        driver_table_->setCellWidget(i,0, temp_line_edit);
     }
+
+    connect(signal_map_, SIGNAL(mapped(int)), this, SLOT(cellChanged(int)));
 }
 
+void DriverGroupBox::cellChanged(int row)
+{
+    QString temp_string = static_cast<QLineEdit*>(driver_table_->cellWidget(row,0))->text();
 
+    // checking conversion
+    bool can_conv = false;
+    int value = 0;
 
-void DriverGroupBox::itemChanged(QTableWidgetItem * item) {
-    if (item == 0 || item->text().size() == 0) return;
-
-    qDebug() << "Allright lets do THISSSS! \n";
-
-    //checking if int conversion can be done
-    bool int_conv = false;
-    int result_int = item->text().toInt(&int_conv);
-
-    if (!int_conv) {
-        qDebug() << item->text() << "\n";
-        QLineEdit * line_edit = new QLineEdit;
-        line_edit->setText(item->text());
-        qDebug() << line_edit->text() << "\n";
-        line_edit->backspace();
-        qDebug() << line_edit->text() << "\n";
-        item->setText(line_edit->text());
-        qDebug() << item->text() << "\n";
-        return;
+    while (!can_conv) {
+        if (temp_string.size() <= 0) temp_string = "0";
+        value = temp_string.toInt(&can_conv);
+        if (!can_conv)
+            temp_string.chop(1);
     }
 
     // slightly modify result if it is not in correct range
-    if (result_int < 0) result_int = 0;
-    else if (result_int > 250) result_int = 250;
+    if (value < 0) value = 0;
+    else if (value > 250) value = 250;
 
-    item->setText(QString::number(result_int));
-    // then finally updating driver
-    driver_->setStatValue(static_cast<DriverStatSlots>(item->row()+1), result_int);
+    static_cast<QLineEdit*>(driver_table_->cellWidget(row,0))->setText(QString::number(value));
 }
