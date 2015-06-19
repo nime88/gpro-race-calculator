@@ -8,8 +8,10 @@ using std::array;
 #include <QWidget>
 #include <QPlainTextEdit>
 
-#include "drivergroupbox.h"
+#include "ui/dcgroupbox.h"
 #include "driver.h"
+
+class DCGroupBox;
 
 class DriverHandler
 {
@@ -18,14 +20,18 @@ public:
     DriverHandler();
 
     // field initializations
-    void initFields(DriverGroupBox *parent);
+    void initFields(DCGroupBox *parent);
+
+    // set all the field values to driver
+    void setFields(const array<int,9>& values);
+    void setField(int index, int value);
 
 private:
     // pointer to driver
     std::shared_ptr<Driver> driver_;
 
     // pointer to driver fields container (groupbox)
-    DriverGroupBox* driver_group_box_;
+    DCGroupBox* dc_group_box_;
 
     // disallowing copying
     DriverHandler(const DriverHandler&);

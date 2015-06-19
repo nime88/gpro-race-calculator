@@ -31,7 +31,6 @@ private:
     array<QLabel*,15> track_fields_;
 
     QComboBox* track_combo_box_;
-    QTableWidget* weather_table_;
 
     QStringList track_names_;
 
@@ -53,7 +52,6 @@ public:
 
 public slots:
     void trackChanged(QString track);
-    void weatherChanged(QTableWidgetItem* item);
 };
 
 #endif // TRACKGROUPBOX_H

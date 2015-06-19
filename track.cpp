@@ -1,10 +1,10 @@
 #include "track.h"
 
-const array<QString,16> Track::field_names_ = {"\"Track\".Laps", "\"Track\".Distance", "\"Track\".Power", "\"Track\".Handling",
-                                            "\"Track\".Acceleration", "\"Track\".Downforce", "\"Track\".OverTaking",
-                                            "\"Track\".Suspension", "\"Track\".FuelConsumption", "\"Track\".TyreWear",
-                                            "\"Track\".AvgSpeed", "\"Track\".LapLength", "\"Track\".Corners",
-                                            "\"Track\".Grip", "\"Track\".PitStop", "\"Track\".Name" };
+const array<QString,16> Track::field_names_ = {"Laps", "Distance", "Power", "Handling",
+                                            "Acceleration", "Downforce", "OverTaking",
+                                            "Suspension", "FuelConsumption", "TyreWear",
+                                            "AvgSpeed", "LapLength", "Corners",
+                                            "Grip", "PitStop", "Name" };
 
 Track::Track()
 {    

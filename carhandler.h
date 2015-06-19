@@ -8,10 +8,10 @@ using std::array;
 #include <QWidget>
 #include <QTableWidgetItem>
 
-#include "ui/cargroupbox.h"
+#include "ui/dcgroupbox.h"
 #include "car.h"
 
-class CarGroupBox;
+class DCGroupBox;
 
 enum CarHandlerSlots { CHASSIS_SLOT = 0, ENGINE_SLOT, FRONT_WING_SLOT, REAR_WING_SLOT,
                        UNDERBODY_SLOT, SIDEPODS_SLOT, COOLING_SLOT, GEARBOX_SLOT,
@@ -26,7 +26,7 @@ private:
    array<int,11> car_wear_;
    array<int,3> car_power_;
 
-   CarGroupBox* car_group_box_;
+   DCGroupBox* dc_group_box_;
 
    // disabling copying
    CarHandler (const CarHandler&);
@@ -36,7 +36,11 @@ public:
     CarHandler();
 
     // field initializations
-    void initFields(CarGroupBox *parent);
+    void initFields(DCGroupBox *parent);
+
+    void setLvls(const array<int,11>& lvls);
+    void setWears(const array<int,11>& wears);
+    void setStats(const array<int,3>& stats);
 };
 
 #endif // CARHANDLER_H
