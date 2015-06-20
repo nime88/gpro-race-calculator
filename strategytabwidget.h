@@ -8,7 +8,7 @@ using std::array;
 #include <QTabWidget>
 #include <QTableWidget>
 #include <QLabel>
-#include <QPlainTextEdit>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QComboBox>
 
@@ -25,10 +25,10 @@ private:
     QTableWidget* add_practice_table_item_;
     QLabel* max_settings_text_item_;
     QLabel* settings_text_item_;
-    QPlainTextEdit* space_range_item_;
+    QLineEdit* space_range_item_;
     QPushButton* add_button_item_;
 
-    array<QComboBox*, 6> comments_items_;
+    array<QComboBox*, 5> comments_items_;
 
     array<int,5> comments_;
 

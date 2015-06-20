@@ -1,8 +1,8 @@
 #include "dcgroupbox.h"
 
 #include <QLineEdit>
+#include <QCheckBox>
 #include <QDebug>
-#include <QApplication>
 
 DCGroupBox::DCGroupBox(QWidget *parent):
     QGroupBox(parent),
@@ -66,16 +66,25 @@ void DCGroupBox::init()
 
     // connecting weather table items
     for (int i = 0; i < weather_table_->rowCount(); ++i) {
-        QLineEdit* temp_line_edit = new QLineEdit;
-        QLineEdit* temp_line_edit2 = new QLineEdit;
+        QLineEdit* temp_line_edit = new QLineEdit();
+        QLineEdit* temp_line_edit2 = new QLineEdit();
+        QCheckBox* temp_check_box = new QCheckBox();
+        temp_check_box->setStyleSheet(
+                    QString("QCheckBox { background-color: rgba(200, 100, 100, 50);} ") +
+                    QString("QCheckBox:hover{ color: rgb(35, 35, 75);border: 2px solid rgb(75, 75, 150);") +
+                    QString("background-color: rgba(25, 150, 25, 101);}"));
+
         connect(temp_line_edit, SIGNAL(textChanged(const QString&)), weather_signal_map_, SLOT(map()));
         connect(temp_line_edit2, SIGNAL(textChanged(const QString&)), weather_signal_map_, SLOT(map()));
+        connect(temp_check_box, SIGNAL(toggled(bool)), weather_signal_map_, SLOT(map()));
 
-        weather_signal_map_->setMapping(temp_line_edit, i+400);
-        weather_signal_map_->setMapping(temp_line_edit2, i+500);
+        weather_signal_map_->setMapping(temp_line_edit,i+400);
+        weather_signal_map_->setMapping(temp_line_edit2,i+500);
+        weather_signal_map_->setMapping(temp_check_box, i+600);
 
         weather_table_->setCellWidget(i,0,temp_line_edit);
         weather_table_->setCellWidget(i,1,temp_line_edit2);
+        weather_table_->setCellWidget(i,2,temp_check_box);
     }
 
     connect(weather_signal_map_, SIGNAL(mapped(int)), this, SLOT(weatherCellChanged(int)));
@@ -316,7 +325,13 @@ void DCGroupBox::carStatsCellChanged(int row)
 void DCGroupBox::weatherCellChanged(int index)
 {
     int column = index < 500 ? 0 : 1;
+    column = index < 600 ? column : 2;
     int row = index % 100;
+
+    if (column > 1) {
+        race_weather_.at(row) = static_cast<QCheckBox*>(weather_table_->cellWidget(row,column))->isChecked();
+        return;
+    }
 
     QString temp_string = static_cast<QLineEdit*>(weather_table_->cellWidget(row,column))->text();
 
@@ -324,7 +339,7 @@ void DCGroupBox::weatherCellChanged(int index)
     bool can_conv = false;
     int value = 0;
 
-    while (!can_conv) {
+    while (column < 2 && !can_conv) {
         if (temp_string.size() <= 0) temp_string = "0";
         value = temp_string.toInt(&can_conv);
         if (!can_conv)
@@ -334,10 +349,11 @@ void DCGroupBox::weatherCellChanged(int index)
     if (column == 0) {
         if (value < 0) value = 0;
         else if (value > 50) value = 50;
-    } else {
+    } else if (column == 1) {
         if (value < 0) value = 0;
         else if (value > 99) value = 99;
     }
 
     static_cast<QLineEdit*>(weather_table_->cellWidget(row,column))->setText(QString::number(value));
+
 }

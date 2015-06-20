@@ -31,6 +31,7 @@ private:
     array<int,3> car_power_;
     array<double,3> race_temperatures_;
     array<double,3> race_humidities_;
+    array<bool,3> race_weather_;
 
     QTableWidget* driver_table_;
     QTableWidget* car_lvl_table_;

@@ -1,5 +1,7 @@
 #include "strategytabwidget.h"
 
+#include <QLineEdit>
+
 StrategyTabWidget::StrategyTabWidget(QWidget *parent):
     QTabWidget(parent),
     practice_table_item_(0), add_practice_table_item_(0),
@@ -14,7 +16,7 @@ void StrategyTabWidget::init()
     add_practice_table_item_ = this->findChild<QTableWidget*>("add_practice_settings_table");
     max_settings_text_item_ = this->findChild<QLabel*>("max_settings_text");
     settings_text_item_ = this->findChild<QLabel*>("settings_text");
-    space_range_item_ = this->findChild<QPlainTextEdit*>("space_value");
+    space_range_item_ = this->findChild<QLineEdit*>("space_value");
     add_button_item_ = this->findChild<QPushButton*>("add_setting_button");
     comments_items_.fill(0);
     comments_items_.at(0) = this->findChild<QComboBox*>("wing_setting_combo_box");
@@ -24,11 +26,12 @@ void StrategyTabWidget::init()
     comments_items_.at(4) = this->findChild<QComboBox*>("suspension_setting_combo_box");
 
     // initializing fields
+
     for (int i = 0; i < add_practice_table_item_->columnCount(); ++i) {
-        add_practice_table_item_->setItem(0,i, new QTableWidgetItem());
-        add_practice_table_item_->item(0,i)->setText("500");
+        add_practice_table_item_->setCellWidget(0,i, new QLineEdit());
+        static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i))->setText("500");
     }
-    space_range_item_->setPlainText(QString::number(135));
+    space_range_item_->setText(QString::number(135));
     comments_.fill(0);
 }
 
@@ -46,19 +49,19 @@ void StrategyTabWidget::addButtonClicked()
     // adding add_practice_table values to settings table
     for (int i = 0; i < practice_table_item_->columnCount(); ++i) {
         //QTableWidgetItem temp_item = *temp_table_from->item(0,i);
-        practice_table_item_->setItem(row,i,new QTableWidgetItem(*add_practice_table_item_->item(0,i)));
+        practice_table_item_->setCellWidget(row,i, new QLabel(static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i))->text()));
     }
 
     // setting space value range
     bool is_valid_space = false;
-    double space = space_range_item_->toPlainText().toDouble(&is_valid_space);
+    double space = space_range_item_->text().toDouble(&is_valid_space);
     if (is_valid_space) {
         if (space < 0) space = 0;
         else if (space > 135) space = 135;
     } else space = 135;
 
     settingshandler_->setSpace(space);
-    space_range_item_->setPlainText(QString::number(space));
+    space_range_item_->setText(QString::number(space));
 
     // getting and transforming comments
     for (unsigned int i = 0; i < comments_items_.size(); ++i) {
@@ -91,9 +94,9 @@ void StrategyTabWidget::addButtonClicked()
     settings_text_item_->setText(settings_text);
 
     // updating fields for easier next usage
-    add_practice_table_item_->item(0,0)->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(0))));
+    static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,0))->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(0))));
     for (unsigned int i = 0; i < settingshandler_->getMaxSettings().size(); ++i) {
-        add_practice_table_item_->item(0,i+1)->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(i))));
+        static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i+1))->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(i))));
     }
 }
 
@@ -115,7 +118,7 @@ void StrategyTabWidget::settingChanged(QTableWidgetItem *item)
 void StrategyTabWidget::rangeChanged()
 {
     bool is_double = false;
-    double value = space_range_item_->toPlainText().toDouble(&is_double);
+    double value = space_range_item_->text().toDouble(&is_double);
 
     if (is_double) {
         if (value < 0) value = 0;
@@ -124,5 +127,5 @@ void StrategyTabWidget::rangeChanged()
         value = 0;
     }
 
-    space_range_item_->setPlainText(QString::number(value));
+    space_range_item_->setText(QString::number(value));
 }
