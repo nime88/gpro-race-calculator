@@ -38,9 +38,14 @@ public:
     void init();
 
     void setHandlers(std::shared_ptr<SettingsHandler> settingshandler) { settingshandler_ = settingshandler; }
+    void updateHandlers();
+
+    void loadSettings(const QString& soft_name, const QString& company_name);
+    void saveSettings(const QString& soft_name, const QString& company_name);
 
 public slots:
     void addButtonClicked();
+    void resetButtonClicked();
     void settingChanged(QTableWidgetItem* item);
     void rangeChanged();
 

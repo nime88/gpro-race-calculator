@@ -35,6 +35,102 @@ void StrategyTabWidget::init()
     comments_.fill(0);
 }
 
+void StrategyTabWidget::loadSettings(const QString &soft_name, const QString &company_name)
+{
+    QSettings settings(soft_name, company_name);
+
+    // first loading non moving stuff
+    QVariant range = settings.value("practice/settings/range", QVariant(135));
+    settingshandler_->setSpace(range.toDouble());
+    space_range_item_->setText(range.toString());
+
+    array<double,5> start_settings;
+    start_settings.at(0) = settings.value("practice/settings/wingsetting", QVariant(500)).toDouble();
+    start_settings.at(1) = settings.value("practice/settings/enginesetting", QVariant(500)).toDouble();
+    start_settings.at(2) = settings.value("practice/settings/brakessetting", QVariant(500)).toDouble();
+    start_settings.at(3) = settings.value("practice/settings/gearsetting", QVariant(500)).toDouble();
+    start_settings.at(4) = settings.value("practice/settings/suspensionsetting", QVariant(500)).toDouble();
+    settingshandler_->resetSettings(start_settings);
+
+    // then loading comments
+    std::vector< array<int,5> > comments;
+    int size = settings.beginReadArray("practice/settings/comments");
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+        array<int,5> tmp_com;
+        tmp_com.at(0) = settings.value("wing").toInt();
+        tmp_com.at(1) = settings.value("engine").toInt();
+        tmp_com.at(2) = settings.value("brakes").toInt();
+        tmp_com.at(3) = settings.value("gear").toInt();
+        tmp_com.at(4) = settings.value("suspension").toInt();
+        comments.push_back(tmp_com);
+    }
+
+    settings.endArray();
+
+    // setting and executing comments
+    for ( unsigned int i = 0; i < comments.size(); ++i) {
+        settingshandler_->setComments(comments.at(i));
+    }
+
+    settingshandler_->executeComments();
+
+    // generating settings and max settings texts
+    QString max_settings_text = "Max (" +
+            QString::number(std::floor(settingshandler_->getMaxSettings().at(0))) + ", "  +
+            QString::number(std::floor(settingshandler_->getMaxSettings().at(1))) + ", "  +
+            QString::number(std::floor(settingshandler_->getMaxSettings().at(2))) + ", "  +
+            QString::number(std::floor(settingshandler_->getMaxSettings().at(3))) + ", "  +
+            QString::number(std::floor(settingshandler_->getMaxSettings().at(4))) +
+            ")";
+    QString settings_text = "Settings (" +
+            QString::number(std::floor(settingshandler_->getSettings().at(0))) + ", "  +
+            QString::number(std::floor(settingshandler_->getSettings().at(1))) + ", "  +
+            QString::number(std::floor(settingshandler_->getSettings().at(2))) + ", "  +
+            QString::number(std::floor(settingshandler_->getSettings().at(3))) + ", "  +
+            QString::number(std::floor(settingshandler_->getSettings().at(4))) +
+            ")";
+
+    // assigning texts
+    max_settings_text_item_->setText(max_settings_text);
+    settings_text_item_->setText(settings_text);
+
+    // updating add item field
+    static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,0))->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(0))));
+    for (unsigned int i = 0; i < settingshandler_->getMaxSettings().size(); ++i) {
+        static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i+1))->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(i))));
+    }
+
+}
+
+void StrategyTabWidget::saveSettings(const QString &soft_name, const QString &company_name)
+{
+    QSettings settings(soft_name, company_name);
+
+    // saving range
+    QVariant range = space_range_item_->text();
+    settings.setValue("practice/settings/range", range);
+
+    // saving original settings
+    settings.setValue("practice/settings/wingsetting", QVariant(settingshandler_->getOriginalSettings().at(0)));
+    settings.setValue("practice/settings/enginesetting", QVariant(settingshandler_->getOriginalSettings().at(1)));
+    settings.setValue("practice/settings/brakessetting", QVariant(settingshandler_->getOriginalSettings().at(2)));
+    settings.setValue("practice/settings/gearsetting", QVariant(settingshandler_->getOriginalSettings().at(3)));
+    settings.setValue("practice/settings/suspensionsetting", QVariant(settingshandler_->getOriginalSettings().at(4)));
+
+    // saving current comments list
+    settings.remove("practice/settings/comments");
+    settings.beginWriteArray("practice/settings/comments");
+    for(unsigned int i = 0; i < settingshandler_->getComments().size(); ++i) {
+        settings.setValue("wing", QVariant(settingshandler_->getComments().at(i).at(0)));
+        settings.setValue("engine", QVariant(settingshandler_->getComments().at(i).at(1)));
+        settings.setValue("brakes", QVariant(settingshandler_->getComments().at(i).at(2)));
+        settings.setValue("gear", QVariant(settingshandler_->getComments().at(i).at(3)));
+        settings.setValue("suspension", QVariant(settingshandler_->getComments().at(i).at(4)));
+    }
+    settings.endArray();
+}
+
 void StrategyTabWidget::addButtonClicked()
 {
     // adding row into the previous settings table
@@ -98,6 +194,20 @@ void StrategyTabWidget::addButtonClicked()
     for (unsigned int i = 0; i < settingshandler_->getMaxSettings().size(); ++i) {
         static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i+1))->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(i))));
     }
+}
+
+void StrategyTabWidget::resetButtonClicked()
+{
+    // first resetting settings handler
+    settingshandler_->resetSpace();
+    array<double,5> reset = {500,500,500,500,500};
+    settingshandler_->resetSettings(reset);
+    settingshandler_->resetComments();
+
+    // then emptying gui
+    practice_table_item_->reset();
+    while(practice_table_item_->rowCount() > 0)
+        practice_table_item_->removeRow(0);
 }
 
 void StrategyTabWidget::settingChanged(QTableWidgetItem *item)

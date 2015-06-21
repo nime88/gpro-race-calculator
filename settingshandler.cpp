@@ -64,6 +64,7 @@ void SettingsHandler::resetSpace() {
 void SettingsHandler::resetSettings(const array<double,5> &settings) {
     if (settings.size() != 5) return;
 
+    original_settings = settings;
     settings_ = settings;
     max_settings_ = settings;
     min_settings_ = settings;

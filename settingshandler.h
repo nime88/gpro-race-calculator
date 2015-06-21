@@ -17,6 +17,7 @@ class SettingsHandler
 {
 private:
     // all settings should be immutable 5 slot arrays
+    array<double,5> original_settings;
     array<double,5> settings_;
     array<double,5> max_settings_;
     array<double,5> min_settings_;
@@ -43,12 +44,16 @@ public:
     inline const array<double,5>& getSpace() { return space_; }
     inline const array<double,5>& getSettings() { return settings_; }
     inline const array<double,5>& getMaxSettings() { return max_settings_; }
+    inline const array<double,5>& getOriginalSettings() { return original_settings; }
 
     // TODO test inlining this when correct functionality has been reached
     std::vector<double> getSettingsFromDiff(std::shared_ptr<Regressions> regressions,
                                             double temperature_diff);
-    inline void resetSpace();
-    inline void resetSettings(const array<double,5> &settings);
+    const std::vector< array<int,5> >& getComments() { return comments_; }
+
+    void resetSpace();
+    void resetSettings(const array<double,5> &settings);
+    void resetComments() { comments_.clear(); }
     const array<double, 5>& executeComments();
 };
 
