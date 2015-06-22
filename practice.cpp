@@ -1,13 +1,13 @@
 #include "practice.h"
 
-const array<QString,13> Practice::field_names_  = {"\"Practice\".\"Name (Track)\"", "\"Practice\".Season", "\"Practice\".\"Net Time\"",
-                                      "\"Practice\".\"Front Wing\"", "\"Practice\".\"Rear Wing\"", "\"Practice\".Engine",
-                                      "\"Practice\".Brakes", "\"Practice\".Gear", "\"Practice\".Suspension",
-                                      "\"Practice\".\"Tyre Type\"", "\"Practice\".Weather", "\"Practice\".Temperature",
-                                      "\"Practice\".Humidity"};
+const array<QString,12> Practice::field_names_  = {"Name (Track)", "Net Time",
+                                      "Front Wing", "Rear Wing", "Engine",
+                                      "Brakes", "Gear", "Suspension",
+                                      "Tyre Type", "Weather", "Temperature",
+                                      "Humidity"};
 
 Practice::Practice():
-    track_name_(QString("")), season_(0), time_(0), tyre_type_(QString("")),
+    track_name_(QString("")), time_(0), tyre_type_(QString("")),
     weather_(QString("")), temperature_(0), humidity_(0)
 
 {

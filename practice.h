@@ -20,11 +20,10 @@ enum PracticeSlots { PRACTICE_TRACK_NAME = 0, PRACTICE_NET_TIME, PRACTICE_FRONT_
 class Practice
 {
 private:
-    const static array<QString,13> field_names_;
+    const static array<QString,12> field_names_;
 
     // identifiers
     QString track_name_;
-    int season_;
 
     double time_;
     // settings
@@ -55,7 +54,7 @@ public:
     inline void setCar(std::shared_ptr<Car> car) { car_ = car; }
     inline void setDriver(std::shared_ptr<Driver> driver) { driver_ = driver; }
 
-    inline static const array<QString,13>& getColumnNames() { return field_names_; }
+    inline static const array<QString,12>& getColumnNames() { return field_names_; }
 };
 
 #endif // PRACTICE_H

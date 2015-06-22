@@ -47,8 +47,8 @@ public:
     inline const array<double,5>& getOriginalSettings() { return original_settings; }
 
     // TODO test inlining this when correct functionality has been reached
-    std::vector<double> getSettingsFromDiff(std::shared_ptr<Regressions> regressions,
-                                            double temperature_diff);
+    array<double, 5> getSettingsFromDiff(std::shared_ptr<Regressions> regressions,
+                                            double temperature_1, double temperature_2);
     const std::vector< array<int,5> >& getComments() { return comments_; }
 
     void resetSpace();

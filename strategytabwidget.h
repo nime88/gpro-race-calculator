@@ -11,22 +11,33 @@ using std::array;
 #include <QLineEdit>
 #include <QPushButton>
 #include <QComboBox>
+#include <QSignalMapper>
 
+#include "regressions.h"
 #include "settingshandler.h"
+#include "strategy.h"
+
 
 class StrategyTabWidget : public QTabWidget
 {
     Q_OBJECT
 
 private:
+    std::shared_ptr<Regressions> regressions_;
     std::shared_ptr<SettingsHandler> settingshandler_;
+    std::shared_ptr<Strategy> strategyhandler_;
 
     QTableWidget* practice_table_item_;
     QTableWidget* add_practice_table_item_;
     QLabel* max_settings_text_item_;
     QLabel* settings_text_item_;
+    QLabel* q1_settings_text_item_;
+    QLabel* q2_settings_text_item_;
+    QLabel* race_settings_text_item_;
     QLineEdit* space_range_item_;
     QPushButton* add_button_item_;
+
+    QSignalMapper* practice_signal_mapper_;
 
     array<QComboBox*, 5> comments_items_;
 
@@ -37,7 +48,13 @@ public:
 
     void init();
 
-    void setHandlers(std::shared_ptr<SettingsHandler> settingshandler) { settingshandler_ = settingshandler; }
+    void setHandlers(std::shared_ptr<Regressions> regressions,
+                     std::shared_ptr<SettingsHandler> settingshandler,
+                     std::shared_ptr<Strategy> strategyhandler) {
+        settingshandler_ = settingshandler;
+        regressions_ = regressions;
+        strategyhandler_ = strategyhandler;
+    }
     void updateHandlers();
 
     void loadSettings(const QString& soft_name, const QString& company_name);
@@ -46,8 +63,8 @@ public:
 public slots:
     void addButtonClicked();
     void resetButtonClicked();
-    void settingChanged(QTableWidgetItem* item);
     void rangeChanged();
+    void cellChanged(int column);
 
 };
 

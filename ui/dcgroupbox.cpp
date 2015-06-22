@@ -8,6 +8,8 @@ DCGroupBox::DCGroupBox(QWidget *parent):
     QGroupBox(parent),
     driver_handler_(0),
     car_handler_(0),
+    track_handler_(0),
+    strategy_handler_(0),
     driver_table_(0),
     car_lvl_table_(0),
     car_stats_table_(0)
@@ -100,6 +102,11 @@ void DCGroupBox::updateHandlers()
         car_handler_->setLvls(car_lvl_);
         car_handler_->setWears(car_wear_);
         car_handler_->setStats(car_power_);
+    }
+
+    if (strategy_handler_ != 0) {
+        strategy_handler_->setTemperatures(race_temperatures_);
+        strategy_handler_->setHumidities(race_humidities_);
     }
 }
 

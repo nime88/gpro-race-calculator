@@ -1,11 +1,11 @@
 #include "driver.h"
-const array<QString,12> Driver::driver_field_names_ = {
-       "Driver.\"Name (Track)\"", "Driver.Season", "Driver.Overall", "Driver.Concentration",
-       "Driver.Talent", "Driver.Aggresiveness", "Driver.Experience", "Driver.\"Tech. Insight\"",
-       "Driver.Stamina", "Driver.Charisma", "Driver.Motivation", "Driver.Weight"
+const array<QString,11> Driver::driver_field_names_ = {
+       "Name (Track)", "Overall", "Concentration",
+       "Talent", "Aggresiveness", "Experience", "Tech. Insight",
+       "Stamina", "Charisma", "Motivation", "Weight"
    };
 
-Driver::Driver(): track_(""), season_(0)
+Driver::Driver(): track_("")
 {
     stats_.fill(0);
 }
@@ -14,7 +14,6 @@ void Driver::setMiscValue(DriverMiscSlots slot, const QVariant& value)
 {
     switch (slot) {
     case DRIVER_TRACK_NAME: track_ = value.toString(); break;
-    case DRIVER_SEASON: season_ = value.toInt(); break;
     default:
         break;
     }

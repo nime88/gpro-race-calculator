@@ -11,10 +11,12 @@
 #include "driverhandler.h"
 #include "carhandler.h"
 #include "trackhandler.h"
+#include "strategy.h"
 
 class DriverHandler;
 class CarHandler;
 class TrackHandler;
+class Strategy;
 
 class DCGroupBox : public QGroupBox
 {
@@ -24,6 +26,7 @@ private:
     std::shared_ptr<DriverHandler> driver_handler_;
     std::shared_ptr<CarHandler> car_handler_;
     std::shared_ptr<TrackHandler> track_handler_;
+    std::shared_ptr<Strategy> strategy_handler_;
 
     array<int, 9> driver_stats;
     array<int,11> car_lvl_;
@@ -50,10 +53,12 @@ public:
 
     void setHandlers(std::shared_ptr<DriverHandler> driver_handler,
                      std::shared_ptr<CarHandler> car_handler,
-                     std::shared_ptr<TrackHandler> track_handler) {
+                     std::shared_ptr<TrackHandler> track_handler,
+                     std::shared_ptr<Strategy> strategy_handler) {
         driver_handler_ = driver_handler;
         car_handler_ = car_handler;
         track_handler_ = track_handler;
+        strategy_handler_ = strategy_handler;
     }
 
     // FULLY updates the handlers to be up to date
