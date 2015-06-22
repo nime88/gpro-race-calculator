@@ -9,8 +9,8 @@ using std::array;
 #include <QLabel>
 #include <QComboBox>
 
-#include "track.h"
-#include "trackgroupbox.h"
+#include "core/track.h"
+#include "ui/trackgroupbox.h"
 #include "databasehandler.h"
 
 class TrackGroupBox;

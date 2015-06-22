@@ -6,7 +6,7 @@
 #include <QWidget>
 #include <QTableWidgetItem>
 
-#include "trackgroupbox.h"
+#include "ui/trackgroupbox.h"
 
 class TrackGroupBox;
 

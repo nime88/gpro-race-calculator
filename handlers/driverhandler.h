@@ -9,7 +9,7 @@ using std::array;
 #include <QPlainTextEdit>
 
 #include "ui/dcgroupbox.h"
-#include "driver.h"
+#include "core/driver.h"
 
 class DCGroupBox;
 

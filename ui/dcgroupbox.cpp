@@ -1,4 +1,4 @@
-#include "dcgroupbox.h"
+#include "ui/dcgroupbox.h"
 
 #include <QLineEdit>
 #include <QCheckBox>

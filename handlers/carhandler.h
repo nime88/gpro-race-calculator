@@ -9,7 +9,7 @@ using std::array;
 #include <QTableWidgetItem>
 
 #include "ui/dcgroupbox.h"
-#include "car.h"
+#include "core/car.h"
 
 class DCGroupBox;
 

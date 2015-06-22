@@ -1,4 +1,4 @@
-#include "practice.h"
+#include "core/practice.h"
 
 const array<QString,12> Practice::field_names_  = {"Name (Track)", "Net Time",
                                       "Front Wing", "Rear Wing", "Engine",

@@ -8,10 +8,10 @@
 #include <QSignalMapper>
 #include <QSettings>
 
-#include "driverhandler.h"
-#include "carhandler.h"
-#include "trackhandler.h"
-#include "strategy.h"
+#include "handlers/driverhandler.h"
+#include "handlers/carhandler.h"
+#include "handlers/trackhandler.h"
+#include "handlers/strategy.h"
 
 class DriverHandler;
 class CarHandler;

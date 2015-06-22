@@ -11,8 +11,8 @@ using std::array;
 #include <QTableWidgetItem>
 #include "mainwindow.h"
 
-#include "track.h"
-#include "strategy.h"
+#include "core/track.h"
+#include "handlers/strategy.h"
 
 class Strategy;
 

@@ -1,4 +1,4 @@
-#include "driverhandler.h"
+#include "handlers/driverhandler.h"
 
 DriverHandler::DriverHandler() : driver_(new Driver), dc_group_box_(0)
 {

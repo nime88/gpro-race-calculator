@@ -8,9 +8,9 @@
 #include <array>
 using std::array;
 
-#include "track.h"
-#include "car.h"
-#include "driver.h"
+#include "core/track.h"
+#include "core/car.h"
+#include "core/driver.h"
 
 enum PracticeSlots { PRACTICE_TRACK_NAME = 0, PRACTICE_NET_TIME, PRACTICE_FRONT_WING, PRACTICE_REAR_WING,
                       PRACTICE_ENGINE, PRACTICE_BRAKES, PRACTICE_GEAR, PRACTICE_SUSPENSION, PRACTICE_TYRE_TYPE,

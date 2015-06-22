@@ -13,9 +13,9 @@ using std::array;
 #include <QComboBox>
 #include <QSignalMapper>
 
-#include "regressions.h"
-#include "settingshandler.h"
-#include "strategy.h"
+#include "utility/regressions.h"
+#include "handlers/settingshandler.h"
+#include "handlers/strategy.h"
 
 
 class StrategyTabWidget : public QTabWidget

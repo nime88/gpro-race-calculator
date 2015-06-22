@@ -1,4 +1,4 @@
-#include "strategy.h"
+#include "handlers/strategy.h"
 
 #include <QTableWidget>
 

@@ -1,4 +1,4 @@
-#include "strategytabwidget.h"
+#include "ui/strategytabwidget.h"
 
 #include <QLineEdit>
 

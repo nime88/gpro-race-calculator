@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "ui/mainwindow.h"
 #include "ui_mainwindow.h"
 #include "filemenu.h"
 
@@ -7,7 +7,7 @@
 #include <cmath>
 #include <memory>
 
-#include "track.h"
+#include "core/track.h"
 
 const QString ProgramName = "GproRaceCalculator";
 const QString CompanyName = "Tasogare Soft";

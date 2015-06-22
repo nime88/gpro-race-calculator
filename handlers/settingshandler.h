@@ -6,7 +6,7 @@
 using std::array;
 
 #include "databasehandler.h"
-#include "regressions.h"
+#include "utility/regressions.h"
 
 // normal usage order of the class is setting space first (important)
 // then setting comments and finally executing the comments

@@ -6,13 +6,13 @@
 #include <QSettings>
 #include <QLineEdit>
 
-#include "driverhandler.h"
+#include "handlers/driverhandler.h"
 #include "databasehandler.h"
-#include "settingshandler.h"
-#include "regressions.h"
-#include "strategy.h"
-#include "carhandler.h"
-#include "trackhandler.h"
+#include "handlers/settingshandler.h"
+#include "utility/regressions.h"
+#include "handlers/strategy.h"
+#include "handlers/carhandler.h"
+#include "handlers/trackhandler.h"
 
 class Strategy;
 class TrackHandler;

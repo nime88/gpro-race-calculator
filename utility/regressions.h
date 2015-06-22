@@ -4,7 +4,7 @@
 #include <vector>
 #include <memory>
 
-#include "practice.h"
+#include "core/practice.h"
 #include "databasehandler.h"
 
 #include <gsl/gsl_matrix.h>

@@ -1,8 +1,9 @@
-#include "settingshandler.h"
+#include "handlers/settingshandler.h"
 
 #include<iostream>
 #include<cmath>
-#include "regressions.h"
+
+#include "utility/regressions.h"
 
 SettingsHandler::SettingsHandler()
 {

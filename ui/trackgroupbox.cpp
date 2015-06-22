@@ -1,4 +1,4 @@
-#include "trackgroupbox.h"
+#include "ui/trackgroupbox.h"
 
 bool trackCompare (std::shared_ptr<Track> track_1, std::shared_ptr<Track> track_2) {
     if (track_1->getTrackQString(TRACK_NAME) < track_2->getTrackQString(TRACK_NAME)) return true;
