@@ -28,10 +28,9 @@ SOURCES += main.cpp\
     driver.cpp \
     practicehandler.cpp \
     trackhandler.cpp \
-    drivergroupbox.cpp \
     trackgroupbox.cpp \
-    ui/cargroupbox.cpp \
-    strategytabwidget.cpp
+    strategytabwidget.cpp \
+    ui/dcgroupbox.cpp
 
 HEADERS  += mainwindow.h \
     driverhandler.h \
@@ -47,10 +46,9 @@ HEADERS  += mainwindow.h \
     driver.h \
     practicehandler.h \
     trackhandler.h \
-    drivergroupbox.h \
     trackgroupbox.h \
-    ui/cargroupbox.h \
-    strategytabwidget.h
+    strategytabwidget.h \
+    ui/dcgroupbox.h
 
 FORMS    += mainwindow.ui
 
@@ -58,3 +56,5 @@ LIBS += `gsl-config --cflags --libs`
 
 QMAKE_CXXFLAGS += -std=c++11 -O3 `pkg-config --libs gsl`
 `
+
+RESOURCES +=
