@@ -28,36 +28,36 @@ array<double,5> SettingsHandler::getSettingsFromDiff(std::shared_ptr<Regressions
 {
     // getting all the settings from the regressions class
     double settings_diff_wing = 0;
-    settings_diff_wing = regressions->getWingSetting(Weather::WEATHER_DRY,
+    settings_diff_wing = regressions->getWingSetting(Weather(""),
                                                      temperature_2,0,0,0,0,0);
-    settings_diff_wing -= regressions->getWingSetting(Weather::WEATHER_DRY,
+    settings_diff_wing -= regressions->getWingSetting(Weather(""),
                                                       temperature_1,0,0,0,0,0);
     double settings_diff_engine = 0;
-    settings_diff_engine = regressions->getEngineSetting(Weather::WEATHER_DRY,
+    settings_diff_engine = regressions->getEngineSetting(Weather(""),
                                                           temperature_2,0,0,0,0);
-    settings_diff_engine -= regressions->getEngineSetting(Weather::WEATHER_DRY,
+    settings_diff_engine -= regressions->getEngineSetting(Weather(""),
                                                           temperature_1,0,0,0,0);
     double settings_diff_gear = 0;
-    settings_diff_gear = regressions->getGearSetting(Weather::WEATHER_DRY,
+    settings_diff_gear = regressions->getGearSetting(Weather(""),
                                                       temperature_2,0,
-                                                      Downforce::DOWNFORCE_MEDIUM, Suspension::SUSPENSION_MEDIUM,
-                                                     Grip::GRIP_MEDIUM);
-    settings_diff_gear -= regressions->getGearSetting(Weather::WEATHER_DRY,
+                                                      Downforce(""), Suspension(""),
+                                                     Grip(""));
+    settings_diff_gear -= regressions->getGearSetting(Weather(""),
                                                       temperature_1,0,
-                                                      Downforce::DOWNFORCE_MEDIUM, Suspension::SUSPENSION_MEDIUM,
-                                                     Grip::GRIP_MEDIUM);
+                                                      Downforce(""), Suspension(""),
+                                                     Grip(""));
     double settings_diff_brakes = 0;
-    settings_diff_brakes = regressions->getBrakeSetting(Weather::WEATHER_DRY,
-                                                         temperature_2,0,Downforce::DOWNFORCE_MEDIUM,
-                                                         Suspension::SUSPENSION_MEDIUM,Grip::GRIP_MEDIUM);
-    settings_diff_brakes -= regressions->getBrakeSetting(Weather::WEATHER_DRY,
-                                                         temperature_1,0,Downforce::DOWNFORCE_MEDIUM,
-                                                         Suspension::SUSPENSION_MEDIUM,Grip::GRIP_MEDIUM);
+    settings_diff_brakes = regressions->getBrakeSetting(Weather(""),
+                                                         temperature_2,0,Downforce(""),
+                                                         Suspension(""),Grip(""));
+    settings_diff_brakes -= regressions->getBrakeSetting(Weather(""),
+                                                         temperature_1,0,Downforce(""),
+                                                         Suspension(""),Grip(""));
     double settings_diff_suspension = 0;
-    settings_diff_suspension = regressions->getSuspensionSetting(Weather::WEATHER_DRY,
-                                                                 temperature_2, Suspension::SUSPENSION_MEDIUM, 0);
-    settings_diff_suspension -= regressions->getSuspensionSetting(Weather::WEATHER_DRY,
-                                                                 temperature_1, Suspension::SUSPENSION_MEDIUM, 0);
+    settings_diff_suspension = regressions->getSuspensionSetting(Weather(""),
+                                                                 temperature_2, Suspension(""), 0);
+    settings_diff_suspension -= regressions->getSuspensionSetting(Weather(""),
+                                                                 temperature_1, Suspension(""), 0);
 
     // then calculating difference to normal settings
     array<double,5> temp_array;

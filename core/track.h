@@ -10,6 +10,13 @@ using std::array;
 #include <QLabel>
 #include <QVariant>
 
+#include <types/downforce.h>
+#include <types/suspension.h>
+#include <types/grip.h>
+#include <types/overtaking.h>
+#include <types/fuelconsumption.h>
+#include <types/tyrewear.h>
+
 enum TrackSlots { TRACK_LAPS = 0, TRACK_DISTANCE, TRACK_POWER, TRACK_HANDLING,
                   TRACK_ACCELERATION, TRACK_DOWNFORCE, TRACK_OVERTAKING, TRACK_SUSPENSION,
                   TRACK_FUEL_CONSUMPTION, TRACK_TYRE_WEAR, TRACK_AVG_SPEED, TRACK_LAP_LENGTH,
@@ -26,15 +33,15 @@ private:
     int power_;
     int handling_;
     int acceleration_;
-    QString downforce_;
-    QString overtaking_;
-    QString suspension_;
-    QString fuel_consumption_;
-    QString tyre_wear_;
+    Downforce downforce_;
+    Overtaking overtaking_;
+    Suspension suspension_;
+    FuelConsumption fuel_consumption_;
+    TyreWear tyre_wear_;
     double avg_speed_;
     double lap_length_;
     int corners_;
-    QString grip_;
+    Grip grip_;
     double pit_stop_;
 
     Track(const Track&);
@@ -52,15 +59,15 @@ public:
             case TRACK_POWER: return QString::number(power_);
             case TRACK_HANDLING: return QString::number(handling_);
             case TRACK_ACCELERATION: return QString::number(acceleration_);
-            case TRACK_DOWNFORCE: return QString(downforce_);
-            case TRACK_OVERTAKING: return QString(overtaking_);
-            case TRACK_SUSPENSION: return QString(suspension_);
-            case TRACK_FUEL_CONSUMPTION: return QString(fuel_consumption_);
-            case TRACK_TYRE_WEAR: return QString(tyre_wear_);
+            case TRACK_DOWNFORCE: return downforce_.asString();
+            case TRACK_OVERTAKING: return overtaking_.asString();
+            case TRACK_SUSPENSION: return suspension_.asString();
+            case TRACK_FUEL_CONSUMPTION: return fuel_consumption_.asString();
+            case TRACK_TYRE_WEAR: return tyre_wear_.asString();
             case TRACK_AVG_SPEED: return QString::number(avg_speed_);
             case TRACK_LAP_LENGTH: return QString::number(lap_length_);
             case TRACK_CORNERS: return QString::number(corners_);
-            case TRACK_GRIP: return QString(grip_);
+            case TRACK_GRIP: return grip_.asString();
             case TRACK_PIT_STOP: return QString::number(pit_stop_);
         default: break;
         }

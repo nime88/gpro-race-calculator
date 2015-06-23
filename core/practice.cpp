@@ -26,7 +26,7 @@ std::shared_ptr<PracticeType> Practice::getValues() {
     temp_v_vec->gear = settings_.at(4);
     temp_v_vec->suspension = settings_.at(5);
     temp_v_vec->tyre_type = tyre_type_;
-    temp_v_vec->weather = (weather_ == "Dry" ? WEATHER_DRY : WEATHER_WET);
+    temp_v_vec->weather = weather_;
     temp_v_vec->temperature = temperature_;
     temp_v_vec->humidity = humidity_;
 
@@ -34,25 +34,11 @@ std::shared_ptr<PracticeType> Practice::getValues() {
     temp_v_vec->track_power = track_->getTrackQString(TrackSlots::TRACK_POWER).toInt();
     temp_v_vec->track_handling = track_->getTrackQString(TrackSlots::TRACK_HANDLING).toInt();
     temp_v_vec->track_acceleration = track_->getTrackQString(TrackSlots::TRACK_ACCELERATION).toInt();
-    Downforce df;
-    if (track_->getTrackQString(TrackSlots::TRACK_DOWNFORCE) == "Low") df = DOWNFORCE_LOW;
-    else if (track_->getTrackQString(TrackSlots::TRACK_DOWNFORCE) == "High") df = DOWNFORCE_HIGH;
-    else df = DOWNFORCE_MEDIUM;
-    temp_v_vec->track_downforce = df;
-    Suspension susp;
-    if (track_->getTrackQString(TrackSlots::TRACK_SUSPENSION) == "Soft") susp = SUSPENSION_SOFT;
-    else if (track_->getTrackQString(TrackSlots::TRACK_SUSPENSION) == "Hard") susp = SUSPENSION_HARD;
-    else susp = SUSPENSION_MEDIUM;
-    temp_v_vec->track_suspension = susp;
+    temp_v_vec->track_downforce = Downforce(track_->getTrackQString(TrackSlots::TRACK_DOWNFORCE));
+    temp_v_vec->track_suspension = Suspension(track_->getTrackQString(TrackSlots::TRACK_SUSPENSION));
     temp_v_vec->lap_length = track_->getTrackQString(TrackSlots::TRACK_LAP_LENGTH).toDouble();
     temp_v_vec->corners = track_->getTrackQString(TrackSlots::TRACK_CORNERS).toInt();
-    Grip grippi;
-    if (track_->getTrackQString(TrackSlots::TRACK_GRIP) == "Very low") grippi = GRIP_VERY_LOW;
-    else if (track_->getTrackQString(TrackSlots::TRACK_GRIP) == "Low") grippi = GRIP_LOW;
-    else if (track_->getTrackQString(TrackSlots::TRACK_GRIP) == "High") grippi = GRIP_HIGH;
-    else if (track_->getTrackQString(TrackSlots::TRACK_GRIP) == "Very high") grippi = GRIP_VERY_HIGH;
-    else grippi = GRIP_MEDIUM;
-    temp_v_vec->grip = grippi;
+    temp_v_vec->grip = Grip(track_->getTrackQString(TrackSlots::TRACK_GRIP));
 
     // from car
     temp_v_vec->car_power = car_->getStat(CAR_POWER);
@@ -104,8 +90,8 @@ void Practice::setValue(PracticeSlots slot, const QVariant& value)
         case PRACTICE_SUSPENSION: settings_.at(5) = value.toInt();  break;
         case PRACTICE_TEMPERATURE: temperature_ = value.toInt();  break;
         case PRACTICE_TRACK_NAME: break;
-        case PRACTICE_TYRE_TYPE: tyre_type_ = value.toString();  break;
-        case PRACTICE_WEATHER: weather_ = value.toString();  break;
+        case PRACTICE_TYRE_TYPE: tyre_type_ = Tyre(value.toString());  break;
+        case PRACTICE_WEATHER: weather_ = Weather(value.toString());  break;
     default:
         break;
     }

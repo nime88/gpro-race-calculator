@@ -31,7 +31,16 @@ SOURCES += main.cpp\
     ui/trackgroupbox.cpp \
     ui/strategytabwidget.cpp \
     ui/dcgroupbox.cpp \
-    core/stint.cpp
+    core/stint.cpp \
+    types/tyre.cpp \
+    types/weather.cpp \
+    types/downforce.cpp \
+    types/grip.cpp \
+    types/suspension.cpp \
+    types/overtaking.cpp \
+    types/fuelconsumption.cpp \
+    types/tyrewear.cpp \
+    types/practicetype.cpp
 
 HEADERS  += ui/mainwindow.h \
     handlers/driverhandler.h \
@@ -39,7 +48,6 @@ HEADERS  += ui/mainwindow.h \
     core/track.h \
     handlers/settingshandler.h \
     core/practice.h \
-    practicetype.h \
     utility/regressions.h \
     handlers/strategy.h \
     handlers/carhandler.h \
@@ -50,7 +58,16 @@ HEADERS  += ui/mainwindow.h \
     ui/trackgroupbox.h \
     ui/strategytabwidget.h \
     ui/dcgroupbox.h \
-    core/stint.h
+    core/stint.h \
+    types/tyre.h \
+    types/weather.h \
+    types/downforce.h \
+    types/grip.h \
+    types/suspension.h \
+    types/overtaking.h \
+    types/fuelconsumption.h \
+    types/tyrewear.h \
+    types/practicetype.h
 
 FORMS    += mainwindow.ui
 

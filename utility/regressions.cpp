@@ -41,7 +41,7 @@ void Regressions::calculateWingSetting()
     //putting the data into X matrix
     for (unsigned int i = 0; i < N; ++i) {
         gsl_matrix_set(X, i, 0,
-                       static_cast<double>(practice_data_.at(i)->getValues()->weather)); // weather
+                       practice_data_.at(i)->getValues()->weather.asDouble()); // weather
         gsl_matrix_set(X, i, 1,
                        static_cast<double>(practice_data_.at(i)->getValues()->temperature)); // temperature
         gsl_matrix_set(X, i, 2,
@@ -107,7 +107,7 @@ void Regressions::calculateEngineSetting()
     //putting the data into X matrix
     for (unsigned int i = 0; i < N; ++i) {
         gsl_matrix_set(X, i, 0,
-                       static_cast<double>(practice_data_.at(i)->getValues()->weather)); // weather
+                      practice_data_.at(i)->getValues()->weather.asDouble()); // weather
         gsl_matrix_set(X, i, 1,
                        static_cast<double>(practice_data_.at(i)->getValues()->temperature)); // temperature
         gsl_matrix_set(X, i, 2,
@@ -169,17 +169,17 @@ void Regressions::calculateGearSetting()
     //putting the data into X matrix
     for (unsigned int i = 0; i < N; ++i) {
         gsl_matrix_set(X, i, 0,
-                       static_cast<double>(practice_data_.at(i)->getValues()->weather)); // weather
+                       practice_data_.at(i)->getValues()->weather.asDouble()); // weather
         gsl_matrix_set(X, i, 1,
                        static_cast<double>(practice_data_.at(i)->getValues()->temperature)); // temperature
         gsl_matrix_set(X, i, 2,
                        static_cast<double>(practice_data_.at(i)->getValues()->car_gearbox_lvl)); // car gearbox lvl
         gsl_matrix_set(X, i, 3,
-                       static_cast<double>(practice_data_.at(i)->getValues()->track_downforce)); // track downforce
+                       practice_data_.at(i)->getValues()->track_downforce.asDouble()); // track downforce
         gsl_matrix_set(X, i, 4,
-                       static_cast<double>(practice_data_.at(i)->getValues()->track_suspension)); // track suspension
+                       practice_data_.at(i)->getValues()->track_suspension.asDouble()); // track suspension
         gsl_matrix_set(X, i, 5,
-                       static_cast<double>(practice_data_.at(i)->getValues()->grip)); // grip
+                       practice_data_.at(i)->getValues()->grip.asDouble()); // grip
     }
 
     // fill vector of observed data
@@ -231,17 +231,17 @@ void Regressions::calculateBrakeSetting()
     //putting the data into X matrix
     for (unsigned int i = 0; i < N; ++i) {
         gsl_matrix_set(X, i, 0,
-                       static_cast<double>(practice_data_.at(i)->getValues()->weather)); // weather
+                       practice_data_.at(i)->getValues()->weather.asDouble()); // weather
         gsl_matrix_set(X, i, 1,
                        static_cast<double>(practice_data_.at(i)->getValues()->temperature)); // temperature
         gsl_matrix_set(X, i, 2,
                        static_cast<double>(practice_data_.at(i)->getValues()->car_brakes_lvl)); // car brakes lvl
         gsl_matrix_set(X, i, 3,
-                       static_cast<double>(practice_data_.at(i)->getValues()->track_downforce)); // track downforce
+                       practice_data_.at(i)->getValues()->track_downforce.asDouble()); // track downforce
         gsl_matrix_set(X, i, 4,
-                       static_cast<double>(practice_data_.at(i)->getValues()->track_suspension)); // track suspension
+                       practice_data_.at(i)->getValues()->track_suspension.asDouble()); // track suspension
         gsl_matrix_set(X, i, 5,
-                       static_cast<double>(practice_data_.at(i)->getValues()->grip)); // grip
+                       practice_data_.at(i)->getValues()->grip.asDouble()); // grip
     }
 
     // fill vector of observed data
@@ -293,11 +293,11 @@ void Regressions::calculateSuspensionSetting()
     //putting the data into X matrix
     for (unsigned int i = 0; i < N; ++i) {
         gsl_matrix_set(X, i, 0,
-                       static_cast<double>(practice_data_.at(i)->getValues()->weather)); // weather
+                       practice_data_.at(i)->getValues()->weather.asDouble()); // weather
         gsl_matrix_set(X, i, 1,
                        static_cast<double>(practice_data_.at(i)->getValues()->temperature)); // temperature
         gsl_matrix_set(X, i, 2,
-                       static_cast<double>(practice_data_.at(i)->getValues()->track_suspension)); // track suspension
+                       practice_data_.at(i)->getValues()->track_suspension.asDouble()); // track suspension
         gsl_matrix_set(X, i, 3,
                        static_cast<double>(practice_data_.at(i)->getValues()->car_suspension_lvl)); // car suspension
     }
@@ -344,7 +344,7 @@ int Regressions::getWingSetting(const Weather &weather, const int &temperature,
 
 
     double result = 0.0;
-    result += gsl_vector_get(wing_setting_cofactors_, 0) * static_cast<double>(weather);
+    result += gsl_vector_get(wing_setting_cofactors_, 0) * weather.asDouble();
     result += gsl_vector_get(wing_setting_cofactors_, 1) * static_cast<double>(temperature);
     result += gsl_vector_get(wing_setting_cofactors_, 2) * static_cast<double>(track_handling);
     result += gsl_vector_get(wing_setting_cofactors_, 3) * static_cast<double>(corners);
@@ -364,7 +364,7 @@ int Regressions::getEngineSetting(const Weather &weather, const int &temperature
     if (engine_setting_cofactors_ == 0) return 0;
 
     double result = 0.0;
-    result += gsl_vector_get(engine_setting_cofactors_, 0) * static_cast<double>(weather);
+    result += gsl_vector_get(engine_setting_cofactors_, 0) * weather.asDouble();
     result += gsl_vector_get(engine_setting_cofactors_, 1) * static_cast<double>(temperature);
     result += gsl_vector_get(engine_setting_cofactors_, 2) * static_cast<double>(track_power);
     result += gsl_vector_get(engine_setting_cofactors_, 3) * static_cast<double>(corners);
@@ -384,12 +384,12 @@ int Regressions::getGearSetting(const Weather &weather, const int &temperature, 
     if (gear_setting_cofactors_ == 0) return 0;
 
     double result = 0.0;
-    result += gsl_vector_get(gear_setting_cofactors_, 0) * static_cast<double>(weather);
+    result += gsl_vector_get(gear_setting_cofactors_, 0) * weather.asDouble();
     result += gsl_vector_get(gear_setting_cofactors_, 1) * static_cast<double>(temperature);
     result += gsl_vector_get(gear_setting_cofactors_, 2) * static_cast<double>(car_gearbox_lvl);
-    result += gsl_vector_get(gear_setting_cofactors_, 3) * static_cast<double>(track_downforce);
-    result += gsl_vector_get(gear_setting_cofactors_, 4) * static_cast<double>(track_suspension);
-    result += gsl_vector_get(gear_setting_cofactors_, 5) * static_cast<double>(grip);
+    result += gsl_vector_get(gear_setting_cofactors_, 3) * track_downforce.asDouble();
+    result += gsl_vector_get(gear_setting_cofactors_, 4) * track_suspension.asDouble();
+    result += gsl_vector_get(gear_setting_cofactors_, 5) * grip.asDouble();
 
     int final_result = std::round(result);
 
@@ -404,12 +404,12 @@ int Regressions::getBrakeSetting(const Weather &weather, const int &temperature,
     if (brake_setting_cofactors_ == 0) return 0;
 
     double result = 0.0;
-    result += gsl_vector_get(brake_setting_cofactors_, 0) * static_cast<double>(weather);
+    result += gsl_vector_get(brake_setting_cofactors_, 0) * weather.asDouble();
     result += gsl_vector_get(brake_setting_cofactors_, 1) * static_cast<double>(temperature);
     result += gsl_vector_get(brake_setting_cofactors_, 2) * static_cast<double>(car_brakes_lvl);
-    result += gsl_vector_get(brake_setting_cofactors_, 3) * static_cast<double>(track_downforce);
-    result += gsl_vector_get(brake_setting_cofactors_, 4) * static_cast<double>(track_suspension);
-    result += gsl_vector_get(brake_setting_cofactors_, 5) * static_cast<double>(grip);
+    result += gsl_vector_get(brake_setting_cofactors_, 3) * track_downforce.asDouble();
+    result += gsl_vector_get(brake_setting_cofactors_, 4) * track_suspension.asDouble();
+    result += gsl_vector_get(brake_setting_cofactors_, 5) * grip.asDouble();
 
     int final_result = std::round(result);
 
@@ -423,9 +423,9 @@ int Regressions::getSuspensionSetting(const Weather &weather, const int &tempera
     if (suspension_setting_cofactors_ == 0) return 0;
 
     double result = 0.0;
-    result += gsl_vector_get(suspension_setting_cofactors_, 0) * static_cast<double>(weather);
+    result += gsl_vector_get(suspension_setting_cofactors_, 0) * weather.asDouble();
     result += gsl_vector_get(suspension_setting_cofactors_, 1) * static_cast<double>(temperature);
-    result += gsl_vector_get(suspension_setting_cofactors_, 2) * static_cast<double>(track_suspension);
+    result += gsl_vector_get(suspension_setting_cofactors_, 2) * track_suspension.asDouble();
     result += gsl_vector_get(suspension_setting_cofactors_, 3) * static_cast<double>(car_suspension_lvl);
 
     int final_result = std::round(result);
