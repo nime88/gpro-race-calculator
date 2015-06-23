@@ -33,6 +33,10 @@ public:
 
     ~MainWindow();
 
+    // reloads everything
+    void updateDBDependentUI();
+    void fullUpdate();
+
 private slots:
     void on_actionQuit_2_triggered();
 

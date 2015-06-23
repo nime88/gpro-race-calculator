@@ -6,7 +6,10 @@
 #include <QDialog>
 #include <QString>
 
+#include <ui/mainwindow.h>
 #include <databasehandler.h>
+
+class MainWindow;
 
 namespace Ui {
 class DatabaseSettingsDialog;
@@ -17,16 +20,18 @@ class DatabaseSettingsDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit DatabaseSettingsDialog(std::shared_ptr<DatabaseHandler> dbhandler, QWidget *parent = 0);
+    explicit DatabaseSettingsDialog(MainWindow *parent = 0);
     ~DatabaseSettingsDialog();
 
-    void loadSettings(const QString &soft_name, const QString &company_name);
-    void saveSettings(const QString &soft_name, const QString &company_name);
+    void loadSettings();
+    void saveSettings();
+
+private slots:
+    void on_buttonBox_accepted();
 
 private:
     Ui::DatabaseSettingsDialog *ui;
-
-    std::shared_ptr<DatabaseHandler> dbhandler_;
+    MainWindow* parent_;
 };
 
 #endif // DATABASESETTINGSDIALOG_H

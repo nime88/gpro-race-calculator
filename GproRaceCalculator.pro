@@ -69,7 +69,8 @@ HEADERS  += ui/mainwindow.h \
     types/fuelconsumption.h \
     types/tyrewear.h \
     types/practicetype.h \
-    ui/databasesettingsdialog.h
+    ui/databasesettingsdialog.h \
+    utility/constants.h
 
 FORMS    += mainwindow.ui \
     ui/databasesettingsdialog.ui

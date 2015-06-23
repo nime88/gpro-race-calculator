@@ -8,9 +8,7 @@
 #include <memory>
 
 #include "core/track.h"
-
-const QString ProgramName = "GproRaceCalculator";
-const QString CompanyName = "Tasogare Soft";
+#include <utility/constants.h>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -24,6 +22,25 @@ MainWindow::MainWindow(QWidget *parent) :
      trackhandler_(new TrackHandler)
 {
     ui_->setupUi(this);
+    fullUpdate();
+}
+
+MainWindow::~MainWindow() {}
+
+void MainWindow::updateDBDependentUI()
+{
+    // initializes driver fields (however at the time of writing should not directly to anything)
+    trackhandler_->initFields(ui_->track_group_box, dbhandler_);
+
+    // setting tracks
+    trackhandler_->setTracks(dbhandler_);
+
+    regressionhandler_->setPracticeData(dbhandler_->getPracticeData());
+    regressionhandler_->calculateAllRegressionCofactors();
+}
+
+void MainWindow::fullUpdate()
+{
     ui_->dc_group_box->init();
     ui_->dc_group_box->setHandlers(driverhandler_, carhandler_, trackhandler_, strategyhandler_);
     ui_->dc_group_box->updateHandlers();
@@ -44,22 +61,22 @@ MainWindow::MainWindow(QWidget *parent) :
     regressionhandler_->calculateAllRegressionCofactors();
 
     //loading settings
-    ui_->dc_group_box->loadSettings(ProgramName, CompanyName);
-    ui_->strategy_tab_widget->loadSettings(ProgramName, CompanyName);
-    ui_->track_group_box->loadSettings(ProgramName, CompanyName);
+    ui_->dc_group_box->loadSettings(General::ProgramName, General::CompanyName);
+    ui_->strategy_tab_widget->loadSettings(General::ProgramName, General::CompanyName);
+    ui_->track_group_box->loadSettings(General::ProgramName, General::CompanyName);
 }
-
-MainWindow::~MainWindow() {}
 
 void MainWindow::on_actionQuit_2_triggered()
 {
-    ui_->dc_group_box->saveSettings(ProgramName, CompanyName);
-    ui_->strategy_tab_widget->saveSettings(ProgramName, CompanyName);
-    ui_->track_group_box->saveSettings(ProgramName, CompanyName);
+    ui_->dc_group_box->saveSettings(General::ProgramName, General::CompanyName);
+    ui_->strategy_tab_widget->saveSettings(General::ProgramName, General::CompanyName);
+    ui_->track_group_box->saveSettings(General::ProgramName, General::CompanyName);
     this->close();
 }
 
 void MainWindow::on_actionDatabase_triggered()
 {
-    (new DatabaseSettingsDialog(dbhandler_, this))->show();
+    DatabaseSettingsDialog* dsd = new DatabaseSettingsDialog(this);
+    dsd->loadSettings();
+    dsd->show();
 }

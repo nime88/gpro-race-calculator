@@ -84,6 +84,8 @@ void TrackGroupBox::setTracks(const std::vector<std::shared_ptr<Track> > &tracks
 
 void TrackGroupBox::trackChanged(QString track)
 {
+    if (tracks_.size() == 0) return;
+
     for (unsigned int i = 0; i < tracks_.size(); ++i) {
         if (track == tracks_.at(i)->getName()) {
             current_track_ = tracks_.at(i);
