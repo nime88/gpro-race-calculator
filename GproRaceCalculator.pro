@@ -40,7 +40,8 @@ SOURCES += main.cpp\
     types/overtaking.cpp \
     types/fuelconsumption.cpp \
     types/tyrewear.cpp \
-    types/practicetype.cpp
+    types/practicetype.cpp \
+    ui/databasesettingsdialog.cpp
 
 HEADERS  += ui/mainwindow.h \
     handlers/driverhandler.h \
@@ -67,9 +68,11 @@ HEADERS  += ui/mainwindow.h \
     types/overtaking.h \
     types/fuelconsumption.h \
     types/tyrewear.h \
-    types/practicetype.h
+    types/practicetype.h \
+    ui/databasesettingsdialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    ui/databasesettingsdialog.ui
 
 LIBS += `gsl-config --cflags --libs`
 

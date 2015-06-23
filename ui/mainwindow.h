@@ -13,6 +13,7 @@
 #include "handlers/strategy.h"
 #include "handlers/carhandler.h"
 #include "handlers/trackhandler.h"
+#include <ui/databasesettingsdialog.h>
 
 class Strategy;
 class TrackHandler;
@@ -34,6 +35,8 @@ public:
 
 private slots:
     void on_actionQuit_2_triggered();
+
+    void on_actionDatabase_triggered();
 
 private:
     // pointer to ui

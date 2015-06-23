@@ -116,15 +116,9 @@ void DCGroupBox::loadSettings(const QString &soft_name, const QString &company_n
 
     // loading driver settings
     array<QVariant,9> driver_settings;
-    driver_settings.at(0) = settings.value("settings/driver/concentration", QVariant(0));
-    driver_settings.at(1) = settings.value("settings/driver/talent", QVariant(0));
-    driver_settings.at(2) = settings.value("settings/driver/aggressiveness", QVariant(0));
-    driver_settings.at(3) = settings.value("settings/driver/experience", QVariant(0));
-    driver_settings.at(4) = settings.value("settings/driver/technical_insight", QVariant(0));
-    driver_settings.at(5) = settings.value("settings/driver/stamina", QVariant(0));
-    driver_settings.at(6) = settings.value("settings/driver/charisma", QVariant(0));
-    driver_settings.at(7) = settings.value("settings/driver/motivation", QVariant(0));
-    driver_settings.at(8) = settings.value("settings/driver/weight", QVariant(0));
+    for (unsigned int i = 0; i < driver_settings.size(); ++i) {
+        driver_settings.at(i) = settings.value(driver_settings_text_.at(i), QVariant(0));
+    }
 
     for (int i = 0; i < driver_table_->rowCount(); ++i) {
         static_cast<QLineEdit*>(driver_table_->cellWidget(i,0))->setText(driver_settings.at(i).toString());
@@ -133,17 +127,9 @@ void DCGroupBox::loadSettings(const QString &soft_name, const QString &company_n
 
     // loading car lvl settings
     array<QVariant, 11> car_lvl_settings;
-    car_lvl_settings.at(0) = settings.value("settings/car/lvl/chassis", QVariant(0));
-    car_lvl_settings.at(1) = settings.value("settings/car/lvl/engine", QVariant(0));
-    car_lvl_settings.at(2) = settings.value("settings/car/lvl/frontwing", QVariant(0));
-    car_lvl_settings.at(3) = settings.value("settings/car/lvl/rearwing", QVariant(0));
-    car_lvl_settings.at(4) = settings.value("settings/car/lvl/underbody", QVariant(0));
-    car_lvl_settings.at(5) = settings.value("settings/car/lvl/sidepods", QVariant(0));
-    car_lvl_settings.at(6) = settings.value("settings/car/lvl/cooling", QVariant(0));
-    car_lvl_settings.at(7) = settings.value("settings/car/lvl/gearbox", QVariant(0));
-    car_lvl_settings.at(8) = settings.value("settings/car/lvl/brakes", QVariant(0));
-    car_lvl_settings.at(9) = settings.value("settings/car/lvl/suspension", QVariant(0));
-    car_lvl_settings.at(10) = settings.value("settings/car/lvl/electronics", QVariant(0));
+    for (unsigned int i = 0;i < car_lvl_settings.size(); ++i) {
+        car_lvl_settings.at(i) = settings.value(car_lvl_text_.at(i), QVariant(0));
+    }
 
     for (int i = 0; i < car_lvl_table_->rowCount(); ++i) {
         static_cast<QLineEdit*>(car_lvl_table_->cellWidget(i,0))->setText(car_lvl_settings.at(i).toString());
@@ -152,17 +138,9 @@ void DCGroupBox::loadSettings(const QString &soft_name, const QString &company_n
 
     // loading car wear settings
     array<QVariant, 11> car_wear_settings;
-    car_wear_settings.at(0) = settings.value("settings/car/wear/chassis", QVariant(0));
-    car_wear_settings.at(1) = settings.value("settings/car/wear/engine", QVariant(0));
-    car_wear_settings.at(2) = settings.value("settings/car/wear/frontwing", QVariant(0));
-    car_wear_settings.at(3) = settings.value("settings/car/wear/rearwing", QVariant(0));
-    car_wear_settings.at(4) = settings.value("settings/car/wear/underbody", QVariant(0));
-    car_wear_settings.at(5) = settings.value("settings/car/wear/sidepods", QVariant(0));
-    car_wear_settings.at(6) = settings.value("settings/car/wear/cooling", QVariant(0));
-    car_wear_settings.at(7) = settings.value("settings/car/wear/gearbox", QVariant(0));
-    car_wear_settings.at(8) = settings.value("settings/car/wear/brakes", QVariant(0));
-    car_wear_settings.at(9) = settings.value("settings/car/wear/suspension", QVariant(0));
-    car_wear_settings.at(10) = settings.value("settings/car/wear/electronics", QVariant(0));
+    for (unsigned int i = 0; i < car_wear_settings.size(); ++i) {
+        car_wear_settings.at(i) = settings.value(car_wear_text_.at(i), QVariant(0));
+    }
 
     for (int i = 0; i < car_lvl_table_->rowCount(); ++i) {
         static_cast<QLineEdit*>(car_lvl_table_->cellWidget(i,1))->setText(car_wear_settings.at(i).toString());
@@ -171,9 +149,9 @@ void DCGroupBox::loadSettings(const QString &soft_name, const QString &company_n
 
     // loading car stats settings
     array<QVariant, 3> car_stats_settings;
-    car_stats_settings.at(0) = settings.value("settings/car/stats/power", QVariant(0));
-    car_stats_settings.at(1) = settings.value("settings/car/stats/handling", QVariant(0));
-    car_stats_settings.at(2) = settings.value("settings/car/stats/acceleration", QVariant(0));
+    for(unsigned int i = 0; i < car_stats_settings.size(); ++i) {
+        car_stats_settings.at(i) = settings.value(car_stats_text_.at(i), QVariant(0));
+    }
 
     for (int i = 0; i < car_stats_table_->rowCount(); ++i) {
         static_cast<QLineEdit*>(car_stats_table_->cellWidget(i,0))->setText(car_stats_settings.at(i).toString());
@@ -182,12 +160,9 @@ void DCGroupBox::loadSettings(const QString &soft_name, const QString &company_n
 
     // loading weather settings
     array<QVariant, 6> weather_settings;
-    weather_settings.at(0) = settings.value("settings/weather/temperature/q1", QVariant(0));
-    weather_settings.at(1) = settings.value("settings/weather/temperature/q2", QVariant(0));
-    weather_settings.at(2) = settings.value("settings/weather/temperature/race", QVariant(0));
-    weather_settings.at(3) = settings.value("settings/weather/humidity/q1", QVariant(0));
-    weather_settings.at(4) = settings.value("settings/weather/humidity/q2", QVariant(0));
-    weather_settings.at(5) = settings.value("settings/weather/humidity/race", QVariant(0));
+    for(unsigned int i = 0; i < weather_settings.size(); ++i) {
+        weather_settings.at(i) = settings.value(weather_text_.at(i), QVariant(0));
+    }
 
     for (int i = 0; i < weather_table_->rowCount(); ++i) {
         static_cast<QLineEdit*>(weather_table_->cellWidget(i,0))->setText(weather_settings.at(i).toString());
@@ -205,54 +180,32 @@ void DCGroupBox::saveSettings(const QString &soft_name, const QString &company_n
     QSettings settings(soft_name, company_name);
 
     // saving driver settings
-    settings.setValue("settings/driver/concentration", static_cast<QLineEdit*>(driver_table_->cellWidget(0,0))->text());
-    settings.setValue("settings/driver/talent", static_cast<QLineEdit*>(driver_table_->cellWidget(1,0))->text());
-    settings.setValue("settings/driver/aggressiveness", static_cast<QLineEdit*>(driver_table_->cellWidget(2,0))->text());
-    settings.setValue("settings/driver/experience", static_cast<QLineEdit*>(driver_table_->cellWidget(3,0))->text());
-    settings.setValue("settings/driver/technical_insight", static_cast<QLineEdit*>(driver_table_->cellWidget(4,0))->text());
-    settings.setValue("settings/driver/stamina", static_cast<QLineEdit*>(driver_table_->cellWidget(5,0))->text());
-    settings.setValue("settings/driver/charisma", static_cast<QLineEdit*>(driver_table_->cellWidget(6,0))->text());
-    settings.setValue("settings/driver/motivation", static_cast<QLineEdit*>(driver_table_->cellWidget(7,0))->text());
-    settings.setValue("settings/driver/weight", static_cast<QLineEdit*>(driver_table_->cellWidget(8,0))->text());
+    for (unsigned int i = 0; i < driver_settings_text_.size(); ++i) {
+        settings.setValue(driver_settings_text_.at(i), static_cast<QLineEdit*>(driver_table_->cellWidget(i,0))->text());
+    }
 
     // saving car lvls to settings
-    settings.setValue("settings/car/lvl/chassis", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(0,0))->text());
-    settings.setValue("settings/car/lvl/engine", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(1,0))->text());
-    settings.setValue("settings/car/lvl/frontwing", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(2,0))->text());
-    settings.setValue("settings/car/lvl/rearwing", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(3,0))->text());
-    settings.setValue("settings/car/lvl/underbody", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(4,0))->text());
-    settings.setValue("settings/car/lvl/sidepods", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(5,0))->text());
-    settings.setValue("settings/car/lvl/cooling", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(6,0))->text());
-    settings.setValue("settings/car/lvl/gearbox", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(7,0))->text());
-    settings.setValue("settings/car/lvl/brakes", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(8,0))->text());
-    settings.setValue("settings/car/lvl/suspension", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(9,0))->text());
-    settings.setValue("settings/car/lvl/electronics", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(10,0))->text());
+    for (unsigned int i = 0; i < car_lvl_text_.size(); ++i) {
+        settings.setValue(car_lvl_text_.at(i), static_cast<QLineEdit*>(car_lvl_table_->cellWidget(i,0))->text());
+    }
 
     // saving car wears to settings
-    settings.setValue("settings/car/wear/chassis", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(0,1))->text());
-    settings.setValue("settings/car/wear/engine", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(1,1))->text());
-    settings.setValue("settings/car/wear/frontwing", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(2,1))->text());
-    settings.setValue("settings/car/wear/rearwing", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(3,1))->text());
-    settings.setValue("settings/car/wear/underbody", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(4,1))->text());
-    settings.setValue("settings/car/wear/sidepods", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(5,1))->text());
-    settings.setValue("settings/car/wear/cooling", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(6,1))->text());
-    settings.setValue("settings/car/wear/gearbox", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(7,1))->text());
-    settings.setValue("settings/car/wear/brakes", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(8,1))->text());
-    settings.setValue("settings/car/wear/suspension", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(9,1))->text());
-    settings.setValue("settings/car/wear/electronics", static_cast<QLineEdit*>(car_lvl_table_->cellWidget(10,1))->text());
+    for (unsigned int i = 0; i < car_wear_text_.size(); ++i) {
+        settings.setValue(car_wear_text_.at(i), static_cast<QLineEdit*>(car_lvl_table_->cellWidget(i,1))->text());
+    }
 
     // saving car stats
-    settings.setValue("settings/car/stats/power", static_cast<QLineEdit*>(car_stats_table_->cellWidget(0,0))->text());
-    settings.setValue("settings/car/stats/handling", static_cast<QLineEdit*>(car_stats_table_->cellWidget(1,0))->text());
-    settings.setValue("settings/car/stats/acceleration", static_cast<QLineEdit*>(car_stats_table_->cellWidget(2,0))->text());
+    for (unsigned int i = 0; i < car_stats_text_.size(); ++i) {
+        settings.setValue(car_stats_text_.at(i), static_cast<QLineEdit*>(car_stats_table_->cellWidget(i,0))->text());
+    }
 
     // saving weather
-    settings.setValue("settings/weather/temperature/q1", static_cast<QLineEdit*>(weather_table_->cellWidget(0,0))->text());
-    settings.setValue("settings/weather/temperature/q2", static_cast<QLineEdit*>(weather_table_->cellWidget(1,0))->text());
-    settings.setValue("settings/weather/temperature/race", static_cast<QLineEdit*>(weather_table_->cellWidget(2,0))->text());
-    settings.setValue("settings/weather/humidity/q1", static_cast<QLineEdit*>(weather_table_->cellWidget(0,1))->text());
-    settings.setValue("settings/weather/humidity/q2", static_cast<QLineEdit*>(weather_table_->cellWidget(1,1))->text());
-    settings.setValue("settings/weather/humidity/race", static_cast<QLineEdit*>(weather_table_->cellWidget(2,1))->text());
+    for (unsigned int i = 0; i < weather_text_.size() / 2; ++i) {
+        settings.setValue(weather_text_.at(i), static_cast<QLineEdit*>(weather_table_->cellWidget(i,0))->text());
+    }
+    for (unsigned int i = 0; i < weather_text_.size() / 2; ++i) {
+        settings.setValue(weather_text_.at(i + 3), static_cast<QLineEdit*>(weather_table_->cellWidget(i,1))->text());
+    }
 }
 
 void DCGroupBox::driverCellChanged(int row)

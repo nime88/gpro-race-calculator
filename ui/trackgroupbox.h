@@ -24,6 +24,8 @@ private:
     std::shared_ptr<Track> current_track_;
     std::vector< std::shared_ptr<Track> > tracks_;
 
+    const QString track_chosen_text = "track/currenttrack";
+
     array<double,3> race_temperatures_;
     array<double,3> race_humidities_;
 
@@ -46,6 +48,11 @@ public:
 
     const array<double,3>& getTemperatures() { return race_temperatures_; }
     const array<double,3>& getHumidities() { return race_humidities_; }
+
+    void loadSettings(const QString& soft_name, const QString& company_name);
+    void saveSettings(const QString& soft_name, const QString& company_name);
+
+    void setCurrentTrack(const QString& current_track);
 
     void setTracks(const std::vector< std::shared_ptr<Track> >& tracks);
     void setHandlers(std::shared_ptr<Strategy> strategy_handler) { strategy_handler_ = strategy_handler; }

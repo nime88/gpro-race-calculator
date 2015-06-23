@@ -46,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //loading settings
     ui_->dc_group_box->loadSettings(ProgramName, CompanyName);
     ui_->strategy_tab_widget->loadSettings(ProgramName, CompanyName);
+    ui_->track_group_box->loadSettings(ProgramName, CompanyName);
 }
 
 MainWindow::~MainWindow() {}
@@ -54,5 +55,11 @@ void MainWindow::on_actionQuit_2_triggered()
 {
     ui_->dc_group_box->saveSettings(ProgramName, CompanyName);
     ui_->strategy_tab_widget->saveSettings(ProgramName, CompanyName);
+    ui_->track_group_box->saveSettings(ProgramName, CompanyName);
     this->close();
+}
+
+void MainWindow::on_actionDatabase_triggered()
+{
+    (new DatabaseSettingsDialog(dbhandler_, this))->show();
 }

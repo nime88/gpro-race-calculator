@@ -48,6 +48,27 @@ void TrackGroupBox::init()
     track_combo_box_ = this->findChild<QComboBox*>("track_list_combo_box");
 }
 
+void TrackGroupBox::loadSettings(const QString &soft_name, const QString &company_name)
+{
+    QSettings settings(soft_name, company_name);
+
+    QString current_track = settings.value(track_chosen_text, QVariant("")).toString();
+    if (current_track.size() > 0) setCurrentTrack(current_track);
+}
+
+void TrackGroupBox::saveSettings(const QString &soft_name, const QString &company_name)
+{
+    QSettings settings(soft_name, company_name);
+
+    settings.setValue(track_chosen_text, QVariant(track_combo_box_->currentText()));
+}
+
+void TrackGroupBox::setCurrentTrack(const QString &current_track)
+{
+    track_combo_box_->setCurrentText(current_track);
+    trackChanged(current_track);
+}
+
 void TrackGroupBox::setTracks(const std::vector<std::shared_ptr<Track> > &tracks)
 {
     tracks_ = tracks;

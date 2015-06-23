@@ -115,29 +115,26 @@ void StrategyTabWidget::loadSettings(const QString &soft_name, const QString &co
     QSettings settings(soft_name, company_name);
 
     // first loading non moving stuff
-    QVariant range = settings.value("practice/settings/range", QVariant(135));
+    QVariant range = settings.value(range_settings_text_, QVariant(135));
     settingshandler_->setSpace(range.toDouble());
     space_range_item_->setText(range.toString());
 
     array<double,5> start_settings;
-    start_settings.at(0) = settings.value("practice/settings/wingsetting", QVariant(500)).toDouble();
-    start_settings.at(1) = settings.value("practice/settings/enginesetting", QVariant(500)).toDouble();
-    start_settings.at(2) = settings.value("practice/settings/brakessetting", QVariant(500)).toDouble();
-    start_settings.at(3) = settings.value("practice/settings/gearsetting", QVariant(500)).toDouble();
-    start_settings.at(4) = settings.value("practice/settings/suspensionsetting", QVariant(500)).toDouble();
+    for (unsigned int i = 0; i < start_settings.size(); ++i) {
+        start_settings.at(i) = settings.value(start_settings_text.at(i), QVariant(500)).toDouble();
+    }
+
     settingshandler_->resetSettings(start_settings);
 
     // then loading comments
     std::vector< array<int,5> > comments;
-    int size = settings.beginReadArray("practice/settings/comments");
+    int size = settings.beginReadArray(comments_settings_text_);
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
         array<int,5> tmp_com;
-        tmp_com.at(0) = settings.value("wing").toInt();
-        tmp_com.at(1) = settings.value("engine").toInt();
-        tmp_com.at(2) = settings.value("brakes").toInt();
-        tmp_com.at(3) = settings.value("gear").toInt();
-        tmp_com.at(4) = settings.value("suspension").toInt();
+        for (unsigned int j = 0; j < tmp_com.size(); ++j) {
+            tmp_com.at(j) = settings.value(comments_settings_slot_text_.at(j)).toInt();
+        }
         comments.push_back(tmp_com);
     }
 
@@ -177,25 +174,21 @@ void StrategyTabWidget::saveSettings(const QString &soft_name, const QString &co
 
     // saving range
     QVariant range = space_range_item_->text();
-    settings.setValue("practice/settings/range", range);
+    settings.setValue(range_settings_text_, range);
 
     // saving original settings
-    settings.setValue("practice/settings/wingsetting", QVariant(settingshandler_->getOriginalSettings().at(0)));
-    settings.setValue("practice/settings/enginesetting", QVariant(settingshandler_->getOriginalSettings().at(1)));
-    settings.setValue("practice/settings/brakessetting", QVariant(settingshandler_->getOriginalSettings().at(2)));
-    settings.setValue("practice/settings/gearsetting", QVariant(settingshandler_->getOriginalSettings().at(3)));
-    settings.setValue("practice/settings/suspensionsetting", QVariant(settingshandler_->getOriginalSettings().at(4)));
+    for (unsigned int i = 0; i < start_settings_text.size(); ++i) {
+        settings.setValue(start_settings_text.at(i),  QVariant(settingshandler_->getOriginalSettings().at(i)));
+    }
 
     // saving current comments list
-    settings.remove("practice/settings/comments");
-    settings.beginWriteArray("practice/settings/comments");
+    settings.remove(comments_settings_text_);
+    settings.beginWriteArray(comments_settings_text_);
     for(unsigned int i = 0; i < settingshandler_->getComments().size(); ++i) {
         settings.setArrayIndex(i);
-        settings.setValue("wing", QVariant(settingshandler_->getComments().at(i).at(0)));
-        settings.setValue("engine", QVariant(settingshandler_->getComments().at(i).at(1)));
-        settings.setValue("brakes", QVariant(settingshandler_->getComments().at(i).at(2)));
-        settings.setValue("gear", QVariant(settingshandler_->getComments().at(i).at(3)));
-        settings.setValue("suspension", QVariant(settingshandler_->getComments().at(i).at(4)));
+        for (unsigned int j = 0; j < settingshandler_->getComments().at(i).size(); ++j) {
+            settings.setValue(comments_settings_slot_text_.at(j), QVariant(settingshandler_->getComments().at(i).at(j)));
+        }
     }
     settings.endArray();
 }

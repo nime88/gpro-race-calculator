@@ -27,6 +27,13 @@ private:
     std::shared_ptr<SettingsHandler> settingshandler_;
     std::shared_ptr<Strategy> strategyhandler_;
 
+    const QString range_settings_text_ = "practice/settings/range";
+    const array<QString, 5> start_settings_text{ {"practice/settings/wingsetting", "practice/settings/enginesetting",
+                                                 "practice/settings/brakessetting", "practice/settings/gearsetting",
+                                                 "practice/settings/suspensionsetting"} };
+    const QString comments_settings_text_ = "practice/settings/comments";
+    const array<QString,5> comments_settings_slot_text_ {{"wing", "engine", "brakes", "gear", "suspension"}};
+
     QTableWidget* practice_table_item_;
     QTableWidget* add_practice_table_item_;
     QLabel* max_settings_text_item_;
