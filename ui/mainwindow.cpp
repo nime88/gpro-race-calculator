@@ -13,8 +13,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui_(new Ui::MainWindow),
-     driverhandler_(new DriverHandler),
-     carhandler_(new CarHandler),
+     driverhandler_(new DriverHandler(ui_->dc_group_box)),
+     carhandler_(new CarHandler(ui_->dc_group_box)),
      dbhandler_(new DatabaseHandler),
      settingshandler_(new SettingsHandler),
      regressionhandler_(new Regressions),
@@ -50,8 +50,6 @@ void MainWindow::fullUpdate()
     ui_->strategy_tab_widget->setHandlers(regressionhandler_, settingshandler_, strategyhandler_);
 
     // initializes driver fields (however at the time of writing should not directly to anything)
-    driverhandler_->initFields(ui_->dc_group_box);
-    carhandler_->initFields(ui_->dc_group_box);
     trackhandler_->initFields(ui_->track_group_box, dbhandler_);
 
     // setting tracks
