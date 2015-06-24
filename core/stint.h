@@ -35,6 +35,8 @@ private:
 
 public:
     Stint();
+
+    inline static const array<QString,10>& getColumnNames() { return field_names_; }
 };
 
 #endif // STINT_H

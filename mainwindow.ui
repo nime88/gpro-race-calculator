@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>778</height>
+    <width>600</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,10 +19,34 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>600</width>
+    <height>700</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1200</width>
+    <height>1400</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Gpro Race Calculator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="minimumSize">
+    <size>
+     <width>570</width>
+     <height>670</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1140</width>
+     <height>1340</height>
+    </size>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout_7">
     <item>
      <widget class="QTabWidget" name="mainTabWidget">
@@ -32,13 +56,37 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="minimumSize">
+       <size>
+        <width>540</width>
+        <height>640</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>1080</width>
+        <height>1280</height>
+       </size>
+      </property>
       <property name="focusPolicy">
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="DriverTab">
+       <property name="minimumSize">
+        <size>
+         <width>510</width>
+         <height>610</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>1080</width>
+         <height>1220</height>
+        </size>
+       </property>
        <property name="styleSheet">
         <string notr="true">QTableCornerButton {
 	color: rgba(255, 255, 255, 0);
@@ -89,14 +137,14 @@ QLabel {
           </property>
           <property name="minimumSize">
            <size>
-            <width>250</width>
-            <height>400</height>
+            <width>510</width>
+            <height>610</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>1024</width>
-            <height>1024</height>
+            <width>1080</width>
+            <height>1220</height>
            </size>
           </property>
           <property name="baseSize">
@@ -127,49 +175,123 @@ QLabel {
           <property name="flat">
            <bool>false</bool>
           </property>
-          <layout class="QGridLayout" name="gridLayout_2">
-           <item row="0" column="0">
-            <widget class="QLabel" name="driver_text">
-             <property name="text">
-              <string>Driver</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0" rowspan="2">
-            <widget class="QLabel" name="car_stats_text">
-             <property name="text">
-              <string>Car Stats</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-             <property name="wordWrap">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="4" column="0">
-            <widget class="QTableWidget" name="car_power_table">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>92</height>
-              </size>
-             </property>
-             <property name="cursor" stdset="0">
-              <cursorShape>IBeamCursor</cursorShape>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QTableWidget QTableCornerButton::section {
+          <layout class="QHBoxLayout" name="horizontalLayout_10">
+           <item>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <layout class="QVBoxLayout" name="verticalLayout_8">
+               <item>
+                <widget class="QLabel" name="driver_text">
+                 <property name="minimumSize">
+                  <size>
+                   <width>220</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>250</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Driver</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTableWidget" name="driver_table">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>220</width>
+                   <height>370</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>250</width>
+                   <height>370</height>
+                  </size>
+                 </property>
+                 <property name="baseSize">
+                  <size>
+                   <width>600</width>
+                   <height>600</height>
+                  </size>
+                 </property>
+                 <property name="palette">
+                  <palette>
+                   <active>
+                    <colorrole role="Text">
+                     <brush brushstyle="SolidPattern">
+                      <color alpha="255">
+                       <red>37</red>
+                       <green>0</green>
+                       <blue>123</blue>
+                      </color>
+                     </brush>
+                    </colorrole>
+                   </active>
+                   <inactive>
+                    <colorrole role="Text">
+                     <brush brushstyle="SolidPattern">
+                      <color alpha="255">
+                       <red>51</red>
+                       <green>51</green>
+                       <blue>51</blue>
+                      </color>
+                     </brush>
+                    </colorrole>
+                   </inactive>
+                   <disabled>
+                    <colorrole role="Text">
+                     <brush brushstyle="SolidPattern">
+                      <color alpha="255">
+                       <red>137</red>
+                       <green>137</green>
+                       <blue>137</blue>
+                      </color>
+                     </brush>
+                    </colorrole>
+                   </disabled>
+                  </palette>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="cursor" stdset="0">
+                  <cursorShape>IBeamCursor</cursorShape>
+                 </property>
+                 <property name="mouseTracking">
+                  <bool>true</bool>
+                 </property>
+                 <property name="focusPolicy">
+                  <enum>Qt::ClickFocus</enum>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::PreventContextMenu</enum>
+                 </property>
+                 <property name="layoutDirection">
+                  <enum>Qt::LeftToRight</enum>
+                 </property>
+                 <property name="autoFillBackground">
+                  <bool>false</bool>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QTableWidget QTableCornerButton::section {
 	color: rgba(255, 255, 255, 0);
 	alternate-background-color: rgba(255, 255, 255, 0);
 	background-color: rgba(255, 255, 255, 0);
@@ -198,665 +320,677 @@ QLineEdit:hover{
 	border: 2px solid rgb(75, 75, 150); 
 	background-color: rgba(25, 150, 25, 101);
 }</string>
-             </property>
-             <property name="editTriggers">
-              <set>QAbstractItemView::AllEditTriggers</set>
-             </property>
-             <property name="cornerButtonEnabled">
-              <bool>false</bool>
-             </property>
-             <attribute name="horizontalHeaderCascadingSectionResizes">
-              <bool>true</bool>
-             </attribute>
-             <attribute name="horizontalHeaderDefaultSectionSize">
-              <number>50</number>
-             </attribute>
-             <attribute name="horizontalHeaderMinimumSectionSize">
-              <number>50</number>
-             </attribute>
-             <attribute name="horizontalHeaderStretchLastSection">
-              <bool>true</bool>
-             </attribute>
-             <attribute name="verticalHeaderStretchLastSection">
-              <bool>true</bool>
-             </attribute>
-             <row>
-              <property name="text">
-               <string>Power</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Handling</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Acceleration</string>
-              </property>
-             </row>
-             <column>
-              <property name="text">
-               <string>Value</string>
-              </property>
-             </column>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QTableWidget" name="car_lvl_table">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>276</height>
-              </size>
-             </property>
-             <property name="cursor" stdset="0">
-              <cursorShape>IBeamCursor</cursorShape>
-             </property>
-             <property name="mouseTracking">
-              <bool>true</bool>
-             </property>
-             <property name="focusPolicy">
-              <enum>Qt::ClickFocus</enum>
-             </property>
-             <property name="contextMenuPolicy">
-              <enum>Qt::PreventContextMenu</enum>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QTableWidget QTableCornerButton::section {
-	color: rgba(255, 255, 255, 0);
-	alternate-background-color: rgba(255, 255, 255, 0);
-	background-color: rgba(255, 255, 255, 0);
-	border-color: rgba(255, 255, 255, 0);
-	gridline-color: rgba(255, 255, 255, 0);
-	selection-color: rgba(255, 255, 255, 0);
-	selection-background-color: rgba(255, 255, 255, 0);
-}
-
-QHeaderView {
-	gridline-color: rgba(25, 100, 25, 199);
-	selection-color: rgba(50, 0, 150, 200);
-	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0
-	#6ea1f1, stop: 1 #567dbc);
-	color: rgba(50, 0, 150, 200);
-	border: 2px solid rgba(75, 75, 150, 150);
-	padding: 1px
-}
-
-QLineEdit {
-	background-color: rgba(200, 100, 100, 50);
-}
-
-QLineEdit:hover{
-	color: rgb(85, 85, 150);
-	border: 2px solid rgb(75, 75, 150); 
-	background-color: rgba(25, 150, 25, 101);
-}</string>
-             </property>
-             <property name="inputMethodHints">
-              <set>Qt::ImhDigitsOnly</set>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Box</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <property name="lineWidth">
-              <number>0</number>
-             </property>
-             <property name="verticalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOff</enum>
-             </property>
-             <property name="horizontalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOff</enum>
-             </property>
-             <property name="sizeAdjustPolicy">
-              <enum>QAbstractScrollArea::AdjustToContents</enum>
-             </property>
-             <property name="autoScroll">
-              <bool>false</bool>
-             </property>
-             <property name="editTriggers">
-              <set>QAbstractItemView::AllEditTriggers</set>
-             </property>
-             <property name="showDropIndicator" stdset="0">
-              <bool>false</bool>
-             </property>
-             <property name="dragDropOverwriteMode">
-              <bool>false</bool>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::SingleSelection</enum>
-             </property>
-             <property name="textElideMode">
-              <enum>Qt::ElideMiddle</enum>
-             </property>
-             <property name="cornerButtonEnabled">
-              <bool>false</bool>
-             </property>
-             <attribute name="horizontalHeaderCascadingSectionResizes">
-              <bool>false</bool>
-             </attribute>
-             <attribute name="horizontalHeaderDefaultSectionSize">
-              <number>100</number>
-             </attribute>
-             <attribute name="horizontalHeaderMinimumSectionSize">
-              <number>100</number>
-             </attribute>
-             <attribute name="horizontalHeaderStretchLastSection">
-              <bool>true</bool>
-             </attribute>
-             <attribute name="verticalHeaderMinimumSectionSize">
-              <number>23</number>
-             </attribute>
-             <attribute name="verticalHeaderStretchLastSection">
-              <bool>true</bool>
-             </attribute>
-             <row>
-              <property name="text">
-               <string>Chassis</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Engine</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Front Wing</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Rear Wing</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Underbody</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Sidepods</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Cooling</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Gearbox</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Brakes</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Suspension</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Electronics</string>
-              </property>
-             </row>
-             <column>
-              <property name="text">
-               <string>lvl</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>wear</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-              </property>
-             </column>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QLabel" name="weather_text">
-             <property name="text">
-              <string>Weather</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1" rowspan="2">
-            <widget class="QTableWidget" name="weather_table">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>300</width>
-               <height>92</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="cursor" stdset="0">
-              <cursorShape>IBeamCursor</cursorShape>
-             </property>
-             <property name="focusPolicy">
-              <enum>Qt::TabFocus</enum>
-             </property>
-             <property name="verticalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOff</enum>
-             </property>
-             <property name="horizontalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOff</enum>
-             </property>
-             <property name="sizeAdjustPolicy">
-              <enum>QAbstractScrollArea::AdjustToContents</enum>
-             </property>
-             <property name="autoScroll">
-              <bool>false</bool>
-             </property>
-             <property name="editTriggers">
-              <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::CurrentChanged|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
-             </property>
-             <property name="gridStyle">
-              <enum>Qt::SolidLine</enum>
-             </property>
-             <property name="rowCount">
-              <number>3</number>
-             </property>
-             <property name="columnCount">
-              <number>3</number>
-             </property>
-             <attribute name="horizontalHeaderCascadingSectionResizes">
-              <bool>false</bool>
-             </attribute>
-             <attribute name="horizontalHeaderDefaultSectionSize">
-              <number>100</number>
-             </attribute>
-             <attribute name="horizontalHeaderMinimumSectionSize">
-              <number>75</number>
-             </attribute>
-             <attribute name="horizontalHeaderStretchLastSection">
-              <bool>true</bool>
-             </attribute>
-             <attribute name="verticalHeaderCascadingSectionResizes">
-              <bool>false</bool>
-             </attribute>
-             <attribute name="verticalHeaderDefaultSectionSize">
-              <number>30</number>
-             </attribute>
-             <attribute name="verticalHeaderHighlightSections">
-              <bool>false</bool>
-             </attribute>
-             <attribute name="verticalHeaderMinimumSectionSize">
-              <number>23</number>
-             </attribute>
-             <attribute name="verticalHeaderStretchLastSection">
-              <bool>true</bool>
-             </attribute>
-             <row>
-              <property name="text">
-               <string>Q1</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Q2</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Race</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-              </property>
-             </row>
-             <column>
-              <property name="text">
-               <string>Temperature</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Humidity</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Rain</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-              </property>
-             </column>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QTableWidget" name="driver_table">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>100</width>
-               <height>230</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>310</width>
-               <height>370</height>
-              </size>
-             </property>
-             <property name="baseSize">
-              <size>
-               <width>600</width>
-               <height>600</height>
-              </size>
-             </property>
-             <property name="palette">
-              <palette>
-               <active>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>37</red>
-                   <green>0</green>
-                   <blue>123</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </active>
-               <inactive>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>51</red>
-                   <green>51</green>
-                   <blue>51</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </inactive>
-               <disabled>
-                <colorrole role="Text">
-                 <brush brushstyle="SolidPattern">
-                  <color alpha="255">
-                   <red>137</red>
-                   <green>137</green>
-                   <blue>137</blue>
-                  </color>
-                 </brush>
-                </colorrole>
-               </disabled>
-              </palette>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>12</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="cursor" stdset="0">
-              <cursorShape>IBeamCursor</cursorShape>
-             </property>
-             <property name="mouseTracking">
-              <bool>true</bool>
-             </property>
-             <property name="focusPolicy">
-              <enum>Qt::ClickFocus</enum>
-             </property>
-             <property name="contextMenuPolicy">
-              <enum>Qt::PreventContextMenu</enum>
-             </property>
-             <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
-             </property>
-             <property name="autoFillBackground">
-              <bool>false</bool>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QTableWidget QTableCornerButton::section {
-	color: rgba(255, 255, 255, 0);
-	alternate-background-color: rgba(255, 255, 255, 0);
-	background-color: rgba(255, 255, 255, 0);
-	border-color: rgba(255, 255, 255, 0);
-	gridline-color: rgba(255, 255, 255, 0);
-	selection-color: rgba(255, 255, 255, 0);
-	selection-background-color: rgba(255, 255, 255, 0);
-}
-
-QHeaderView {
-	gridline-color: rgba(25, 100, 25, 199);
-	selection-color: rgba(50, 0, 150, 200);
-	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0
-	#6ea1f1, stop: 1 #567dbc);
-	color: rgba(50, 0, 150, 200);
-	border: 2px solid rgba(75, 75, 150, 150);
-	padding: 1px
-}
-
-QLineEdit {
-	background-color: rgba(200, 100, 100, 50);
-}
-
-QLineEdit:hover{
-	color: rgb(85, 85, 150);
-	border: 2px solid rgb(75, 75, 150); 
-	background-color: rgba(25, 150, 25, 101);
-}</string>
-             </property>
-             <property name="inputMethodHints">
-              <set>Qt::ImhDigitsOnly</set>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Box</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <property name="lineWidth">
-              <number>0</number>
-             </property>
-             <property name="midLineWidth">
-              <number>0</number>
-             </property>
-             <property name="verticalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOff</enum>
-             </property>
-             <property name="horizontalScrollBarPolicy">
-              <enum>Qt::ScrollBarAlwaysOff</enum>
-             </property>
-             <property name="sizeAdjustPolicy">
-              <enum>QAbstractScrollArea::AdjustToContents</enum>
-             </property>
-             <property name="autoScroll">
-              <bool>false</bool>
-             </property>
-             <property name="editTriggers">
-              <set>QAbstractItemView::AllEditTriggers</set>
-             </property>
-             <property name="showDropIndicator" stdset="0">
-              <bool>false</bool>
-             </property>
-             <property name="dragDropOverwriteMode">
-              <bool>false</bool>
-             </property>
-             <property name="alternatingRowColors">
-              <bool>false</bool>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::SingleSelection</enum>
-             </property>
-             <property name="textElideMode">
-              <enum>Qt::ElideMiddle</enum>
-             </property>
-             <property name="showGrid">
-              <bool>true</bool>
-             </property>
-             <property name="gridStyle">
-              <enum>Qt::SolidLine</enum>
-             </property>
-             <property name="sortingEnabled">
-              <bool>false</bool>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-             <property name="cornerButtonEnabled">
-              <bool>false</bool>
-             </property>
-             <attribute name="horizontalHeaderVisible">
-              <bool>false</bool>
-             </attribute>
-             <attribute name="horizontalHeaderCascadingSectionResizes">
-              <bool>false</bool>
-             </attribute>
-             <attribute name="horizontalHeaderDefaultSectionSize">
-              <number>150</number>
-             </attribute>
-             <attribute name="horizontalHeaderMinimumSectionSize">
-              <number>100</number>
-             </attribute>
-             <attribute name="horizontalHeaderStretchLastSection">
-              <bool>true</bool>
-             </attribute>
-             <attribute name="verticalHeaderVisible">
-              <bool>false</bool>
-             </attribute>
-             <attribute name="verticalHeaderCascadingSectionResizes">
-              <bool>false</bool>
-             </attribute>
-             <attribute name="verticalHeaderDefaultSectionSize">
-              <number>37</number>
-             </attribute>
-             <attribute name="verticalHeaderMinimumSectionSize">
-              <number>23</number>
-             </attribute>
-             <attribute name="verticalHeaderStretchLastSection">
-              <bool>true</bool>
-             </attribute>
-             <row>
-              <property name="text">
-               <string>Concentration</string>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-                <weight>50</weight>
-                <bold>false</bold>
-                <kerning>true</kerning>
-               </font>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Talent</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Aggressiveness</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Experience</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Technical Insight</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Stamina</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Charisma</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Motivation</string>
-              </property>
-             </row>
-             <row>
-              <property name="text">
-               <string>Weight</string>
-              </property>
-             </row>
-             <column>
-              <property name="text">
-               <string>Value</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignJustify|AlignVCenter</set>
-              </property>
-             </column>
-             <item row="2" column="0">
-              <property name="text">
-               <string/>
-              </property>
-              <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
-              </property>
+                 </property>
+                 <property name="inputMethodHints">
+                  <set>Qt::ImhDigitsOnly</set>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>0</number>
+                 </property>
+                 <property name="midLineWidth">
+                  <number>0</number>
+                 </property>
+                 <property name="verticalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                 <property name="horizontalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                 <property name="sizeAdjustPolicy">
+                  <enum>QAbstractScrollArea::AdjustToContents</enum>
+                 </property>
+                 <property name="autoScroll">
+                  <bool>false</bool>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::AllEditTriggers</set>
+                 </property>
+                 <property name="showDropIndicator" stdset="0">
+                  <bool>false</bool>
+                 </property>
+                 <property name="dragDropOverwriteMode">
+                  <bool>false</bool>
+                 </property>
+                 <property name="alternatingRowColors">
+                  <bool>false</bool>
+                 </property>
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::SingleSelection</enum>
+                 </property>
+                 <property name="textElideMode">
+                  <enum>Qt::ElideMiddle</enum>
+                 </property>
+                 <property name="showGrid">
+                  <bool>true</bool>
+                 </property>
+                 <property name="gridStyle">
+                  <enum>Qt::SolidLine</enum>
+                 </property>
+                 <property name="sortingEnabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>true</bool>
+                 </property>
+                 <property name="cornerButtonEnabled">
+                  <bool>false</bool>
+                 </property>
+                 <attribute name="horizontalHeaderVisible">
+                  <bool>false</bool>
+                 </attribute>
+                 <attribute name="horizontalHeaderCascadingSectionResizes">
+                  <bool>false</bool>
+                 </attribute>
+                 <attribute name="horizontalHeaderDefaultSectionSize">
+                  <number>100</number>
+                 </attribute>
+                 <attribute name="horizontalHeaderMinimumSectionSize">
+                  <number>100</number>
+                 </attribute>
+                 <attribute name="horizontalHeaderStretchLastSection">
+                  <bool>true</bool>
+                 </attribute>
+                 <attribute name="verticalHeaderVisible">
+                  <bool>false</bool>
+                 </attribute>
+                 <attribute name="verticalHeaderCascadingSectionResizes">
+                  <bool>false</bool>
+                 </attribute>
+                 <attribute name="verticalHeaderDefaultSectionSize">
+                  <number>37</number>
+                 </attribute>
+                 <attribute name="verticalHeaderMinimumSectionSize">
+                  <number>23</number>
+                 </attribute>
+                 <attribute name="verticalHeaderStretchLastSection">
+                  <bool>true</bool>
+                 </attribute>
+                 <row>
+                  <property name="text">
+                   <string>Concentration</string>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                    <weight>50</weight>
+                    <bold>false</bold>
+                    <kerning>true</kerning>
+                   </font>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Talent</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Aggressiveness</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Experience</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Technical Insight</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Stamina</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Charisma</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Motivation</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Weight</string>
+                  </property>
+                 </row>
+                 <column>
+                  <property name="text">
+                   <string>Value</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignJustify|AlignVCenter</set>
+                  </property>
+                 </column>
+                 <item row="2" column="0">
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+              </layout>
              </item>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="car_lvl_wear_text">
-             <property name="text">
-              <string>Car Level and Wear</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
+             <item row="0" column="1">
+              <layout class="QVBoxLayout" name="verticalLayout_7">
+               <item>
+                <widget class="QLabel" name="car_lvl_wear_text">
+                 <property name="minimumSize">
+                  <size>
+                   <width>300</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>300</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Car Level and Wear</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTableWidget" name="car_lvl_table">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>300</width>
+                   <height>360</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>300</width>
+                   <height>360</height>
+                  </size>
+                 </property>
+                 <property name="cursor" stdset="0">
+                  <cursorShape>IBeamCursor</cursorShape>
+                 </property>
+                 <property name="mouseTracking">
+                  <bool>true</bool>
+                 </property>
+                 <property name="focusPolicy">
+                  <enum>Qt::ClickFocus</enum>
+                 </property>
+                 <property name="contextMenuPolicy">
+                  <enum>Qt::PreventContextMenu</enum>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QTableWidget QTableCornerButton::section {
+	color: rgba(255, 255, 255, 0);
+	alternate-background-color: rgba(255, 255, 255, 0);
+	background-color: rgba(255, 255, 255, 0);
+	border-color: rgba(255, 255, 255, 0);
+	gridline-color: rgba(255, 255, 255, 0);
+	selection-color: rgba(255, 255, 255, 0);
+	selection-background-color: rgba(255, 255, 255, 0);
+}
+
+QHeaderView {
+	gridline-color: rgba(25, 100, 25, 199);
+	selection-color: rgba(50, 0, 150, 200);
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0
+	#6ea1f1, stop: 1 #567dbc);
+	color: rgba(50, 0, 150, 200);
+	border: 2px solid rgba(75, 75, 150, 150);
+	padding: 1px
+}
+
+QLineEdit {
+	background-color: rgba(200, 100, 100, 50);
+}
+
+QLineEdit:hover{
+	color: rgb(85, 85, 150);
+	border: 2px solid rgb(75, 75, 150); 
+	background-color: rgba(25, 150, 25, 101);
+}</string>
+                 </property>
+                 <property name="inputMethodHints">
+                  <set>Qt::ImhDigitsOnly</set>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::Box</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>0</number>
+                 </property>
+                 <property name="verticalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                 <property name="horizontalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                 <property name="sizeAdjustPolicy">
+                  <enum>QAbstractScrollArea::AdjustToContents</enum>
+                 </property>
+                 <property name="autoScroll">
+                  <bool>false</bool>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::AllEditTriggers</set>
+                 </property>
+                 <property name="showDropIndicator" stdset="0">
+                  <bool>false</bool>
+                 </property>
+                 <property name="dragDropOverwriteMode">
+                  <bool>false</bool>
+                 </property>
+                 <property name="selectionMode">
+                  <enum>QAbstractItemView::SingleSelection</enum>
+                 </property>
+                 <property name="textElideMode">
+                  <enum>Qt::ElideMiddle</enum>
+                 </property>
+                 <property name="cornerButtonEnabled">
+                  <bool>false</bool>
+                 </property>
+                 <attribute name="horizontalHeaderCascadingSectionResizes">
+                  <bool>false</bool>
+                 </attribute>
+                 <attribute name="horizontalHeaderDefaultSectionSize">
+                  <number>100</number>
+                 </attribute>
+                 <attribute name="horizontalHeaderMinimumSectionSize">
+                  <number>100</number>
+                 </attribute>
+                 <attribute name="horizontalHeaderStretchLastSection">
+                  <bool>true</bool>
+                 </attribute>
+                 <attribute name="verticalHeaderMinimumSectionSize">
+                  <number>23</number>
+                 </attribute>
+                 <attribute name="verticalHeaderStretchLastSection">
+                  <bool>true</bool>
+                 </attribute>
+                 <row>
+                  <property name="text">
+                   <string>Chassis</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Engine</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Front Wing</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Rear Wing</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Underbody</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Sidepods</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Cooling</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Gearbox</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Brakes</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Suspension</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Electronics</string>
+                  </property>
+                 </row>
+                 <column>
+                  <property name="text">
+                   <string>lvl</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>wear</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="0">
+              <layout class="QVBoxLayout" name="verticalLayout_9">
+               <item>
+                <widget class="QLabel" name="car_stats_text">
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>200</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Car Stats</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTableWidget" name="car_power_table">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>200</width>
+                   <height>120</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>200</width>
+                   <height>120</height>
+                  </size>
+                 </property>
+                 <property name="cursor" stdset="0">
+                  <cursorShape>IBeamCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QTableWidget QTableCornerButton::section {
+	color: rgba(255, 255, 255, 0);
+	alternate-background-color: rgba(255, 255, 255, 0);
+	background-color: rgba(255, 255, 255, 0);
+	border-color: rgba(255, 255, 255, 0);
+	gridline-color: rgba(255, 255, 255, 0);
+	selection-color: rgba(255, 255, 255, 0);
+	selection-background-color: rgba(255, 255, 255, 0);
+}
+
+QHeaderView {
+	gridline-color: rgba(25, 100, 25, 199);
+	selection-color: rgba(50, 0, 150, 200);
+	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0
+	#6ea1f1, stop: 1 #567dbc);
+	color: rgba(50, 0, 150, 200);
+	border: 2px solid rgba(75, 75, 150, 150);
+	padding: 1px
+}
+
+QLineEdit {
+	background-color: rgba(200, 100, 100, 50);
+}
+
+QLineEdit:hover{
+	color: rgb(85, 85, 150);
+	border: 2px solid rgb(75, 75, 150); 
+	background-color: rgba(25, 150, 25, 101);
+}</string>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::AllEditTriggers</set>
+                 </property>
+                 <property name="cornerButtonEnabled">
+                  <bool>false</bool>
+                 </property>
+                 <attribute name="horizontalHeaderCascadingSectionResizes">
+                  <bool>true</bool>
+                 </attribute>
+                 <attribute name="horizontalHeaderDefaultSectionSize">
+                  <number>50</number>
+                 </attribute>
+                 <attribute name="horizontalHeaderMinimumSectionSize">
+                  <number>50</number>
+                 </attribute>
+                 <attribute name="horizontalHeaderStretchLastSection">
+                  <bool>true</bool>
+                 </attribute>
+                 <attribute name="verticalHeaderStretchLastSection">
+                  <bool>true</bool>
+                 </attribute>
+                 <row>
+                  <property name="text">
+                   <string>Power</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Handling</string>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Acceleration</string>
+                  </property>
+                 </row>
+                 <column>
+                  <property name="text">
+                   <string>Value</string>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="1" column="1">
+              <layout class="QVBoxLayout" name="verticalLayout_10">
+               <item>
+                <widget class="QLabel" name="weather_text">
+                 <property name="minimumSize">
+                  <size>
+                   <width>400</width>
+                   <height>23</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>400</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>Weather</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QTableWidget" name="weather_table">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>400</width>
+                   <height>120</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>400</width>
+                   <height>120</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>11</pointsize>
+                  </font>
+                 </property>
+                 <property name="cursor" stdset="0">
+                  <cursorShape>IBeamCursor</cursorShape>
+                 </property>
+                 <property name="focusPolicy">
+                  <enum>Qt::TabFocus</enum>
+                 </property>
+                 <property name="verticalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                 <property name="horizontalScrollBarPolicy">
+                  <enum>Qt::ScrollBarAlwaysOff</enum>
+                 </property>
+                 <property name="sizeAdjustPolicy">
+                  <enum>QAbstractScrollArea::AdjustToContents</enum>
+                 </property>
+                 <property name="autoScroll">
+                  <bool>false</bool>
+                 </property>
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::CurrentChanged|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+                 </property>
+                 <property name="gridStyle">
+                  <enum>Qt::SolidLine</enum>
+                 </property>
+                 <property name="rowCount">
+                  <number>3</number>
+                 </property>
+                 <property name="columnCount">
+                  <number>3</number>
+                 </property>
+                 <attribute name="horizontalHeaderCascadingSectionResizes">
+                  <bool>false</bool>
+                 </attribute>
+                 <attribute name="horizontalHeaderDefaultSectionSize">
+                  <number>100</number>
+                 </attribute>
+                 <attribute name="horizontalHeaderMinimumSectionSize">
+                  <number>100</number>
+                 </attribute>
+                 <attribute name="horizontalHeaderStretchLastSection">
+                  <bool>true</bool>
+                 </attribute>
+                 <attribute name="verticalHeaderCascadingSectionResizes">
+                  <bool>false</bool>
+                 </attribute>
+                 <attribute name="verticalHeaderDefaultSectionSize">
+                  <number>30</number>
+                 </attribute>
+                 <attribute name="verticalHeaderHighlightSections">
+                  <bool>false</bool>
+                 </attribute>
+                 <attribute name="verticalHeaderMinimumSectionSize">
+                  <number>23</number>
+                 </attribute>
+                 <attribute name="verticalHeaderStretchLastSection">
+                  <bool>true</bool>
+                 </attribute>
+                 <row>
+                  <property name="text">
+                   <string>Q1</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Q2</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+                  </property>
+                 </row>
+                 <row>
+                  <property name="text">
+                   <string>Race</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+                  </property>
+                 </row>
+                 <column>
+                  <property name="text">
+                   <string>Temperature</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Humidity</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+                  </property>
+                 </column>
+                 <column>
+                  <property name="text">
+                   <string>Rain</string>
+                  </property>
+                  <property name="textAlignment">
+                   <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+                  </property>
+                 </column>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
            </item>
           </layout>
          </widget>
@@ -2973,7 +3107,7 @@ QTableWidget {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>600</width>
      <height>27</height>
     </rect>
    </property>

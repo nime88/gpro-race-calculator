@@ -7,10 +7,11 @@
 #include <QtSql>
 #include <QStringList>
 
-#include "core/track.h"
-#include "core/practice.h"
-#include "core/driver.h"
-#include "core/car.h"
+#include <core/track.h>
+#include <core/practice.h>
+#include <core/driver.h>
+#include <core/car.h>
+#include <core/stint.h>
 
 class DatabaseHandler
 {
@@ -22,6 +23,8 @@ private:
     //keeping list of the practice data
 
     std::vector< std::shared_ptr<Practice> > practice_data_;
+
+    std::vector< std::shared_ptr<Stint> > stint_data_;
 
     // disallowing copying
     DatabaseHandler(const DatabaseHandler&);
@@ -40,6 +43,7 @@ public:
     const std::vector< std::shared_ptr<Track> >& getTracks();
     QStringList getTrackNames();
     const std::vector< std::shared_ptr<Practice> >& getPracticeData();
+    const std::vector< std::shared_ptr<Stint> >& getStintData();
 };
 
 #endif // DATABASEHANDLER_H

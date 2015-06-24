@@ -1,12 +1,8 @@
 #include "handlers/driverhandler.h"
 
-DriverHandler::DriverHandler() : driver_(new Driver), dc_group_box_(0)
+DriverHandler::DriverHandler(DCGroupBox *parent) : driver_(new Driver), dc_group_box_(parent)
 {
 
-}
-
-void DriverHandler::initFields(DCGroupBox *parent) {
-    dc_group_box_ = parent;
 }
 
 void DriverHandler::setFields(const array<int, 9> &values)

@@ -29,14 +29,11 @@ private:
    DCGroupBox* dc_group_box_;
 
    // disabling copying
-   CarHandler (const CarHandler&);
-   CarHandler operator=(const CarHandler&);
+   CarHandler (const CarHandler&) = delete;
+   void operator=(const CarHandler&) = delete;
 
 public:
-    CarHandler();
-
-    // field initializations
-    void initFields(DCGroupBox *parent);
+    CarHandler(DCGroupBox *parent);
 
     void setLvls(const array<int,11>& lvls);
     void setWears(const array<int,11>& wears);

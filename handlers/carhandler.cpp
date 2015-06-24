@@ -5,16 +5,11 @@
 
 #include <QTableWidget>
 
-CarHandler::CarHandler(): car_(new Car), dc_group_box_(0)
+CarHandler::CarHandler(DCGroupBox *parent): car_(new Car), dc_group_box_(parent)
 {
     car_lvl_.fill(0);
     car_wear_.fill(0);
     car_power_.fill(0);
-}
-
-void CarHandler::initFields(DCGroupBox *parent)
-{
-    dc_group_box_ = parent;
 }
 
 void CarHandler::setLvls(const array<int, 11> &lvls)

@@ -26,6 +26,19 @@ QString getPracticeFields() {
     return fields;
 }
 
+QString getStintFields() {
+    QString fields  = QString(" \"Stint\".\"Name (Track)\", ") %
+            QString(" \"Stint\".\"Laps\" AS \"SLaps\", ") %
+            QString(" \"Stint\".\"Fuel\" AS \"SFuel\", ") %
+            QString(" \"Stint\".\"Consumption\" AS \"SConsumption\", ") %
+            QString(" \"Stint\".\"Final%\" AS \"SFinalP\", ") %
+            QString(" \"Stint\".\"Avg. Humidity\" AS \"SHumidity\", ") %
+            QString(" \"Stint\".\"Avg. Temperature\" AS \"STemperature\", ") %
+            QString(" \"Stint\".\"Tyre Type\" AS \"STyreType\", ") %
+            QString(" \"Stint\".\"Weather\" AS \"SWeather\", ") %
+            QString(" \"Stint\".\"Km\" AS \"SKm\" ");
+}
+
 QString getCarLvlFields() {
     QString car_string = QString(" \"Car\".\"Power\" AS \"CPower\", ") %
             QString("\"Car\".\"Handling\" AS \"CHandling\", ") %
@@ -73,6 +86,16 @@ QString getDriverFields() {
     return driver_string;
 }
 
+QString getRiskFields() {
+    QString risk_string = QString(" \"Risk\".\"Name (Track)\", ") %
+            QString(" \"Risk\".\"Clear\", ") %
+            QString(" \"Risk\".\"Wet\", ") %
+            QString(" \"Risk\".\"Defend\", ") %
+            QString(" \"Risk\".\"Malfunction\", ") %
+            QString(" \"Risk\".\"Overtake\" ");
+    return risk_string;
+}
+
 QString getPracticeDataQuery() {
     QString select = "SELECT ";
     QString practice_fields = getPracticeFields() % QString(", ");
@@ -97,6 +120,37 @@ QString getPracticeDataQuery() {
 
     return select %
             practice_fields % track_fields % car_lvl_fields % car_wear_fields % driver_fields %
+            from % where;
+}
+
+QString getStintDataQuery() {
+    QString select = "SELECT ";
+    QString stint_fields = getStintFields() % QString(", ");
+    QString track_fields = QString("\"Track\".*, ");
+    QString car_lvl_fields = getCarLvlFields() % QString(", ");
+    QString car_wear_fields = getCarWearFields() % QString(", ");
+    QString risk_fields = getRiskFields() % QString(", ");
+    QString driver_fields = getDriverFields();
+    QString from = QString("FROM ") %
+            QString("public.\"Stint\", ") %
+            QString("public.\"Track\", ") %
+            QString("public.\"Car\", ") %
+            QString("public.\"CarWear\", ") %
+            QString("public.\"Risk\", ") %
+            QString("public.\"Driver\" ");
+    QString where = QString("WHERE ") %
+    QString("\"Stint\".\"Name (Track)\" = \"Car\".\"Name (Track)\" AND ") %
+    QString("\"Stint\".\"Name (Track)\" = \"CarWear\".\"Name (Track)\" AND ") %
+    QString("\"Stint\".\"Name (Track)\" = \"Driver\".\"Name (Track)\" AND ") %
+    QString("\"Stint\".\"Name (Track)\" = \"Track\".\"Name\" AND ") %
+    QString("\"Stint\".\"Name (Track)\" = \"Risk\".\"Name (Track)\" AND ") %
+    QString("\"Stint\".\"Season\" = \"Car\".\"Season\" AND ") %
+    QString("\"Stint\".\"Season\" = \"CarWear\".\"Season\" AND ") %
+    QString("\"Stint\".\"Season\" = \"Risk\".\"Season\" AND ") %
+    QString("\"Stint\".\"Season\" = \"Driver\".\"Season\"");
+    return select %
+            stint_fields % track_fields % car_lvl_fields % car_wear_fields %
+            risk_fields % driver_fields %
             from % where;
 }
 
@@ -180,8 +234,15 @@ std::shared_ptr<Practice> transform2Practice(const QSqlQuery & query) {
     return temp_practice;
 }
 
+std::shared_ptr<Stint> transform2Stint(const QSqlQuery & query) {
+    int field_no = 0;
+    std::shared_ptr<Stint> temp_stint = std::shared_ptr<Stint>(new Stint);
+
+    std::shared_ptr<Track> temp_track;
+}
+
 DatabaseHandler::DatabaseHandler():
-    db_(), tracks_(), practice_data_()
+    db_(), tracks_(), practice_data_(), stint_data_()
 {
 
 }
@@ -276,4 +337,11 @@ const std::vector<std::shared_ptr<Practice> > &DatabaseHandler::getPracticeData(
      practice_data_ = raw_practice_data;
 
      return practice_data_;
+}
+
+const std::vector<std::shared_ptr<Stint> > &DatabaseHandler::getStintData()
+{
+    if ( stint_data_.size() > 0 ) return stint_data_;
+
+
 }

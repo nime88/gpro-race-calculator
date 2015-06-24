@@ -17,10 +17,7 @@ class DriverHandler
 {
 
 public:
-    DriverHandler();
-
-    // field initializations
-    void initFields(DCGroupBox *parent);
+    DriverHandler(DCGroupBox *parent);
 
     // set all the field values to driver
     void setFields(const array<int,9>& values);
@@ -34,8 +31,8 @@ private:
     DCGroupBox* dc_group_box_;
 
     // disallowing copying
-    DriverHandler(const DriverHandler&);
-    DriverHandler operator=(const DriverHandler&);
+    DriverHandler(const DriverHandler&) = delete;
+    void operator=(const DriverHandler&) = delete;
 };
 
 #endif // DRIVERHANDLER_H
