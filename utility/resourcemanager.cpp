@@ -19,8 +19,6 @@ void ResourceManager::fetchTracks()
     tracks_string_list_->clear();
     std::vector< std::shared_ptr<Track> > temp_tracks = dbhandler_->getTracks();
 
-    qDebug() << "fetchTracks(): " << temp_tracks.size();
-
     for (unsigned int i = 0; i < temp_tracks.size(); ++i) {
         addTrack(temp_tracks.at(i));
     }

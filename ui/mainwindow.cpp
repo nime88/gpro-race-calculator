@@ -23,7 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
      trackhandler_(new TrackHandler(ui_->track_group_box))
 {
     ui_->setupUi(this);
+    qDebug() << "Dem UI";
     fullUpdate();
+    qDebug() << "WTF IS GONG On";
 }
 
 MainWindow::~MainWindow() {}
@@ -36,22 +38,31 @@ void MainWindow::updateDBDependentUI()
 
 void MainWindow::fullUpdate()
 {
+    qDebug() << "DC Group Box";
     ui_->dc_group_box->init();
     ui_->dc_group_box->setHandlers(driverhandler_, carhandler_, trackhandler_, strategyhandler_);
     ui_->dc_group_box->updateHandlers();
+    qDebug() << "Track Group Box";
     ui_->track_group_box->init();
-    ui_->track_group_box->setHandlers(strategyhandler_);
+    ui_->track_group_box->setHandlers(trackhandler_);
+    qDebug() << "Strategy Tab";
     ui_->strategy_tab_widget->init();
     ui_->strategy_tab_widget->setHandlers(regressionhandler_, settingshandler_, strategyhandler_);
 
+    qDebug() << "Regression";
     regressionhandler_->setPracticeData(dbhandler_->getPracticeData());
     regressionhandler_->calculateAllRegressionCofactors();
 
+    qDebug() << "Loading Settings";
     //loading settings
+    qDebug() << "GB Settings";
     ui_->dc_group_box->loadSettings(General::ProgramName, General::CompanyName);
+    qDebug() << "Strategy Settings";
     ui_->strategy_tab_widget->loadSettings(General::ProgramName, General::CompanyName);
+    qDebug() << "Track Settings";
     ui_->track_group_box->loadSettings(General::ProgramName, General::CompanyName);
 
+    qDebug() << "Content updatae";
     // updating contents
     ui_->strategy_tab_widget->updateContents();
     ui_->track_group_box->updateContents();

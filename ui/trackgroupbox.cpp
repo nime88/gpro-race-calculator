@@ -9,9 +9,8 @@ bool trackCompare (std::shared_ptr<Track> track_1, std::shared_ptr<Track> track_
 
 TrackGroupBox::TrackGroupBox(QWidget *parent):
     QGroupBox(parent),
-    current_track_(0),
     track_combo_box_(0),
-    strategy_handler_(0)
+    track_handler_(0)
 {    
 
 }
@@ -46,7 +45,10 @@ void TrackGroupBox::loadSettings(const QString &soft_name, const QString &compan
     QSettings settings(soft_name, company_name);
 
     QString current_track = settings.value(track_chosen_text, QVariant("")).toString();
-    if (current_track.size() > 0) setCurrentTrack(current_track);
+
+    track_handler_->setCurrentTrack(ResourceManager::getInstance().getTrack(current_track));
+
+    updateContents();
 }
 
 void TrackGroupBox::saveSettings(const QString &soft_name, const QString &company_name)
@@ -59,39 +61,30 @@ void TrackGroupBox::saveSettings(const QString &soft_name, const QString &compan
 void TrackGroupBox::updateContents()
 {
     // sorting tracks (if it hansn't been done yet
-    qDebug() << ResourceManager::getInstance().getTrackQStringList()->size();
     ResourceManager::getInstance().getTrackQStringList()->sort(Qt::CaseInsensitive);
-    qDebug() << ResourceManager::getInstance().getTrackQStringList()->size();
-    track_combo_box_->clear();
     // adding items to combo box
-    track_combo_box_->addItems(*ResourceManager::getInstance().getTrackQStringList());
+
+    if (track_combo_box_->count() != ResourceManager::getInstance().getTrackQStringList()->size())
+        track_combo_box_->addItems(*ResourceManager::getInstance().getTrackQStringList());
 
     // if we have nothing to show we just leave
     if(track_combo_box_->count() == 0) return;
 
-    if (current_track_ == 0) current_track_ = ResourceManager::getInstance().getTrack(ResourceManager::getInstance().getTrackQStringList()->at(0));
+    track_combo_box_->setCurrentText(track_handler_->getCurrentTrack()->getName());
 
-    track_combo_box_->setCurrentText(current_track_->getName());
     for (unsigned int i = 0; i < track_fields_.size(); ++i) {
-        track_fields_.at(i)->setText(current_track_->getTrackQString(static_cast<TrackSlots>(i)));
+        track_fields_.at(i)->setText(track_handler_->getCurrentTrack()->getTrackQString(static_cast<TrackSlots>(i)));
     }
-}
-
-void TrackGroupBox::setCurrentTrack(const QString &current_track)
-{
-    track_combo_box_->setCurrentText(current_track);
-
-    trackChanged(current_track);
 }
 
 void TrackGroupBox::trackChanged(QString track)
 {
-    if (ResourceManager::getInstance().getTrack(track) == 0) return;
+    std::shared_ptr<Track> temp_track = ResourceManager::getInstance().getTrack(track);
 
-    current_track_ = ResourceManager::getInstance().getTrack(track);
+    if (temp_track == 0) return;
 
-    // then changing field values
-    for (unsigned int i = 0; i < track_fields_.size(); ++i) {
-        track_fields_.at(i)->setText(current_track_->getTrackQString(static_cast<TrackSlots>(i)));
-    }
+    if (temp_track != track_handler_->getCurrentTrack())
+        track_handler_->setCurrentTrack(temp_track);
+
+    updateContents();
 }

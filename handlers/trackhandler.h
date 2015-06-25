@@ -29,6 +29,9 @@ private:
     void operator=(const TrackHandler&) = delete;
 public:
     TrackHandler(TrackGroupBox *parent);
+
+    void setCurrentTrack(std::shared_ptr<Track> current_track) { current_track_ = current_track; }
+    std::shared_ptr<Track> getCurrentTrack() { return current_track_; }
 };
 
 #endif // TRACKHANDLER_H
