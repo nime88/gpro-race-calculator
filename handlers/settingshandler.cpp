@@ -5,7 +5,7 @@
 
 #include "utility/regressions.h"
 
-SettingsHandler::SettingsHandler()
+SettingsHandler::SettingsHandler(): old_settings_()
 {
     settings_.fill(0);
     max_settings_.fill(0);
@@ -82,6 +82,7 @@ void SettingsHandler::resetSettings(const array<double,5> &settings) {
     settings_ = settings;
     max_settings_ = settings;
     min_settings_ = settings;
+    old_settings_.clear();
 }
 
 const array<double, 5> &SettingsHandler::executeComments() {
@@ -90,6 +91,7 @@ const array<double, 5> &SettingsHandler::executeComments() {
     resetSettings(temp_settings);
 
     for (unsigned int i = 0; i < comments_.size(); ++i) {
+        old_settings_.push_back(max_settings_);
         for (unsigned int part = 0; part < 5; ++part) {
             max_settings_.at(part) = max_settings_.at(part) +
                     space_.at(part) / 2 + space_.at(part) * comments_.at(i).at(part);

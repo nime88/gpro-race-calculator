@@ -1,22 +1,15 @@
 #include "ui/trackgroupbox.h"
 
+#include <utility/resourcemanager.h>
+
 bool trackCompare (std::shared_ptr<Track> track_1, std::shared_ptr<Track> track_2) {
     if (track_1->getTrackQString(TRACK_NAME) < track_2->getTrackQString(TRACK_NAME)) return true;
     return false;
 }
 
-void TrackGroupBox::setTrackNames(const std::vector<std::shared_ptr<Track> > &tracks)
-{
-    QStringList temp_list;
-    for (unsigned int i = 0; i < tracks.size(); ++i) {
-        temp_list.append(tracks.at(i)->getName());
-    }
-
-    track_names_ = temp_list;
-}
-
 TrackGroupBox::TrackGroupBox(QWidget *parent):
     QGroupBox(parent),
+    current_track_(0),
     track_combo_box_(0),
     strategy_handler_(0)
 {    
@@ -63,50 +56,40 @@ void TrackGroupBox::saveSettings(const QString &soft_name, const QString &compan
     settings.setValue(track_chosen_text, QVariant(track_combo_box_->currentText()));
 }
 
+void TrackGroupBox::updateContent()
+{
+    // sorting tracks (if it hansn't been done yet
+    ResourceManager::getInstance().getTrackQStringList()->sort(Qt::CaseInsensitive);
+    track_combo_box_->clear();
+    // adding items to combo box
+    track_combo_box_->addItems(*ResourceManager::getInstance().getTrackQStringList());
+
+    // if we have nothing to show we just leave
+    if(track_combo_box_->count() == 0) return;
+
+    // if we actually have current track we update fields for it
+    if (current_track_ != 0) {
+        track_combo_box_->setCurrentText(current_track_->getName());
+        for (unsigned int i = 0; i < track_fields_.size(); ++i) {
+            track_fields_.at(i)->setText(current_track_->getTrackQString(static_cast<TrackSlots>(i)));
+        }
+    }
+}
+
 void TrackGroupBox::setCurrentTrack(const QString &current_track)
 {
     track_combo_box_->setCurrentText(current_track);
     trackChanged(current_track);
 }
 
-void TrackGroupBox::setTracks(const std::vector<std::shared_ptr<Track> > &tracks)
-{
-    tracks_ = tracks;
-
-    if (tracks_.size() > 0) {
-        std::sort(tracks_.begin(), tracks_.end(), trackCompare);
-        setTrackNames(tracks_);
-        track_combo_box_->addItems(getTrackNames());
-        trackChanged(getTrackNames().at(0));
-    }
-}
-
-
 void TrackGroupBox::trackChanged(QString track)
 {
-    if (tracks_.size() == 0) return;
+    if (ResourceManager::getInstance().getTrack(track) == 0) return;
 
-    for (unsigned int i = 0; i < tracks_.size(); ++i) {
-        if (track == tracks_.at(i)->getName()) {
-            current_track_ = tracks_.at(i);
-            break;
-        }
-    }
+    current_track_ = ResourceManager::getInstance().getTrack(track);
 
     // then changing field values
-    track_fields_.at(0)->setText(current_track_->getTrackQString(TRACK_LAPS));
-    track_fields_.at(1)->setText(current_track_->getTrackQString(TRACK_DISTANCE));
-    track_fields_.at(2)->setText(current_track_->getTrackQString(TRACK_POWER));
-    track_fields_.at(3)->setText(current_track_->getTrackQString(TRACK_HANDLING));
-    track_fields_.at(4)->setText(current_track_->getTrackQString(TRACK_ACCELERATION));
-    track_fields_.at(5)->setText(current_track_->getTrackQString(TRACK_DOWNFORCE));
-    track_fields_.at(6)->setText(current_track_->getTrackQString(TRACK_OVERTAKING));
-    track_fields_.at(7)->setText(current_track_->getTrackQString(TRACK_SUSPENSION));
-    track_fields_.at(8)->setText(current_track_->getTrackQString(TRACK_FUEL_CONSUMPTION));
-    track_fields_.at(9)->setText(current_track_->getTrackQString(TRACK_TYRE_WEAR));
-    track_fields_.at(10)->setText(current_track_->getTrackQString(TRACK_AVG_SPEED));
-    track_fields_.at(11)->setText(current_track_->getTrackQString(TRACK_LAP_LENGTH));
-    track_fields_.at(12)->setText(current_track_->getTrackQString(TRACK_CORNERS));
-    track_fields_.at(13)->setText(current_track_->getTrackQString(TRACK_GRIP));
-    track_fields_.at(14)->setText(current_track_->getTrackQString(TRACK_PIT_STOP));
+    for (unsigned int i = 0; i < track_fields_.size(); ++i) {
+        track_fields_.at(i)->setText(current_track_->getTrackQString(static_cast<TrackSlots>(i)));
+    }
 }

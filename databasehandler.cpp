@@ -244,7 +244,6 @@ std::shared_ptr<Stint> transform2Stint(const QSqlQuery & query) {
 DatabaseHandler::DatabaseHandler():
     db_(), tracks_(), practice_data_(), stint_data_()
 {
-
 }
 
 bool DatabaseHandler::beginConnection() {

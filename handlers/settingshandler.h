@@ -21,6 +21,7 @@ private:
     array<double,5> settings_;
     array<double,5> max_settings_;
     array<double,5> min_settings_;
+    std::vector< array<double,5> > old_settings_;
 
     // comments should be arbitary number of 5 slot arrays (hooray for c++11/14)
     std::vector< array<int,5> > comments_;
@@ -30,8 +31,8 @@ private:
     array<double,5> space_;
 
     // disallowing copying
-    SettingsHandler(const SettingsHandler&);
-    SettingsHandler& operator=(const SettingsHandler&);
+    SettingsHandler(const SettingsHandler&) = delete;
+    void operator=(const SettingsHandler&) = delete;
 
 public:
     SettingsHandler();
@@ -42,9 +43,11 @@ public:
     void setSpace(const double space);
 
     inline const array<double,5>& getSpace() { return space_; }
+    inline double getOriginalSpace() { return org_space_; }
     inline const array<double,5>& getSettings() { return settings_; }
     inline const array<double,5>& getMaxSettings() { return max_settings_; }
     inline const array<double,5>& getOriginalSettings() { return original_settings; }
+    const std::vector< array<double,5> >& getOldSettings() { return old_settings_; }
 
     // TODO test inlining this when correct functionality has been reached
     array<double, 5> getSettingsFromDiff(std::shared_ptr<Regressions> regressions,

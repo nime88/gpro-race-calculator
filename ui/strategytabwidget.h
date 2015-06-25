@@ -63,6 +63,7 @@ public:
         strategyhandler_ = strategyhandler;
     }
     void updateHandlers();
+    void updateContents();
 
     void loadSettings(const QString& soft_name, const QString& company_name);
     void saveSettings(const QString& soft_name, const QString& company_name);

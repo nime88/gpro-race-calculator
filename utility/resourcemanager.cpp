@@ -9,9 +9,13 @@ ResourceManager::ResourceManager():
 
 }
 
+ResourceManager::~ResourceManager()
+{
+}
+
 void ResourceManager::fetchTracks()
 {
-    tracks_.reset();
+    tracks_->clear();
     tracks_string_list_->clear();
     std::vector< std::shared_ptr<Track> > temp_tracks = dbhandler_->getTracks();
 
@@ -30,7 +34,9 @@ std::shared_ptr<Track> ResourceManager::getTrack(const QString &track)
 {
     if (tracks_->size() == 0) fetchTracks();
 
-    return tracks_->at(track);
+    int exists = tracks_->count(track);
+    if ( exists > 0 ) return tracks_->at(track);
+    else return 0;
 }
 
 QStringList *ResourceManager::getTrackQStringList()
@@ -38,4 +44,10 @@ QStringList *ResourceManager::getTrackQStringList()
     if (tracks_string_list_->size() == 0) fetchTracks();
 
     return tracks_string_list_;
+}
+
+void ResourceManager::clear()
+{
+    dbhandler_.reset();
+    tracks_.reset();
 }

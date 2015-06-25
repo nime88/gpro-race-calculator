@@ -110,6 +110,52 @@ void StrategyTabWidget::init()
 
 }
 
+void StrategyTabWidget::updateContents()
+{
+    // practice table item update
+    for (unsigned int i = 0; i < settingshandler_->getOldSettings().size(); ++i) {
+        int row = practice_table_item_->rowCount();
+        practice_table_item_->insertRow(row);
+        practice_table_item_->setCellWidget(i,0,
+                                            new QLabel(QString::number(std::floor(settingshandler_->getOldSettings().at(i).at(0)))));
+        for (unsigned int part = 0; part < 5; ++part) {
+            practice_table_item_->setCellWidget(i,part + 1,
+                                                new QLabel(QString::number(std::floor(settingshandler_->getOldSettings().at(i).at(part)))));
+        }
+    }
+
+    // add practice table item update
+    for (int i = 0; i < add_practice_table_item_->columnCount(); ++i) {
+        QLineEdit* temp_edit =  static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i));
+        if (i == 0) temp_edit->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(i))));
+        else temp_edit->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(i-1))));
+    }
+
+    // max settings text item
+    max_settings_text_item_->setText(getMaxSettingsText(settingshandler_->getMaxSettings()));
+
+    // settings text item
+    settings_text_item_->setText(getSettingsText(settingshandler_->getSettings()));
+
+    // q1 settings text item
+    q1_settings_text_item_->setText(getQ1SettingsText(settingshandler_->getSettings()));
+
+    // q2 settings text item
+    array<double,5> q2_settings_array = settingshandler_->getSettingsFromDiff(regressions_,
+                                                                              strategyhandler_->getQ1Temperature(),
+                                                                              strategyhandler_->getQ2Temperature());
+    q2_settings_text_item_->setText(getQ2SettingsText(q2_settings_array));
+
+    // race settings text item
+    array<double,5> race_settings_array = settingshandler_->getSettingsFromDiff(regressions_,
+                                                                                strategyhandler_->getQ1Temperature(),
+                                                                                strategyhandler_->getRaceTemperature());
+    race_settings_text_item_->setText(getRaceSettingsText(race_settings_array));
+
+    // space range item
+    space_range_item_->setText(QString::number(std::ceil(settingshandler_->getOriginalSpace())));
+}
+
 void StrategyTabWidget::loadSettings(const QString &soft_name, const QString &company_name)
 {
     QSettings settings(soft_name, company_name);
@@ -117,7 +163,6 @@ void StrategyTabWidget::loadSettings(const QString &soft_name, const QString &co
     // first loading non moving stuff
     QVariant range = settings.value(range_settings_text_, QVariant(135));
     settingshandler_->setSpace(range.toDouble());
-    space_range_item_->setText(range.toString());
 
     array<double,5> start_settings;
     for (unsigned int i = 0; i < start_settings.size(); ++i) {
@@ -147,25 +192,7 @@ void StrategyTabWidget::loadSettings(const QString &soft_name, const QString &co
 
     settingshandler_->executeComments();
 
-    // assigning texts
-    max_settings_text_item_->setText(getMaxSettingsText(settingshandler_->getMaxSettings()));
-    settings_text_item_->setText(getSettingsText(settingshandler_->getSettings()));
-    q1_settings_text_item_->setText(getQ1SettingsText(settingshandler_->getSettings()));
-    array<double,5> q2_settings_array = settingshandler_->getSettingsFromDiff(regressions_,
-                                                                              strategyhandler_->getQ1Temperature(),
-                                                                              strategyhandler_->getQ2Temperature());
-    q2_settings_text_item_->setText(getQ2SettingsText(q2_settings_array));
-    array<double,5> race_settings_array = settingshandler_->getSettingsFromDiff(regressions_,
-                                                                                strategyhandler_->getQ1Temperature(),
-                                                                                strategyhandler_->getRaceTemperature());
-    race_settings_text_item_->setText(getRaceSettingsText(race_settings_array));
-
-    // updating add item field
-    static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,0))->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(0))));
-    for (unsigned int i = 0; i < settingshandler_->getMaxSettings().size(); ++i) {
-        static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i+1))->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(i))));
-    }
-
+    updateContents();
 }
 
 void StrategyTabWidget::saveSettings(const QString &soft_name, const QString &company_name)
@@ -195,21 +222,6 @@ void StrategyTabWidget::saveSettings(const QString &soft_name, const QString &co
 
 void StrategyTabWidget::addButtonClicked()
 {
-    // adding row into the previous settings table
-    int row = practice_table_item_->rowCount();
-    practice_table_item_->insertRow(row);
-    // then adjusting size of the table
-    QSize size;
-    size.setWidth(practice_table_item_->width());
-    size.setHeight(practice_table_item_->height()+30);
-    practice_table_item_->resize(size);
-
-    // adding add_practice_table values to settings table
-    for (int i = 0; i < practice_table_item_->columnCount(); ++i) {
-        //QTableWidgetItem temp_item = *temp_table_from->item(0,i);
-        practice_table_item_->setCellWidget(row,i, new QLabel(static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i))->text()));
-    }
-
     // setting space value range
     bool is_valid_space = false;
     double space = space_range_item_->text().toDouble(&is_valid_space);
@@ -219,7 +231,6 @@ void StrategyTabWidget::addButtonClicked()
     } else space = 135;
 
     settingshandler_->setSpace(space);
-    space_range_item_->setText(QString::number(space));
 
     // getting and transforming comments
     for (unsigned int i = 0; i < comments_items_.size(); ++i) {
@@ -231,25 +242,7 @@ void StrategyTabWidget::addButtonClicked()
     // instantly executing comments
     settingshandler_->executeComments();
 
-    // assigning texts
-    max_settings_text_item_->setText(getMaxSettingsText(settingshandler_->getMaxSettings()));
-    settings_text_item_->setText(getSettingsText(settingshandler_->getSettings()));
-    q1_settings_text_item_->setText(getQ1SettingsText(settingshandler_->getSettings()));
-    array<double,5> q2_settings_array = settingshandler_->getSettingsFromDiff(regressions_,
-                                                                              strategyhandler_->getQ1Temperature(),
-                                                                              strategyhandler_->getQ2Temperature());
-    q2_settings_text_item_->setText(getQ2SettingsText(q2_settings_array));
-    array<double,5> race_settings_array = settingshandler_->getSettingsFromDiff(regressions_,
-                                                                                strategyhandler_->getQ1Temperature(),
-                                                                                strategyhandler_->getRaceTemperature());
-    race_settings_text_item_->setText(getRaceSettingsText(race_settings_array));
-
-
-    // updating fields for easier next usage
-    static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,0))->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(0))));
-    for (unsigned int i = 0; i < settingshandler_->getMaxSettings().size(); ++i) {
-        static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i+1))->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(i))));
-    }
+    updateContents();
 }
 
 void StrategyTabWidget::resetButtonClicked()
@@ -264,6 +257,8 @@ void StrategyTabWidget::resetButtonClicked()
     practice_table_item_->reset();
     while(practice_table_item_->rowCount() > 0)
         practice_table_item_->removeRow(0);
+
+    updateContents();
 }
 
 void StrategyTabWidget::rangeChanged()
@@ -279,6 +274,10 @@ void StrategyTabWidget::rangeChanged()
     }
 
     space_range_item_->setText(QString::number(value));
+
+    settingshandler_->setSpace(value);
+
+    updateContents();
 }
 
 void StrategyTabWidget::cellChanged(int column)

@@ -38,9 +38,6 @@ private:
 
     std::shared_ptr<Strategy> strategy_handler_;
 
-    void setTrackNames(const std::vector< std::shared_ptr<Track> >& tracks);
-    const QStringList& getTrackNames() { return track_names_; }
-
 public:
     TrackGroupBox(QWidget *parent = 0);
 
@@ -51,6 +48,8 @@ public:
 
     void loadSettings(const QString& soft_name, const QString& company_name);
     void saveSettings(const QString& soft_name, const QString& company_name);
+
+    void updateContent();
 
     void setCurrentTrack(const QString& current_track);
 

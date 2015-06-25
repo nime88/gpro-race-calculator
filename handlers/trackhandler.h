@@ -18,9 +18,6 @@ class TrackGroupBox;
 class TrackHandler
 {
 private:
-    // all the possible tracks
-    std::vector< std::shared_ptr<Track> > tracks_;
-
     // currently visible track (in ui)
     std::shared_ptr<Track> current_track_;
 
@@ -28,16 +25,10 @@ private:
     TrackGroupBox* track_group_box_;
 
     // disallowing copying
-    TrackHandler (const TrackHandler&);
-    TrackHandler& operator=(const TrackHandler&);
+    TrackHandler (const TrackHandler&) = delete;
+    void operator=(const TrackHandler&) = delete;
 public:
-    TrackHandler();
-
-    void initFields(TrackGroupBox* parent, std::shared_ptr<DatabaseHandler> dbhandler);
-
-    std::vector< std::shared_ptr<Track> >  getTracks() { return tracks_; }
-
-    void setTracks (std::shared_ptr<DatabaseHandler> dbhandler);
+    TrackHandler(TrackGroupBox *parent);
 };
 
 #endif // TRACKHANDLER_H

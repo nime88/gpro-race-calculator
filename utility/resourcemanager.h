@@ -14,7 +14,9 @@
 class ResourceManager
 {
 private:
-     ResourceManager();
+     explicit ResourceManager();
+
+     ~ResourceManager();
 
      std::shared_ptr<DatabaseHandler> dbhandler_;
      std::shared_ptr< std::map<QString, std::shared_ptr<Track> > > tracks_;
@@ -37,6 +39,10 @@ public:
 
     std::shared_ptr<Track> getTrack(const QString& track);
     QStringList* getTrackQStringList();
+
+    // clears all the data (should be called when data needs to get rid of
+    // before destructor comes into play
+    void clear();
 
 
 };
