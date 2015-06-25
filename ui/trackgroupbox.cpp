@@ -56,10 +56,12 @@ void TrackGroupBox::saveSettings(const QString &soft_name, const QString &compan
     settings.setValue(track_chosen_text, QVariant(track_combo_box_->currentText()));
 }
 
-void TrackGroupBox::updateContent()
+void TrackGroupBox::updateContents()
 {
     // sorting tracks (if it hansn't been done yet
+    qDebug() << ResourceManager::getInstance().getTrackQStringList()->size();
     ResourceManager::getInstance().getTrackQStringList()->sort(Qt::CaseInsensitive);
+    qDebug() << ResourceManager::getInstance().getTrackQStringList()->size();
     track_combo_box_->clear();
     // adding items to combo box
     track_combo_box_->addItems(*ResourceManager::getInstance().getTrackQStringList());
@@ -67,18 +69,18 @@ void TrackGroupBox::updateContent()
     // if we have nothing to show we just leave
     if(track_combo_box_->count() == 0) return;
 
-    // if we actually have current track we update fields for it
-    if (current_track_ != 0) {
-        track_combo_box_->setCurrentText(current_track_->getName());
-        for (unsigned int i = 0; i < track_fields_.size(); ++i) {
-            track_fields_.at(i)->setText(current_track_->getTrackQString(static_cast<TrackSlots>(i)));
-        }
+    if (current_track_ == 0) current_track_ = ResourceManager::getInstance().getTrack(ResourceManager::getInstance().getTrackQStringList()->at(0));
+
+    track_combo_box_->setCurrentText(current_track_->getName());
+    for (unsigned int i = 0; i < track_fields_.size(); ++i) {
+        track_fields_.at(i)->setText(current_track_->getTrackQString(static_cast<TrackSlots>(i)));
     }
 }
 
 void TrackGroupBox::setCurrentTrack(const QString &current_track)
 {
     track_combo_box_->setCurrentText(current_track);
+
     trackChanged(current_track);
 }
 

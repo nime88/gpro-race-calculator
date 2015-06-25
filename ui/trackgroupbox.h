@@ -34,8 +34,6 @@ private:
 
     QComboBox* track_combo_box_;
 
-    QStringList track_names_;
-
     std::shared_ptr<Strategy> strategy_handler_;
 
 public:
@@ -49,7 +47,7 @@ public:
     void loadSettings(const QString& soft_name, const QString& company_name);
     void saveSettings(const QString& soft_name, const QString& company_name);
 
-    void updateContent();
+    void updateContents();
 
     void setCurrentTrack(const QString& current_track);
 

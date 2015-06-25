@@ -54,7 +54,7 @@ void MainWindow::fullUpdate()
 
     // updating contents
     ui_->strategy_tab_widget->updateContents();
-    ui_->track_group_box->updateContent();
+    ui_->track_group_box->updateContents();
 }
 
 void MainWindow::on_actionQuit_2_triggered()

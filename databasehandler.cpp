@@ -241,13 +241,13 @@ std::shared_ptr<Stint> transform2Stint(const QSqlQuery & query) {
     std::shared_ptr<Track> temp_track;
 }
 
-DatabaseHandler::DatabaseHandler():
-    db_(), tracks_(), practice_data_(), stint_data_()
+DatabaseHandler::DatabaseHandler(): tracks_(), practice_data_(), stint_data_()
 {
 }
 
 bool DatabaseHandler::beginConnection() {
     QSettings settings(General::ProgramName, General::CompanyName);
+    QSqlDatabase db;
 
     QString type = settings.value(Settings::DatabaseTypeText, QVariant("QPSQL")).toString();
     QString name = settings.value(Settings::DatabaseNameText, QVariant("")).toString();
@@ -256,19 +256,36 @@ bool DatabaseHandler::beginConnection() {
 
     if ( type.size() == 0 || name.size() == 0 || username.size() == 0) return false;
 
-    if (db_.connectionNames().size() == 0) db_ = QSqlDatabase::addDatabase(type);
+    if (!db.contains(QString("DBConnection") % type)) {
+        db = QSqlDatabase::addDatabase(type, QString("DBConnection") % type);
+    } else {
+        db = QSqlDatabase::database(QString("DBConnection") % type);
+    }
 
-    if (db_.databaseName() != name) db_.setDatabaseName(name);
+    if (db.databaseName() != name) db.setDatabaseName(name);
 
-    if (db_.userName() != username) db_.setUserName(username);
+    if (db.userName() != username) db.setUserName(username);
 
-    if(db_.password() != password)  db_.setPassword(password);
+    if(db.password() != password)  db.setPassword(password);
 
-    return db_.open();
+    return db.open();
 }
 
 void DatabaseHandler::endConnection() {
-    db_.close();
+    if(!QSqlDatabase::connectionNames().isEmpty()) {
+        QSqlDatabase db = QSqlDatabase::database(QSqlDatabase::connectionNames().back());
+        db.close();
+    }
+}
+
+void DatabaseHandler::setDatabase(QString dbtype, QString name, QString user_name, QString password)
+{
+    if (QSqlDatabase::contains(QString("DBConnection") % dbtype)) return;
+
+    QSqlDatabase db = QSqlDatabase::addDatabase(dbtype, QString("DBConnection") % dbtype);
+    db.setDatabaseName(name);
+    db.setUserName(user_name);
+    db.setPassword(password);
 }
 
 const std::vector< std::shared_ptr<Track> > &DatabaseHandler::getTracks() {
@@ -280,8 +297,10 @@ const std::vector< std::shared_ptr<Track> > &DatabaseHandler::getTracks() {
         return tracks_;
     }
 
+    QSqlDatabase db = QSqlDatabase::database(QSqlDatabase::connectionNames().back());
+
     // selecting all tracks
-    QSqlQuery query = db_.exec(getTracksQuery());
+    QSqlQuery query = db.exec(getTracksQuery());
 
      while (query.next()) {
         tracks.push_back(transform2Track(query));
@@ -324,7 +343,9 @@ const std::vector<std::shared_ptr<Practice> > &DatabaseHandler::getPracticeData(
         return practice_data_;
     }
 
-    QSqlQuery query = db_.exec(getPracticeDataQuery());
+    QSqlDatabase db = QSqlDatabase::database(QSqlDatabase::connectionNames().back());
+
+    QSqlQuery query = db.exec(getPracticeDataQuery());
 
     while (query.next()) {
        query.next();

@@ -16,7 +16,6 @@
 class DatabaseHandler
 {
 private:
-    QSqlDatabase db_;
     //keeping track of the tracks if we have gotten it already
     //so no unnecessary db access is done
     std::vector< std::shared_ptr<Track> > tracks_;
@@ -36,9 +35,7 @@ public:
     bool beginConnection();
     void endConnection();
 
-    void setDatabaseType(QString dbtype) { db_ = QSqlDatabase::addDatabase(dbtype); }
-    void setDatabaseName(QString name) { db_.setDatabaseName(name); }
-    void setDatabaseLogin(QString username, QString password) { db_.setUserName(username); db_.setPassword(password); }
+    void setDatabase(QString dbtype, QString name, QString user_name, QString password);
 
     const std::vector< std::shared_ptr<Track> >& getTracks();
     QStringList getTrackNames();
