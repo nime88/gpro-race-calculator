@@ -159,9 +159,12 @@ QString getStintDataQuery() {
 
 std::shared_ptr<Track> transform2Track (const QSqlQuery & query) {
     int field_no;
+    // getting index of track name
     int temp_index = query.record().indexOf(Track::getFieldNames().at(15));
+    // trying safe input
     std::shared_ptr<Track> temp_track = ResourceManager::getInstance().getTrackSafe(query.value(temp_index).toString());
 
+    // adding new track
     if (temp_track == 0) {
         temp_track = std::shared_ptr<Track>(new Track);
 
@@ -169,6 +172,8 @@ std::shared_ptr<Track> transform2Track (const QSqlQuery & query) {
             field_no = query.record().indexOf(Track::getFieldNames().at(i));
             temp_track->setValue((TrackSlots)i, query.value(field_no));
         }
+
+        ResourceManager::getInstance().addTrack(temp_track);
     }
 
     return temp_track;

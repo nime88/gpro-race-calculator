@@ -16,23 +16,24 @@ class Regressions
    private:
     std::vector< std::shared_ptr<Practice> > practice_data_;
 
+    std::vector< std::shared_ptr<Stint> > stint_data_;
+
     // cofactors we have calculated
     gsl_vector *wing_setting_cofactors_;
     gsl_vector *engine_setting_cofactors_;
     gsl_vector *gear_setting_cofactors_;
     gsl_vector *brake_setting_cofactors_;
     gsl_vector *suspension_setting_cofactors_;
+    gsl_vector *time_lm_cofactors_;
 
 public:
     Regressions();
 
     ~Regressions();
 
-    void calculateWingSetting();
-    void calculateEngineSetting();
-    void calculateGearSetting();
-    void calculateBrakeSetting();
-    void calculateSuspensionSetting();
+    gsl_vector* calculateSetting(const std::vector<double> &observed_data , const std::vector<std::vector<double> >& data);
+
+    void calculateTimeLM();
 
     // this will calculate all cofactors that we'll need or are
     // able to calculate
@@ -41,6 +42,19 @@ public:
     // setters
     inline void setPracticeData(const std::vector< std::shared_ptr<Practice> >& practice_data)
         { practice_data_ = practice_data; }
+
+    inline void setStintData(const std::vector< std::shared_ptr<Stint> >& stint_data) { stint_data_ = stint_data; }
+
+    std::vector<double> getWingObservations();
+    std::vector < std::vector<double> > getWingSettingData();
+    std::vector<double> getEngineObservations();
+    std::vector< std::vector<double> > getEngineSettingData();
+    std::vector<double> getBrakesObservations();
+    std::vector< std::vector<double> > getBrakesSettingData();
+    std::vector<double> getGearObservations();
+    std::vector< std::vector<double> > getGearSettingData();
+    std::vector<double> getSuspensionObservations();
+    std::vector< std::vector<double> > getSuspensionSettingData();
 
     int getWingSetting(const Weather& weather, const int& temperature, const int& track_handling,
                                 const int& corners, const int& car_front_wing_lvl,

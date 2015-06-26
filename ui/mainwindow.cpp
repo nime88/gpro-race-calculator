@@ -23,9 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
      trackhandler_(new TrackHandler(ui_->track_group_box))
 {
     ui_->setupUi(this);
-    qDebug() << "Dem UI";
     fullUpdate();
-    qDebug() << "WTF IS GONG On";
 }
 
 MainWindow::~MainWindow() {}
@@ -33,6 +31,7 @@ MainWindow::~MainWindow() {}
 void MainWindow::updateDBDependentUI()
 {
     regressionhandler_->setPracticeData(dbhandler_->getPracticeData());
+    regressionhandler_->setStintData(dbhandler_->getStintData());
     regressionhandler_->calculateAllRegressionCofactors();
 }
 
