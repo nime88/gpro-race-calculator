@@ -37,6 +37,8 @@ QString getStintFields() {
             QString(" \"Stint\".\"Tyre Type\" AS \"STyreType\", ") %
             QString(" \"Stint\".\"Weather\" AS \"SWeather\", ") %
             QString(" \"Stint\".\"Km\" AS \"SKm\" ");
+
+    return fields;
 }
 
 QString getCarLvlFields() {
@@ -88,11 +90,11 @@ QString getDriverFields() {
 
 QString getRiskFields() {
     QString risk_string = QString(" \"Risk\".\"Name (Track)\", ") %
-            QString(" \"Risk\".\"Clear\", ") %
-            QString(" \"Risk\".\"Wet\", ") %
-            QString(" \"Risk\".\"Defend\", ") %
-            QString(" \"Risk\".\"Malfunction\", ") %
-            QString(" \"Risk\".\"Overtake\" ");
+            QString(" \"Risk\".\"Clear\" AS \"RClear\", ") %
+            QString(" \"Risk\".\"Wet\" AS RWet, ") %
+            QString(" \"Risk\".\"Defend\" AS RDefend, ") %
+            QString(" \"Risk\".\"Malfunction\" AS RMalfunction, ") %
+            QString(" \"Risk\".\"Overtake\" AS ROvertake ");
     return risk_string;
 }
 
@@ -238,7 +240,21 @@ std::shared_ptr<Stint> transform2Stint(const QSqlQuery & query) {
     int field_no = 0;
     std::shared_ptr<Stint> temp_stint = std::shared_ptr<Stint>(new Stint);
 
-    std::shared_ptr<Track> temp_track;
+    std::shared_ptr<Track> temp_track = transform2Track(query);
+    temp_stint->setTrack(temp_track);
+
+    std::shared_ptr<Car> temp_car = transform2Car(query);
+    temp_stint->setCar(temp_car);
+
+    std::shared_ptr<Driver> temp_driver = transform2Driver(query);
+    temp_stint->setDriver(temp_driver);
+
+    for (unsigned int i = 0; i < temp_stint->getColumnNames().size(); ++i) {
+        field_no = query.record().indexOf(temp_stint->getColumnNames().at(i));
+        temp_stint->setValue((StintSlots)i, query.value(field_no));
+    }
+
+    return temp_stint;
 }
 
 DatabaseHandler::DatabaseHandler(): tracks_(), practice_data_(), stint_data_()
@@ -363,5 +379,25 @@ const std::vector<std::shared_ptr<Stint> > &DatabaseHandler::getStintData()
 {
     if ( stint_data_.size() > 0 ) return stint_data_;
 
+    std::vector< std::shared_ptr<Stint> > raw_stint_data;
 
+    if (!beginConnection()) {
+        stint_data_ = raw_stint_data;
+        return stint_data_;
+    }
+
+    QSqlDatabase db = QSqlDatabase::database(QSqlDatabase::connectionNames().back());
+
+    QSqlQuery query = db.exec(getStintDataQuery());
+
+    while (query.next()) {
+       query.next();
+       raw_stint_data.push_back(transform2Stint(query));
+    }
+
+    endConnection();
+
+    stint_data_ = raw_stint_data;
+
+    return stint_data_;
 }
