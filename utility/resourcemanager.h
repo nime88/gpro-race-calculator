@@ -38,6 +38,7 @@ public:
     void addTrack(std::shared_ptr<Track> track);
 
     std::shared_ptr<Track> getTrack(const QString& track);
+    std::shared_ptr<Track> getTrackSafe(const QString& track);
     QStringList* getTrackQStringList();
 
     // clears all the data (should be called when data needs to get rid of

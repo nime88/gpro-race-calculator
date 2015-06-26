@@ -3,6 +3,7 @@
 #include <core/practice.h>
 #include <core/car.h>
 #include <utility/constants.h>
+#include <utility/resourcemanager.h>
 
 QString getTracksQuery() {
     QString select = "SELECT * ";
@@ -158,11 +159,16 @@ QString getStintDataQuery() {
 
 std::shared_ptr<Track> transform2Track (const QSqlQuery & query) {
     int field_no;
-    std::shared_ptr<Track> temp_track = std::shared_ptr<Track>(new Track);
+    int temp_index = query.record().indexOf(Track::getFieldNames().at(15));
+    std::shared_ptr<Track> temp_track = ResourceManager::getInstance().getTrackSafe(query.value(temp_index).toString());
 
-    for (unsigned int i = 0; i < Track::getFieldNames().size(); ++i) {
-        field_no = query.record().indexOf(Track::getFieldNames().at(i));
-        temp_track->setValue((TrackSlots)i, query.value(field_no));
+    if (temp_track == 0) {
+        temp_track = std::shared_ptr<Track>(new Track);
+
+        for (unsigned int i = 0; i < Track::getFieldNames().size(); ++i) {
+            field_no = query.record().indexOf(Track::getFieldNames().at(i));
+            temp_track->setValue((TrackSlots)i, query.value(field_no));
+        }
     }
 
     return temp_track;

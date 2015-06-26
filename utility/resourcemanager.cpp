@@ -39,6 +39,15 @@ std::shared_ptr<Track> ResourceManager::getTrack(const QString &track)
     else return 0;
 }
 
+std::shared_ptr<Track> ResourceManager::getTrackSafe(const QString &track)
+{
+    if (tracks_->size() == 0) return 0;
+
+    int exists = tracks_->count(track);
+    if ( exists > 0 ) return tracks_->at(track);
+    else return 0;
+}
+
 QStringList *ResourceManager::getTrackQStringList()
 {
     if (tracks_string_list_->size() == 0) fetchTracks();
