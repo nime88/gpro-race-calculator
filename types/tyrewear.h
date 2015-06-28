@@ -22,6 +22,14 @@ public:
         else type_ = type;
     }
 
+    inline double asDouble() const {
+        if (type_ > 4) return 4;
+        else if (type_ > 3) return 3;
+        else if (type_ > 2) return 2;
+        else if (type_ > 1) return 1;
+        else return 0;
+    }
+
     inline QString asString() { return types_.at(type_); }
 
     TyreWear (TyreWear& tyre_wear) { setType(tyre_wear.getType()); }

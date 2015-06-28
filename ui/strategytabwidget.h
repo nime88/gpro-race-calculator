@@ -43,6 +43,7 @@ private:
     QLabel* race_settings_text_item_;
     QLineEdit* space_range_item_;
     QPushButton* add_button_item_;
+    QTableWidget* tyre_wear_table_item_;
 
     QSignalMapper* practice_signal_mapper_;
 

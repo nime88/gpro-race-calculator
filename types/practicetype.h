@@ -14,7 +14,7 @@ class PracticeType
 public:
     PracticeType();
     QString track_name; // name of the track
-    double time; // practice time TODO change to double
+    double time;
     // settings
     int front_wing;
     int rear_wing;
@@ -51,6 +51,17 @@ public:
     int car_brakes_lvl;
     int car_suspension_lvl;
     int car_electronics_lvl;
+    int car_chassis_wear;
+    int car_engine_wear;
+    int car_front_wing_wear;
+    int car_rear_wing_wear;
+    int car_underbody_wear;
+    int car_sidepods_wear;
+    int car_cooling_wear;
+    int car_gearbox_wear;
+    int car_brakes_wear;
+    int car_suspension_wear;
+    int car_electronics_wear;
     // driver
     int driver_concentration;
     int driver_talent;

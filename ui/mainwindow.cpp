@@ -50,6 +50,7 @@ void MainWindow::fullUpdate()
 
     qDebug() << "Regression";
     regressionhandler_->setPracticeData(dbhandler_->getPracticeData());
+    regressionhandler_->setStintData(dbhandler_->getStintData());
     regressionhandler_->calculateAllRegressionCofactors();
 
     qDebug() << "Loading Settings";

@@ -5,7 +5,8 @@
 
 
 Regressions::Regressions(): wing_setting_cofactors_(0), engine_setting_cofactors_(0),
-    gear_setting_cofactors_(0), brake_setting_cofactors_(0), suspension_setting_cofactors_(0)
+    gear_setting_cofactors_(0), brake_setting_cofactors_(0), suspension_setting_cofactors_(0),
+    tyre_wear_lm_cofactors_(0)
 {
 }
 
@@ -16,7 +17,7 @@ Regressions::~Regressions()
     gsl_vector_free(gear_setting_cofactors_);
     gsl_vector_free(brake_setting_cofactors_);
     gsl_vector_free(suspension_setting_cofactors_);
-    gsl_vector_free(time_lm_cofactors_);
+    gsl_vector_free(tyre_wear_lm_cofactors_);
 }
 
 gsl_vector *Regressions::calculateSetting(const std::vector<double>& observed_data ,
@@ -214,58 +215,46 @@ std::vector<std::vector<double> > Regressions::getSuspensionSettingData()
     return return_values;
 }
 
-void Regressions::calculateTimeLM()
+std::vector<double> Regressions::getTyreWearObservations()
 {
-    // practice data
-    /*unsigned int N = stint_data_.size();
-    if (N == 0) return;
+    std::vector<double> return_values(stint_data_.size(),0);
+    //fill vector of observed data
+    for (unsigned int i = 0; i < return_values.size(); ++i) {
+        // first slightly modifying the observations to human readable form
+        int final_percentage = stint_data_.at(i)->getValues()->final_percentage;
+        final_percentage = 100 - final_percentage;
+        double tyre_wear = static_cast<double>(final_percentage) / static_cast<double>(stint_data_.at(i)->getValues()->km);
+        return_values.at(i) = tyre_wear;
+    }
 
-    // has different patterns (that's why so many)
-    int P = 20;
+    return return_values;
+}
 
-    gsl_vector *y;
-    gsl_matrix *X;
-    gsl_vector *c;
-    gsl_matrix *cov;
-
-    // allocating space for the datastructures
-    X = gsl_matrix_alloc(N,P);
-    y = gsl_vector_alloc(N);
-
-    // outputs
-    c = gsl_vector_alloc(P);
-    cov = gsl_matrix_alloc(P, P);
-
-    // TODO AFTER THIS
-
+std::vector<std::vector<double> > Regressions::getTyreWearLMSettingData()
+{
+    std::vector<std::vector<double> > return_values;
     //putting the data into X matrix
-    for (unsigned int i = 0; i < N; ++i) {
-        gsl_matrix_set(X, i, 0,
-                       practice_data_.at(i)->getValues()->weather.asDouble()); // weather
+    for (unsigned int i = 0; i < stint_data_.size(); ++i) {
+        std::vector<double> row(13,0);
+        std::shared_ptr<StintType> values = stint_data_.at(i)->getValues();
+        row.at(0) = values->temperature;
+        row.at(1) = values->humidity;
+        row.at(2) = values->tyre_type.asDouble();
+        row.at(3) = values->track_tyre_wear.asDouble();
+        row.at(4) = static_cast<double>(values->weather.getType() == 0 ? values->risk_clear : values->risk_wet);
+        row.at(5) = static_cast<double>(values->driver_experience);
+        row.at(6) = static_cast<double>(values->driver_aggressiveness);
+        row.at(7) = static_cast<double>(values->driver_weight);
+        row.at(8) = static_cast<double>(values->car_suspension_lvl) - static_cast<double>(values->car_suspension_wear) / 3;
+        row.at(9) = values->weather.asDouble();
+        row.at(10) = static_cast<double>(values->track_power);
+        row.at(11) = static_cast<double>(values->track_handling);
+        row.at(12) = static_cast<double>(values->track_acceleration);
+
+        return_values.push_back(row);
     }
 
-    // fill vector of observed data
-    for (unsigned int i = 0; i < N; ++i) {
-        //double suspension = static_cast<double>(stint_data_.at(i)->getValues()->suspension);
-        gsl_vector_set(y, i, suspension);
-    }
-
-    double chisq;
-
-    // allocate temporary work space for gsl
-    gsl_multifit_linear_workspace *work;
-    work = gsl_multifit_linear_alloc(N, P);
-
-    // now do the fit
-    gsl_multifit_linear (X, y, c, cov, &chisq, work);
-
-    time_lm_cofactors_ = c;
-
-    // freeing the memory (f this legacy c stuff)
-    gsl_matrix_free(X);
-    gsl_matrix_free(cov);
-    gsl_vector_free(y);
-    //gsl_vector_free(c);*/
+    return return_values;
 }
 
 void Regressions::calculateAllRegressionCofactors()
@@ -277,8 +266,8 @@ void Regressions::calculateAllRegressionCofactors()
     gear_setting_cofactors_ = calculateSetting(getGearObservations(), getGearSettingData());
     suspension_setting_cofactors_ = calculateSetting(getSuspensionObservations(), getSuspensionSettingData());
 
-
     // calculating race related shit
+    tyre_wear_lm_cofactors_ = calculateSetting(getTyreWearObservations(), getTyreWearLMSettingData());
     //calculateTimeLM();
 }
 
@@ -392,4 +381,30 @@ int Regressions::getSuspensionSetting(const Weather &weather, const int &tempera
     int final_result = std::round(result);
 
     return final_result;
+}
+
+double Regressions::getTyreWear(double temperature, double humidity, const Tyre &tyre_type,
+                                const TyreWear &tyre_wear, int risk, int experience, int aggressiveness,
+                                int weight, int car_suspension_lvl, int car_suspension_wear,
+                                const Weather &weather, int tpower, int thandling, int tacceleration)
+{
+    if (tyre_wear_lm_cofactors_ == 0) tyre_wear_lm_cofactors_ = calculateSetting(getTyreWearObservations(), getTyreWearLMSettingData());
+    if (tyre_wear_lm_cofactors_ == 0) return 0;
+
+    double result = 0.0;
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 0) * temperature;
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 1) * humidity;
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 2) * tyre_type.asDouble();
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 3) * tyre_wear.asDouble();
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 4) * static_cast<double>(risk);
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 5) * static_cast<double>(experience);
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 6) * static_cast<double>(aggressiveness);
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 7) * static_cast<double>(weight);
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 8) * static_cast<double>(car_suspension_lvl) - static_cast<double>(car_suspension_wear) / 3;
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 9) * weather.asDouble();
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 10) * static_cast<double>(tpower);
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 11) * static_cast<double>(thandling);
+    result += gsl_vector_get(tyre_wear_lm_cofactors_, 12) * static_cast<double>(tacceleration);
+
+    return result;
 }

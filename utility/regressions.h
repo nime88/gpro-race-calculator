@@ -24,7 +24,7 @@ class Regressions
     gsl_vector *gear_setting_cofactors_;
     gsl_vector *brake_setting_cofactors_;
     gsl_vector *suspension_setting_cofactors_;
-    gsl_vector *time_lm_cofactors_;
+    gsl_vector *tyre_wear_lm_cofactors_;
 
 public:
     Regressions();
@@ -32,8 +32,6 @@ public:
     ~Regressions();
 
     gsl_vector* calculateSetting(const std::vector<double> &observed_data , const std::vector<std::vector<double> >& data);
-
-    void calculateTimeLM();
 
     // this will calculate all cofactors that we'll need or are
     // able to calculate
@@ -56,6 +54,9 @@ public:
     std::vector<double> getSuspensionObservations();
     std::vector< std::vector<double> > getSuspensionSettingData();
 
+    std::vector<double> getTyreWearObservations();
+    std::vector< std::vector<double> > getTyreWearLMSettingData();
+
     int getWingSetting(const Weather& weather, const int& temperature, const int& track_handling,
                                 const int& corners, const int& car_front_wing_lvl,
                                 const int& car_underbody_lvl, const int& driver_concentration);
@@ -70,6 +71,10 @@ public:
                                  const Suspension& track_suspension, const Grip& grip);
     int getSuspensionSetting(const Weather& weather, const int& temperature, const Suspension& track_suspension,
                                       const int& car_suspension_lvl);
+
+    double getTyreWear(double temperature, double humidity, const Tyre& tyre_type, const TyreWear& tyre_wear, int risk,
+                       int experience, int aggressiveness, int weight, int car_suspension_lvl, int car_suspension_wear,
+                       const Weather& weather, int tpower, int thandling, int tacceleration);
 };
 
 #endif // REGRESSIONS_H

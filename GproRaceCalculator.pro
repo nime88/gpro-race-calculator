@@ -42,7 +42,8 @@ SOURCES += main.cpp\
     types/tyrewear.cpp \
     types/practicetype.cpp \
     ui/databasesettingsdialog.cpp \
-    utility/resourcemanager.cpp
+    utility/resourcemanager.cpp \
+    types/stinttype.cpp
 
 HEADERS  += ui/mainwindow.h \
     handlers/driverhandler.h \
@@ -72,7 +73,8 @@ HEADERS  += ui/mainwindow.h \
     types/practicetype.h \
     ui/databasesettingsdialog.h \
     utility/constants.h \
-    utility/resourcemanager.h
+    utility/resourcemanager.h \
+    types/stinttype.h
 
 FORMS    += mainwindow.ui \
     ui/databasesettingsdialog.ui

@@ -68,7 +68,7 @@ StrategyTabWidget::StrategyTabWidget(QWidget *parent):
     practice_table_item_(0), add_practice_table_item_(0),
     max_settings_text_item_(0), settings_text_item_(0), q1_settings_text_item_(0),
     q2_settings_text_item_(0), race_settings_text_item_(0), space_range_item_(0),
-    add_button_item_(0)
+    add_button_item_(0), tyre_wear_table_item_(0)
 {
     practice_signal_mapper_ = new QSignalMapper(this);
 }
@@ -84,6 +84,7 @@ void StrategyTabWidget::init()
     race_settings_text_item_ = this->findChild<QLabel*>("race_settings_text");
     space_range_item_ = this->findChild<QLineEdit*>("space_value");
     add_button_item_ = this->findChild<QPushButton*>("add_setting_button");
+    tyre_wear_table_item_ = this->findChild<QTableWidget*>("tyre_wear_table");
     comments_items_.fill(0);
     comments_items_.at(0) = this->findChild<QComboBox*>("wing_setting_combo_box");
     comments_items_.at(1) = this->findChild<QComboBox*>("engine_setting_combo_box");

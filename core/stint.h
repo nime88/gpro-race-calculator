@@ -7,6 +7,7 @@
 
 #include <types/tyre.h>
 #include <types/weather.h>
+#include <types/stinttype.h>
 #include <core/track.h>
 #include <core/car.h>
 #include <core/driver.h>
@@ -53,6 +54,9 @@ public:
     explicit Stint();
 
     inline static const array<QString,15>& getColumnNames() { return field_names_; }
+
+    // getters
+    std::shared_ptr<StintType> getValues();
 
     void setTrack(std::shared_ptr<Track> track) { track_ = track; }
     void setCar(std::shared_ptr<Car> car) { car_ = car; }
