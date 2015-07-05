@@ -26,6 +26,9 @@ private:
     std::shared_ptr<Regressions> regressions_;
     std::shared_ptr<SettingsHandler> settingshandler_;
     std::shared_ptr<Strategy> strategyhandler_;
+    std::shared_ptr<TrackHandler> trackhandler_;
+    std::shared_ptr<DriverHandler> driverhandler_;
+    std::shared_ptr<CarHandler> carhandler_;
 
     const QString range_settings_text_ = "practice/settings/range";
     const array<QString, 5> start_settings_text{ {"practice/settings/wingsetting", "practice/settings/enginesetting",
@@ -44,6 +47,7 @@ private:
     QLineEdit* space_range_item_;
     QPushButton* add_button_item_;
     QTableWidget* tyre_wear_table_item_;
+    QLineEdit* risk_value_item_;
 
     QSignalMapper* practice_signal_mapper_;
 
@@ -58,10 +62,16 @@ public:
 
     void setHandlers(std::shared_ptr<Regressions> regressions,
                      std::shared_ptr<SettingsHandler> settingshandler,
-                     std::shared_ptr<Strategy> strategyhandler) {
+                     std::shared_ptr<Strategy> strategyhandler,
+                     std::shared_ptr<TrackHandler> trackhandler,
+                     std::shared_ptr<DriverHandler> driverhandler,
+                     std::shared_ptr<CarHandler> carhandler) {
         settingshandler_ = settingshandler;
         regressions_ = regressions;
         strategyhandler_ = strategyhandler;
+        trackhandler_ = trackhandler;
+        driverhandler_ = driverhandler;
+        carhandler_ = carhandler;
     }
     void updateHandlers();
     void updateContents();

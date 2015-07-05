@@ -35,6 +35,9 @@ private:
 public:
     CarHandler(DCGroupBox *parent);
 
+    int getLvl(CarSlots slot) { return car_lvl_.at(slot); }
+    int getWear(CarSlots slot) { return car_wear_.at(slot); }
+
     void setLvls(const array<int,11>& lvls);
     void setWears(const array<int,11>& wears);
     void setStats(const array<int,3>& stats);

@@ -2975,7 +2975,7 @@ QTableWidget {
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="lineEdit">
+            <widget class="QLineEdit" name="risk_value">
              <property name="minimumSize">
               <size>
                <width>50</width>

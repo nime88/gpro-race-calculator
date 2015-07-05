@@ -42,12 +42,12 @@ public:
     // setting space
     void setSpace(const double space);
 
-    inline const array<double,5>& getSpace() { return space_; }
-    inline double getOriginalSpace() { return org_space_; }
-    inline const array<double,5>& getSettings() { return settings_; }
-    inline const array<double,5>& getMaxSettings() { return max_settings_; }
-    inline const array<double,5>& getOriginalSettings() { return original_settings; }
-    const std::vector< array<double,5> >& getOldSettings() { return old_settings_; }
+    inline const array<double,5>& getSpace() const { return space_; }
+    inline double getOriginalSpace() const { return org_space_; }
+    inline const array<double,5>& getSettings() const { return settings_; }
+    inline const array<double,5>& getMaxSettings() const { return max_settings_; }
+    inline const array<double,5>& getOriginalSettings() const { return original_settings; }
+    inline const std::vector< array<double,5> >& getOldSettings() const { return old_settings_; }
 
     // TODO test inlining this when correct functionality has been reached
     array<double, 5> getSettingsFromDiff(std::shared_ptr<Regressions> regressions,

@@ -5,7 +5,8 @@
 
 #include "utility/regressions.h"
 
-SettingsHandler::SettingsHandler(): old_settings_()
+SettingsHandler::SettingsHandler(): original_settings(), settings_(),
+    max_settings_(), min_settings_(), old_settings_()
 {
     settings_.fill(0);
     max_settings_.fill(0);

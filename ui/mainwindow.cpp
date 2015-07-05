@@ -46,7 +46,8 @@ void MainWindow::fullUpdate()
     ui_->track_group_box->setHandlers(trackhandler_);
     qDebug() << "Strategy Tab";
     ui_->strategy_tab_widget->init();
-    ui_->strategy_tab_widget->setHandlers(regressionhandler_, settingshandler_, strategyhandler_);
+    ui_->strategy_tab_widget->setHandlers(regressionhandler_, settingshandler_, strategyhandler_,
+                                          trackhandler_, driverhandler_, carhandler_);
 
     qDebug() << "Regression";
     regressionhandler_->setPracticeData(dbhandler_->getPracticeData());

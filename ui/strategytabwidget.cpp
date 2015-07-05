@@ -85,6 +85,7 @@ void StrategyTabWidget::init()
     space_range_item_ = this->findChild<QLineEdit*>("space_value");
     add_button_item_ = this->findChild<QPushButton*>("add_setting_button");
     tyre_wear_table_item_ = this->findChild<QTableWidget*>("tyre_wear_table");
+    risk_value_item_ = this->findChild<QLineEdit*>("risk_value");
     comments_items_.fill(0);
     comments_items_.at(0) = this->findChild<QComboBox*>("wing_setting_combo_box");
     comments_items_.at(1) = this->findChild<QComboBox*>("engine_setting_combo_box");
@@ -109,6 +110,12 @@ void StrategyTabWidget::init()
     space_range_item_->setText(QString::number(135));
     comments_.fill(0);
 
+    int tyre_wear_rows = tyre_wear_table_item_->rowCount();
+    int tyre_wear_columns = tyre_wear_table_item_->colorCount();
+
+    for (int i = 0; i < tyre_wear_rows; ++i)
+        for (int j = 0; j < tyre_wear_columns; ++j)
+            tyre_wear_table_item_->setItem(i, j, new QTableWidgetItem);
 }
 
 void StrategyTabWidget::updateContents()
@@ -126,10 +133,16 @@ void StrategyTabWidget::updateContents()
     }
 
     // add practice table item update
-    for (int i = 0; i < add_practice_table_item_->columnCount(); ++i) {
-        QLineEdit* temp_edit =  static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i));
-        if (i == 0) temp_edit->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(i))));
-        else temp_edit->setText(QString::number(std::floor(settingshandler_->getMaxSettings().at(i-1))));
+    array<double,5> temp_max_settings_array = settingshandler_->getMaxSettings();
+    for (unsigned int i = 0; i < temp_max_settings_array.size(); ++i) {
+        if (i == 0) {
+            QLineEdit* temp_edit_wut =  static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i));
+            temp_edit_wut->setText(QString::number(std::floor(temp_max_settings_array.at(i))));
+        }
+
+        QLineEdit* temp_edit =  static_cast<QLineEdit*>(add_practice_table_item_->cellWidget(0,i+1));
+
+        temp_edit->setText(QString::number(std::floor(temp_max_settings_array.at(i))));
     }
 
     // max settings text item
@@ -155,6 +168,50 @@ void StrategyTabWidget::updateContents()
 
     // space range item
     space_range_item_->setText(QString::number(std::ceil(settingshandler_->getOriginalSpace())));
+
+    qDebug() << "Before tyre wear text";
+
+    // tyre wear table
+    for (int i = 0; i < tyre_wear_table_item_->columnCount(); ++i) {
+        qDebug() << " Loopy loop: " << i;
+        double temperature = strategyhandler_->getRaceTemperature();
+        qDebug() << " humidity: " << i;
+        double humidity = strategyhandler_->getRaceHumidity();
+        qDebug() << " tyre type: " << i;
+        Tyre tyre_type("Extra Soft");
+        tyre_type.setType(i);
+        qDebug() << " tyre wear: " << i;
+        TyreWear tyre_wear(trackhandler_->getTrackTyreWear().asString());
+        qDebug() << " risk: " << i;
+        int risk = risk_value_item_->text().toInt();
+        qDebug() << " exp: " << i;
+        int experience = driverhandler_->getExperience();
+        qDebug() << " agg: " << i;
+        int aggressiveness = driverhandler_->getAggressiveness();
+        qDebug() << " weight: " << i;
+        int weight = driverhandler_->getWeight();
+        qDebug() << " susp: " << i;
+        int car_suspension = carhandler_->getLvl(CAR_SUSPENSION);
+        qDebug() << " susp w: " << i;
+        int car_suspension_wear = carhandler_->getWear(CAR_SUSPENSION);
+        qDebug() << " weather: " << i;
+        Weather weather("Dry");
+        qDebug() << " power: " << i;
+        int power = trackhandler_->getPower();
+        qDebug() << " handling: " << i;
+        int handling = trackhandler_->getHandling();
+        qDebug() << " acceleration: " << i;
+        int acceleration = trackhandler_->getAcceleration();
+        qDebug() << " Going into tyre wear regression: " << i;
+        double dry_tyre_wear = regressions_->getTyreWear(temperature, humidity, tyre_type, tyre_wear, risk,
+                                                         experience, aggressiveness, weight, car_suspension,
+                                                         car_suspension_wear, weather, power, handling, acceleration);
+        qDebug() << "Dry tyre wear: " << dry_tyre_wear;
+
+        tyre_wear_table_item_->item(0,i)->setText(QString::number(dry_tyre_wear));
+    }
+
+    qDebug() << "This is the end";
 }
 
 void StrategyTabWidget::loadSettings(const QString &soft_name, const QString &company_name)

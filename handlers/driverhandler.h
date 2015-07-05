@@ -19,6 +19,10 @@ class DriverHandler
 public:
     DriverHandler(DCGroupBox *parent);
 
+    int getExperience() { return driver_->getValue(DRIVER_EXPERIENCE); }
+    int getAggressiveness() { return driver_->getValue(DRIVER_AGGRESSIVENESS); }
+    int getWeight() { return driver_->getValue(DRIVER_WEIGHT); }
+
     // set all the field values to driver
     void setFields(const array<int,9>& values);
     void setField(int index, int value);
